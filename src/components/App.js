@@ -1,8 +1,10 @@
-import "../css/tailwind.css";
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import "../css/tailwind.css";
 
-import Header from "./Header";
+import Header from "./Header/Header";
+import Home from "./Home/Home";
+import QRReader from "./QRReader/QRReader";
 
 class App extends Component {
 	render() {
@@ -11,7 +13,8 @@ class App extends Component {
 				<BrowserRouter>
 					<div>
 						<Header />
-						<Route path='/' component='' />
+						<Route path='/' exact component={Home} />
+						<Route path='/qr' exact component={QRReader} />
 					</div>
 				</BrowserRouter>
 			</div>
