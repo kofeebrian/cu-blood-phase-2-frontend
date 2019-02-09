@@ -9,7 +9,7 @@ class Header extends React.Component {
 
 	render() {
 		return (
-			<nav className='fixed relative select-none bg-red-light lg:flex lg:items-stretch w-full'>
+			<nav className='relative select-none bg-red-light lg:flex lg:items-stretch w-full'>
 				<div className='lg:flex flex-no-shrink items-stretch h-12'>
 					<Link
 						to='#'
