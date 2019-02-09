@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
-import Header from "./Header/Header";
-import HeaderReact from "./Header/HeaderReact";
+import HeaderReact from "./Header/Header";
 import Home from "./Home/Home";
 import QRReader from "./QRReader/QRReader";
 import Signup from "./Signup";

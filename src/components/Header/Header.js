@@ -5,7 +5,7 @@ import { Menu } from "semantic-ui-react";
 
 import Item from "./Item";
 
-class HeaderReact extends React.Component {
+class Header extends React.Component {
   componentDidMount() {}
 
   render() {
@@ -26,4 +26,4 @@ class HeaderReact extends React.Component {
   }
 }
 
-export default connect(null)(HeaderReact);
+export default connect(null)(Header);
