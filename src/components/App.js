@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import "../css/tailwind.css";
 
 import Header from "./Header/Header";
 import Home from "./Home/Home";

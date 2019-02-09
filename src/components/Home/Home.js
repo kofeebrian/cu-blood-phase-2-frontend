@@ -5,16 +5,16 @@ import { Link } from "react-router-dom";
 class Home extends React.Component {
 	render() {
 		return (
-			<div className='flex flex-col bg-grey-lighter'>
-				<button to='/' className='btn btn-red'>
+			<div className='flex flex-col bg-grey-lighter text-center'>
+				<Link to='/' className='btn btn-red'>
 					Home
-				</button>
-				<button to='/qr' className='btn btn-red'>
+				</Link>
+				<Link to='/qr' className='btn btn-red'>
 					QR Reader
-				</button>
-				<button to='/' className='btn btn-red'>
+				</Link>
+				<Link to='/' className='btn btn-red'>
 					Manage Staff
-				</button>
+				</Link>
 			</div>
 		);
 	}
