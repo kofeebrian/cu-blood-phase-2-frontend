@@ -4,7 +4,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 import HeaderReact from "./Header/Header";
 import Home from "./Home/Home";
 import QRReader from "./QRReader/QRReader";
-import Signup from "./Signup";
+import Signup from "./Login/Signup";
+import Info from "./Login/Info";
+import LoginForm from "./Login/LoginForm";
 
 class App extends Component {
   render() {
@@ -13,8 +15,10 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <HeaderReact />
-            <Route path="/" exact component={Home} />
+            <Route path="/login" exact component={LoginForm} />
+            <Route path="/login#" exact component={Info} />
             <Route path="/signup" exact component={Signup} />
+            <Route path="/" exact component={Home} />
             <Route path="/qr" exact component={QRReader} />
           </div>
         </BrowserRouter>
