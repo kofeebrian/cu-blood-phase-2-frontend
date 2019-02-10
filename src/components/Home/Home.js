@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Segment, Button, Grid, Icon, Header } from "semantic-ui-react";
+import { Segment, Grid, Icon, Header } from "semantic-ui-react";
 
 import "./Home.css";
 
@@ -17,7 +17,7 @@ class Home extends React.Component {
 					</Segment>
 				</Grid.Column>
 				<Grid.Column textAlign='center'>
-					<Segment basic as={Link} to='/'>
+					<Segment basic as={Link} to='/qr'>
 						<Icon size='massive' name='qrcode' color='black' />
 						<br />
 						<Header as='h1'>QR Reader</Header>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Segment } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 import QRReader from "./QRReader";
 import "./QRReaderpage.css";
@@ -9,7 +9,7 @@ export default class QRReaderpage extends Component {
 		return (
 			<Grid className='Change'>
 				<Grid.Row centered>
-					<Grid.Column width={10}>
+					<Grid.Column computer={10} tablet={12} mobile={15}>
 						<QRReader />
 					</Grid.Column>
 				</Grid.Row>
