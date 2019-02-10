@@ -1,21 +1,36 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { Segment, Button, Grid, Icon, Header } from "semantic-ui-react";
+
+import "./Home.css";
 
 class Home extends React.Component {
 	render() {
 		return (
-			<div className='flex flex-col bg-grey-lighter text-center'>
-				<Link to='/' className='btn btn-red'>
-					Home
-				</Link>
-				<Link to='/qr' className='btn btn-red'>
-					QR Reader
-				</Link>
-				<Link to='/' className='btn btn-red'>
-					Manage Staff
-				</Link>
-			</div>
+			<Grid stackable divided columns='equal' className='Home'>
+				<Grid.Column textAlign='center'>
+					<Segment basic as={Link} to='/'>
+						<Icon size='massive' name='user' color='black' />
+						<br />
+						<Header as='h1'>Edit Profile</Header>
+					</Segment>
+				</Grid.Column>
+				<Grid.Column textAlign='center'>
+					<Segment basic as={Link} to='/'>
+						<Icon size='massive' name='qrcode' color='black' />
+						<br />
+						<Header as='h1'>QR Reader</Header>
+					</Segment>
+				</Grid.Column>
+				<Grid.Column textAlign='center'>
+					<Segment basic as={Link} to='/'>
+						<Icon size='massive' name='group' color='black' />
+						<br />
+						<Header as='h1'>Manage Staff</Header>
+					</Segment>
+				</Grid.Column>
+			</Grid>
 		);
 	}
 }
