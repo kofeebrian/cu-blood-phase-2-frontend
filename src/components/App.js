@@ -16,8 +16,8 @@ class App extends Component {
           <div>
             <HeaderReact />
             <Route path="/login" exact component={LoginForm} />
-            <Route path="/login#" exact component={Info} />
-            <Route path="/signup" exact component={Signup} />
+            <Route path="/signup" exact component={Info} />
+            <Route path="/signupform" exact component={Signup} />
             <Route path="/" exact component={Home} />
             <Route path="/qr" exact component={QRReader} />
           </div>
