@@ -9,6 +9,7 @@ import Info from "./Login/Info";
 import LoginForm from "./Login/LoginForm";
 
 class App extends Component {
+<<<<<<< HEAD
 	render() {
 		return (
 			<div className='ui container'>
@@ -25,6 +26,24 @@ class App extends Component {
 			</div>
 		);
 	}
+=======
+  render() {
+    return (
+      <div className="">
+        <BrowserRouter>
+          <div>
+            <HeaderReact />
+            <Route path="/login" exact component={LoginForm} />
+            <Route path="/signup" exact component={Info} />
+            <Route path="/signupform" exact component={Signup} />
+            <Route path="/" exact component={Home} />
+            <Route path="/qr" exact component={QRReader} />
+          </div>
+        </BrowserRouter>
+      </div>
+    );
+  }
+>>>>>>> bb3db0600dc9592e7e9b05102a373bf8e2c80ab8
 }
 
 export default App;
