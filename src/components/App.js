@@ -11,7 +11,7 @@ import LoginForm from "./Login/LoginForm";
 class App extends Component {
   render() {
     return (
-      <div className="ui container">
+      <div className="">
         <BrowserRouter>
           <div>
             <HeaderReact />
