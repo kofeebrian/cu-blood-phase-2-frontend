@@ -45,13 +45,13 @@ const LoginForm = () => (
               type="password"
             />
 
-            <Button color="red" fluid size="large">
+            <Button color="red" fluid size="large" href="/">
               Login
             </Button>
           </Segment>
         </Form>
         <Message>
-          New to us? <a href="#">Sign Up</a>
+          New to us? <a href="signup">Sign Up</a>
         </Message>
       </Grid.Column>
     </Grid>
