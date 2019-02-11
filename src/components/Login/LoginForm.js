@@ -45,19 +45,6 @@ const LoginForm = () => (
 							type='password'
 						/>
 
-<<<<<<< HEAD
-						<Button color='red' fluid size='large'>
-							Login
-						</Button>
-					</Segment>
-				</Form>
-				<Message>
-					New to us ? <a href='http://www.google.com'>Just sign Up</a>
-				</Message>
-			</Grid.Column>
-		</Grid>
-	</div>
-=======
             <Button color="red" fluid size="large" href="/">
               Login
             </Button>
@@ -69,7 +56,6 @@ const LoginForm = () => (
       </Grid.Column>
     </Grid>
   </div>
->>>>>>> bb3db0600dc9592e7e9b05102a373bf8e2c80ab8
 );
 
 export default LoginForm;
