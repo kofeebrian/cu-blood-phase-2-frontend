@@ -7,27 +7,68 @@ import {
   Segment,
   Button,
   Header,
-  Icon
+  Icon,
+  Dimmer
 } from "semantic-ui-react";
 
 class NavbarMobile extends React.Component {
-  state = { visible: true };
+  constructor(props) {
+    super(props);
+  }
+
+  state = { visible: false };
 
   handleHideClick = () => this.setState({ visible: false });
   handleShowClick = () => this.setState({ visible: true });
   handleSidebarHide = () => this.setState({ visible: false });
+  handlePusher = () => {
+    const { visible } = this.state;
+
+    if (visible) this.setState({ visible: false });
+  };
   render() {
     const { visible } = this.state;
     return (
       <div>
         <Menu inverted color={"red"}>
-          <Menu.Item header textAlign="centered" className="ui borderless">
+          <Menu.Item
+            as={Link}
+            to="/"
+            header
+            textAlign="centered"
+            className="ui borderless"
+          >
             CU Blood
           </Menu.Item>
-          <Menu.Item position="right">
+          <Menu.Item
+            as={Button}
+            position="right"
+            onClick={this.handleShowClick}
+          >
             <Icon name="sidebar" size="large" />
           </Menu.Item>
         </Menu>
+        <Sidebar
+          as={Menu}
+          vertical
+          onHide={this.handleSidebarHide}
+          visible={visible}
+          direction="right"
+          animation="overlay"
+        >
+          <Menu.Item as="a">
+            <Icon name="home" />
+            Home
+          </Menu.Item>
+          <Menu.Item as="a">
+            <Icon name="gamepad" />
+            Games
+          </Menu.Item>
+          <Menu.Item as="a">
+            <Icon name="camera" />
+            Channels
+          </Menu.Item>
+        </Sidebar>
       </div>
     );
   }

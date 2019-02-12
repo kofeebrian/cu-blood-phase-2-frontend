@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { Menu, Dropdown } from "semantic-ui-react";
 
@@ -10,11 +10,21 @@ const NavbarDesktop = () => (
       CU Blood
     </Menu.Item>
 
-    <Menu.Item className="ui borderless" name="Home" as={Link} to="/" />
+    <Menu.Item className="ui borderless" name="Home" as={NavLink} to="/" />
 
-    <Menu.Item className="ui borderless" name="QR reader" as={Link} to="/qr" />
+    <Menu.Item
+      className="ui borderless"
+      name="QR reader"
+      as={NavLink}
+      to="/qr"
+    />
 
-    <Menu.Item className="ui borderless" name="Manage staff" as={Link} to="/" />
+    <Menu.Item
+      className="ui borderless"
+      name="Manage staff"
+      as={NavLink}
+      to="/manage-staff"
+    />
 
     <Menu.Menu position="right">
       <Dropdown item pointing text="username">
