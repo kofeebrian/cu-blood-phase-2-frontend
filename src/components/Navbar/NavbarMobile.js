@@ -30,14 +30,8 @@ class NavbarMobile extends React.Component {
     const { visible } = this.state;
     return (
       <div>
-        <Menu inverted color={"red"}>
-          <Menu.Item
-            as={Link}
-            to="/"
-            header
-            textAlign="centered"
-            className="ui borderless"
-          >
+        <Menu inverted color={"red"} fixed="top">
+          <Menu.Item as={Link} to="/" header className="ui borderless">
             CU Blood
           </Menu.Item>
           <Menu.Item
