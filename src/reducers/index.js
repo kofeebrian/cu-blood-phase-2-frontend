@@ -1,5 +1,8 @@
 import { combineReducers } from "redux";
+import authReducer from "./authReducer";
+import staffReducer from "./staffReducer";
 
 export default combineReducers({
-	replaceMe: () => 123
+	auth: authReducer,
+	staffs: staffReducer
 });
