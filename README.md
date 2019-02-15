@@ -1,5 +1,16 @@
 CU BLOOD PHASE II FRONTEND
 
-ตอนนี้ทำไปแค่ Header ที่ยัง interact กับอะไรไม่ได้จริงๆ
+Still not Done:
+    Pages:
+        Edit
+        SignUp
+    Private Link
+    connect with backend:
+        auth
+        staffs
+        users
 
-หาวันมานั่งทำด้วยกันดีกว่านะครับ...
+Done:
+    
+    
+We must get them done hurry! =[]=
