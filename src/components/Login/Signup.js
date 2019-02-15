@@ -1,986 +1,1237 @@
 import React, { Component } from "react";
 
-class Signup extends React.Component {
-  render() {
-    return (
-      <form class="ui form">
-        <h4 class="ui dividing header">Shipping Information</h4>
-        <div class="field">
-          <label>Name</label>
-          <div class="two fields">
-            <div class="field">
-              <input
-                type="text"
-                name="shipping[first-name]"
-                placeholder="First Name"
-              />
-            </div>
-            <div class="field">
-              <input
-                type="text"
-                name="shipping[last-name]"
-                placeholder="Last Name"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <label>Billing Address</label>
-          <div class="fields">
-            <div class="twelve wide field">
-              <input
-                type="text"
-                name="shipping[address]"
-                placeholder="Street Address"
-              />
-            </div>
-            <div class="four wide field">
-              <input
-                type="text"
-                name="shipping[address-2]"
-                placeholder="Apt #"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="two fields">
-          <div class="field">
-            <label>State</label>
-            <select class="ui fluid dropdown">
-              <option value="">State</option>
-              <option value="AL">Alabama</option>
-              <option value="AK">Alaska</option>
-              <option value="AZ">Arizona</option>
-              <option value="AR">Arkansas</option>
-              <option value="CA">California</option>
-              <option value="CO">Colorado</option>
-              <option value="CT">Connecticut</option>
-              <option value="DE">Delaware</option>
-              <option value="DC">District Of Columbia</option>
-              <option value="FL">Florida</option>
-              <option value="GA">Georgia</option>
-              <option value="HI">Hawaii</option>
-              <option value="ID">Idaho</option>
-              <option value="IL">Illinois</option>
-              <option value="IN">Indiana</option>
-              <option value="IA">Iowa</option>
-              <option value="KS">Kansas</option>
-              <option value="KY">Kentucky</option>
-              <option value="LA">Louisiana</option>
-              <option value="ME">Maine</option>
-              <option value="MD">Maryland</option>
-              <option value="MA">Massachusetts</option>
-              <option value="MI">Michigan</option>
-              <option value="MN">Minnesota</option>
-              <option value="MS">Mississippi</option>
-              <option value="MO">Missouri</option>
-              <option value="MT">Montana</option>
-              <option value="NE">Nebraska</option>
-              <option value="NV">Nevada</option>
-              <option value="NH">New Hampshire</option>
-              <option value="NJ">New Jersey</option>
-              <option value="NM">New Mexico</option>
-              <option value="NY">New York</option>
-              <option value="NC">North Carolina</option>
-              <option value="ND">North Dakota</option>
-              <option value="OH">Ohio</option>
-              <option value="OK">Oklahoma</option>
-              <option value="OR">Oregon</option>
-              <option value="PA">Pennsylvania</option>
-              <option value="RI">Rhode Island</option>
-              <option value="SC">South Carolina</option>
-              <option value="SD">South Dakota</option>
-              <option value="TN">Tennessee</option>
-              <option value="TX">Texas</option>
-              <option value="UT">Utah</option>
-              <option value="VT">Vermont</option>
-              <option value="VA">Virginia</option>
-              <option value="WA">Washington</option>
-              <option value="WV">West Virginia</option>
-              <option value="WI">Wisconsin</option>
-              <option value="WY">Wyoming</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Country</label>
-            <div class="ui fluid search selection dropdown">
-              <input type="hidden" name="country" />
-              <i class="dropdown icon" />
-              <div class="default text">Select Country</div>
-              <div class="menu">
-                <div class="item" data-value="af">
-                  <i class="af flag" />Afghanistan
-                </div>
-                <div class="item" data-value="ax">
-                  <i class="ax flag" />Aland Islands
-                </div>
-                <div class="item" data-value="al">
-                  <i class="al flag" />Albania
-                </div>
-                <div class="item" data-value="dz">
-                  <i class="dz flag" />Algeria
-                </div>
-                <div class="item" data-value="as">
-                  <i class="as flag" />American Samoa
-                </div>
-                <div class="item" data-value="ad">
-                  <i class="ad flag" />Andorra
-                </div>
-                <div class="item" data-value="ao">
-                  <i class="ao flag" />Angola
-                </div>
-                <div class="item" data-value="ai">
-                  <i class="ai flag" />Anguilla
-                </div>
-                <div class="item" data-value="ag">
-                  <i class="ag flag" />Antigua
-                </div>
-                <div class="item" data-value="ar">
-                  <i class="ar flag" />Argentina
-                </div>
-                <div class="item" data-value="am">
-                  <i class="am flag" />Armenia
-                </div>
-                <div class="item" data-value="aw">
-                  <i class="aw flag" />Aruba
-                </div>
-                <div class="item" data-value="au">
-                  <i class="au flag" />Australia
-                </div>
-                <div class="item" data-value="at">
-                  <i class="at flag" />Austria
-                </div>
-                <div class="item" data-value="az">
-                  <i class="az flag" />Azerbaijan
-                </div>
-                <div class="item" data-value="bs">
-                  <i class="bs flag" />Bahamas
-                </div>
-                <div class="item" data-value="bh">
-                  <i class="bh flag" />Bahrain
-                </div>
-                <div class="item" data-value="bd">
-                  <i class="bd flag" />Bangladesh
-                </div>
-                <div class="item" data-value="bb">
-                  <i class="bb flag" />Barbados
-                </div>
-                <div class="item" data-value="by">
-                  <i class="by flag" />Belarus
-                </div>
-                <div class="item" data-value="be">
-                  <i class="be flag" />Belgium
-                </div>
-                <div class="item" data-value="bz">
-                  <i class="bz flag" />Belize
-                </div>
-                <div class="item" data-value="bj">
-                  <i class="bj flag" />Benin
-                </div>
-                <div class="item" data-value="bm">
-                  <i class="bm flag" />Bermuda
-                </div>
-                <div class="item" data-value="bt">
-                  <i class="bt flag" />Bhutan
-                </div>
-                <div class="item" data-value="bo">
-                  <i class="bo flag" />Bolivia
-                </div>
-                <div class="item" data-value="ba">
-                  <i class="ba flag" />Bosnia
-                </div>
-                <div class="item" data-value="bw">
-                  <i class="bw flag" />Botswana
-                </div>
-                <div class="item" data-value="bv">
-                  <i class="bv flag" />Bouvet Island
-                </div>
-                <div class="item" data-value="br">
-                  <i class="br flag" />Brazil
-                </div>
-                <div class="item" data-value="vg">
-                  <i class="vg flag" />British Virgin Islands
-                </div>
-                <div class="item" data-value="bn">
-                  <i class="bn flag" />Brunei
-                </div>
-                <div class="item" data-value="bg">
-                  <i class="bg flag" />Bulgaria
-                </div>
-                <div class="item" data-value="bf">
-                  <i class="bf flag" />Burkina Faso
-                </div>
-                <div class="item" data-value="mm">
-                  <i class="mm flag" />Burma
-                </div>
-                <div class="item" data-value="bi">
-                  <i class="bi flag" />Burundi
-                </div>
-                <div class="item" data-value="tc">
-                  <i class="tc flag" />Caicos Islands
-                </div>
-                <div class="item" data-value="kh">
-                  <i class="kh flag" />Cambodia
-                </div>
-                <div class="item" data-value="cm">
-                  <i class="cm flag" />Cameroon
-                </div>
-                <div class="item" data-value="ca">
-                  <i class="ca flag" />Canada
-                </div>
-                <div class="item" data-value="cv">
-                  <i class="cv flag" />Cape Verde
-                </div>
-                <div class="item" data-value="ky">
-                  <i class="ky flag" />Cayman Islands
-                </div>
-                <div class="item" data-value="cf">
-                  <i class="cf flag" />Central African Republic
-                </div>
-                <div class="item" data-value="td">
-                  <i class="td flag" />Chad
-                </div>
-                <div class="item" data-value="cl">
-                  <i class="cl flag" />Chile
-                </div>
-                <div class="item" data-value="cn">
-                  <i class="cn flag" />China
-                </div>
-                <div class="item" data-value="cx">
-                  <i class="cx flag" />Christmas Island
-                </div>
-                <div class="item" data-value="cc">
-                  <i class="cc flag" />Cocos Islands
-                </div>
-                <div class="item" data-value="co">
-                  <i class="co flag" />Colombia
-                </div>
-                <div class="item" data-value="km">
-                  <i class="km flag" />Comoros
-                </div>
-                <div class="item" data-value="cg">
-                  <i class="cg flag" />Congo Brazzaville
-                </div>
-                <div class="item" data-value="cd">
-                  <i class="cd flag" />Congo
-                </div>
-                <div class="item" data-value="ck">
-                  <i class="ck flag" />Cook Islands
-                </div>
-                <div class="item" data-value="cr">
-                  <i class="cr flag" />Costa Rica
-                </div>
-                <div class="item" data-value="ci">
-                  <i class="ci flag" />Cote Divoire
-                </div>
-                <div class="item" data-value="hr">
-                  <i class="hr flag" />Croatia
-                </div>
-                <div class="item" data-value="cu">
-                  <i class="cu flag" />Cuba
-                </div>
-                <div class="item" data-value="cy">
-                  <i class="cy flag" />Cyprus
-                </div>
-                <div class="item" data-value="cz">
-                  <i class="cz flag" />Czech Republic
-                </div>
-                <div class="item" data-value="dk">
-                  <i class="dk flag" />Denmark
-                </div>
-                <div class="item" data-value="dj">
-                  <i class="dj flag" />Djibouti
-                </div>
-                <div class="item" data-value="dm">
-                  <i class="dm flag" />Dominica
-                </div>
-                <div class="item" data-value="do">
-                  <i class="do flag" />Dominican Republic
-                </div>
-                <div class="item" data-value="ec">
-                  <i class="ec flag" />Ecuador
-                </div>
-                <div class="item" data-value="eg">
-                  <i class="eg flag" />Egypt
-                </div>
-                <div class="item" data-value="sv">
-                  <i class="sv flag" />El Salvador
-                </div>
-                <div class="item" data-value="gb">
-                  <i class="gb flag" />England
-                </div>
-                <div class="item" data-value="gq">
-                  <i class="gq flag" />Equatorial Guinea
-                </div>
-                <div class="item" data-value="er">
-                  <i class="er flag" />Eritrea
-                </div>
-                <div class="item" data-value="ee">
-                  <i class="ee flag" />Estonia
-                </div>
-                <div class="item" data-value="et">
-                  <i class="et flag" />Ethiopia
-                </div>
-                <div class="item" data-value="eu">
-                  <i class="eu flag" />European Union
-                </div>
-                <div class="item" data-value="fk">
-                  <i class="fk flag" />Falkland Islands
-                </div>
-                <div class="item" data-value="fo">
-                  <i class="fo flag" />Faroe Islands
-                </div>
-                <div class="item" data-value="fj">
-                  <i class="fj flag" />Fiji
-                </div>
-                <div class="item" data-value="fi">
-                  <i class="fi flag" />Finland
-                </div>
-                <div class="item" data-value="fr">
-                  <i class="fr flag" />France
-                </div>
-                <div class="item" data-value="gf">
-                  <i class="gf flag" />French Guiana
-                </div>
-                <div class="item" data-value="pf">
-                  <i class="pf flag" />French Polynesia
-                </div>
-                <div class="item" data-value="tf">
-                  <i class="tf flag" />French Territories
-                </div>
-                <div class="item" data-value="ga">
-                  <i class="ga flag" />Gabon
-                </div>
-                <div class="item" data-value="gm">
-                  <i class="gm flag" />Gambia
-                </div>
-                <div class="item" data-value="ge">
-                  <i class="ge flag" />Georgia
-                </div>
-                <div class="item" data-value="de">
-                  <i class="de flag" />Germany
-                </div>
-                <div class="item" data-value="gh">
-                  <i class="gh flag" />Ghana
-                </div>
-                <div class="item" data-value="gi">
-                  <i class="gi flag" />Gibraltar
-                </div>
-                <div class="item" data-value="gr">
-                  <i class="gr flag" />Greece
-                </div>
-                <div class="item" data-value="gl">
-                  <i class="gl flag" />Greenland
-                </div>
-                <div class="item" data-value="gd">
-                  <i class="gd flag" />Grenada
-                </div>
-                <div class="item" data-value="gp">
-                  <i class="gp flag" />Guadeloupe
-                </div>
-                <div class="item" data-value="gu">
-                  <i class="gu flag" />Guam
-                </div>
-                <div class="item" data-value="gt">
-                  <i class="gt flag" />Guatemala
-                </div>
-                <div class="item" data-value="gw">
-                  <i class="gw flag" />Guinea-Bissau
-                </div>
-                <div class="item" data-value="gn">
-                  <i class="gn flag" />Guinea
-                </div>
-                <div class="item" data-value="gy">
-                  <i class="gy flag" />Guyana
-                </div>
-                <div class="item" data-value="ht">
-                  <i class="ht flag" />Haiti
-                </div>
-                <div class="item" data-value="hm">
-                  <i class="hm flag" />Heard Island
-                </div>
-                <div class="item" data-value="hn">
-                  <i class="hn flag" />Honduras
-                </div>
-                <div class="item" data-value="hk">
-                  <i class="hk flag" />Hong Kong
-                </div>
-                <div class="item" data-value="hu">
-                  <i class="hu flag" />Hungary
-                </div>
-                <div class="item" data-value="is">
-                  <i class="is flag" />Iceland
-                </div>
-                <div class="item" data-value="in">
-                  <i class="in flag" />India
-                </div>
-                <div class="item" data-value="io">
-                  <i class="io flag" />Indian Ocean Territory
-                </div>
-                <div class="item" data-value="id">
-                  <i class="id flag" />Indonesia
-                </div>
-                <div class="item" data-value="ir">
-                  <i class="ir flag" />Iran
-                </div>
-                <div class="item" data-value="iq">
-                  <i class="iq flag" />Iraq
-                </div>
-                <div class="item" data-value="ie">
-                  <i class="ie flag" />Ireland
-                </div>
-                <div class="item" data-value="il">
-                  <i class="il flag" />Israel
-                </div>
-                <div class="item" data-value="it">
-                  <i class="it flag" />Italy
-                </div>
-                <div class="item" data-value="jm">
-                  <i class="jm flag" />Jamaica
-                </div>
-                <div class="item" data-value="jp">
-                  <i class="jp flag" />Japan
-                </div>
-                <div class="item" data-value="jo">
-                  <i class="jo flag" />Jordan
-                </div>
-                <div class="item" data-value="kz">
-                  <i class="kz flag" />Kazakhstan
-                </div>
-                <div class="item" data-value="ke">
-                  <i class="ke flag" />Kenya
-                </div>
-                <div class="item" data-value="ki">
-                  <i class="ki flag" />Kiribati
-                </div>
-                <div class="item" data-value="kw">
-                  <i class="kw flag" />Kuwait
-                </div>
-                <div class="item" data-value="kg">
-                  <i class="kg flag" />Kyrgyzstan
-                </div>
-                <div class="item" data-value="la">
-                  <i class="la flag" />Laos
-                </div>
-                <div class="item" data-value="lv">
-                  <i class="lv flag" />Latvia
-                </div>
-                <div class="item" data-value="lb">
-                  <i class="lb flag" />Lebanon
-                </div>
-                <div class="item" data-value="ls">
-                  <i class="ls flag" />Lesotho
-                </div>
-                <div class="item" data-value="lr">
-                  <i class="lr flag" />Liberia
-                </div>
-                <div class="item" data-value="ly">
-                  <i class="ly flag" />Libya
-                </div>
-                <div class="item" data-value="li">
-                  <i class="li flag" />Liechtenstein
-                </div>
-                <div class="item" data-value="lt">
-                  <i class="lt flag" />Lithuania
-                </div>
-                <div class="item" data-value="lu">
-                  <i class="lu flag" />Luxembourg
-                </div>
-                <div class="item" data-value="mo">
-                  <i class="mo flag" />Macau
-                </div>
-                <div class="item" data-value="mk">
-                  <i class="mk flag" />Macedonia
-                </div>
-                <div class="item" data-value="mg">
-                  <i class="mg flag" />Madagascar
-                </div>
-                <div class="item" data-value="mw">
-                  <i class="mw flag" />Malawi
-                </div>
-                <div class="item" data-value="my">
-                  <i class="my flag" />Malaysia
-                </div>
-                <div class="item" data-value="mv">
-                  <i class="mv flag" />Maldives
-                </div>
-                <div class="item" data-value="ml">
-                  <i class="ml flag" />Mali
-                </div>
-                <div class="item" data-value="mt">
-                  <i class="mt flag" />Malta
-                </div>
-                <div class="item" data-value="mh">
-                  <i class="mh flag" />Marshall Islands
-                </div>
-                <div class="item" data-value="mq">
-                  <i class="mq flag" />Martinique
-                </div>
-                <div class="item" data-value="mr">
-                  <i class="mr flag" />Mauritania
-                </div>
-                <div class="item" data-value="mu">
-                  <i class="mu flag" />Mauritius
-                </div>
-                <div class="item" data-value="yt">
-                  <i class="yt flag" />Mayotte
-                </div>
-                <div class="item" data-value="mx">
-                  <i class="mx flag" />Mexico
-                </div>
-                <div class="item" data-value="fm">
-                  <i class="fm flag" />Micronesia
-                </div>
-                <div class="item" data-value="md">
-                  <i class="md flag" />Moldova
-                </div>
-                <div class="item" data-value="mc">
-                  <i class="mc flag" />Monaco
-                </div>
-                <div class="item" data-value="mn">
-                  <i class="mn flag" />Mongolia
-                </div>
-                <div class="item" data-value="me">
-                  <i class="me flag" />Montenegro
-                </div>
-                <div class="item" data-value="ms">
-                  <i class="ms flag" />Montserrat
-                </div>
-                <div class="item" data-value="ma">
-                  <i class="ma flag" />Morocco
-                </div>
-                <div class="item" data-value="mz">
-                  <i class="mz flag" />Mozambique
-                </div>
-                <div class="item" data-value="na">
-                  <i class="na flag" />Namibia
-                </div>
-                <div class="item" data-value="nr">
-                  <i class="nr flag" />Nauru
-                </div>
-                <div class="item" data-value="np">
-                  <i class="np flag" />Nepal
-                </div>
-                <div class="item" data-value="an">
-                  <i class="an flag" />Netherlands Antilles
-                </div>
-                <div class="item" data-value="nl">
-                  <i class="nl flag" />Netherlands
-                </div>
-                <div class="item" data-value="nc">
-                  <i class="nc flag" />New Caledonia
-                </div>
-                <div class="item" data-value="pg">
-                  <i class="pg flag" />New Guinea
-                </div>
-                <div class="item" data-value="nz">
-                  <i class="nz flag" />New Zealand
-                </div>
-                <div class="item" data-value="ni">
-                  <i class="ni flag" />Nicaragua
-                </div>
-                <div class="item" data-value="ne">
-                  <i class="ne flag" />Niger
-                </div>
-                <div class="item" data-value="ng">
-                  <i class="ng flag" />Nigeria
-                </div>
-                <div class="item" data-value="nu">
-                  <i class="nu flag" />Niue
-                </div>
-                <div class="item" data-value="nf">
-                  <i class="nf flag" />Norfolk Island
-                </div>
-                <div class="item" data-value="kp">
-                  <i class="kp flag" />North Korea
-                </div>
-                <div class="item" data-value="mp">
-                  <i class="mp flag" />Northern Mariana Islands
-                </div>
-                <div class="item" data-value="no">
-                  <i class="no flag" />Norway
-                </div>
-                <div class="item" data-value="om">
-                  <i class="om flag" />Oman
-                </div>
-                <div class="item" data-value="pk">
-                  <i class="pk flag" />Pakistan
-                </div>
-                <div class="item" data-value="pw">
-                  <i class="pw flag" />Palau
-                </div>
-                <div class="item" data-value="ps">
-                  <i class="ps flag" />Palestine
-                </div>
-                <div class="item" data-value="pa">
-                  <i class="pa flag" />Panama
-                </div>
-                <div class="item" data-value="py">
-                  <i class="py flag" />Paraguay
-                </div>
-                <div class="item" data-value="pe">
-                  <i class="pe flag" />Peru
-                </div>
-                <div class="item" data-value="ph">
-                  <i class="ph flag" />Philippines
-                </div>
-                <div class="item" data-value="pn">
-                  <i class="pn flag" />Pitcairn Islands
-                </div>
-                <div class="item" data-value="pl">
-                  <i class="pl flag" />Poland
-                </div>
-                <div class="item" data-value="pt">
-                  <i class="pt flag" />Portugal
-                </div>
-                <div class="item" data-value="pr">
-                  <i class="pr flag" />Puerto Rico
-                </div>
-                <div class="item" data-value="qa">
-                  <i class="qa flag" />Qatar
-                </div>
-                <div class="item" data-value="re">
-                  <i class="re flag" />Reunion
-                </div>
-                <div class="item" data-value="ro">
-                  <i class="ro flag" />Romania
-                </div>
-                <div class="item" data-value="ru">
-                  <i class="ru flag" />Russia
-                </div>
-                <div class="item" data-value="rw">
-                  <i class="rw flag" />Rwanda
-                </div>
-                <div class="item" data-value="sh">
-                  <i class="sh flag" />Saint Helena
-                </div>
-                <div class="item" data-value="kn">
-                  <i class="kn flag" />Saint Kitts and Nevis
-                </div>
-                <div class="item" data-value="lc">
-                  <i class="lc flag" />Saint Lucia
-                </div>
-                <div class="item" data-value="pm">
-                  <i class="pm flag" />Saint Pierre
-                </div>
-                <div class="item" data-value="vc">
-                  <i class="vc flag" />Saint Vincent
-                </div>
-                <div class="item" data-value="ws">
-                  <i class="ws flag" />Samoa
-                </div>
-                <div class="item" data-value="sm">
-                  <i class="sm flag" />San Marino
-                </div>
-                <div class="item" data-value="gs">
-                  <i class="gs flag" />Sandwich Islands
-                </div>
-                <div class="item" data-value="st">
-                  <i class="st flag" />Sao Tome
-                </div>
-                <div class="item" data-value="sa">
-                  <i class="sa flag" />Saudi Arabia
-                </div>
-                <div class="item" data-value="sn">
-                  <i class="sn flag" />Senegal
-                </div>
-                <div class="item" data-value="cs">
-                  <i class="cs flag" />Serbia
-                </div>
-                <div class="item" data-value="rs">
-                  <i class="rs flag" />Serbia
-                </div>
-                <div class="item" data-value="sc">
-                  <i class="sc flag" />Seychelles
-                </div>
-                <div class="item" data-value="sl">
-                  <i class="sl flag" />Sierra Leone
-                </div>
-                <div class="item" data-value="sg">
-                  <i class="sg flag" />Singapore
-                </div>
-                <div class="item" data-value="sk">
-                  <i class="sk flag" />Slovakia
-                </div>
-                <div class="item" data-value="si">
-                  <i class="si flag" />Slovenia
-                </div>
-                <div class="item" data-value="sb">
-                  <i class="sb flag" />Solomon Islands
-                </div>
-                <div class="item" data-value="so">
-                  <i class="so flag" />Somalia
-                </div>
-                <div class="item" data-value="za">
-                  <i class="za flag" />South Africa
-                </div>
-                <div class="item" data-value="kr">
-                  <i class="kr flag" />South Korea
-                </div>
-                <div class="item" data-value="es">
-                  <i class="es flag" />Spain
-                </div>
-                <div class="item" data-value="lk">
-                  <i class="lk flag" />Sri Lanka
-                </div>
-                <div class="item" data-value="sd">
-                  <i class="sd flag" />Sudan
-                </div>
-                <div class="item" data-value="sr">
-                  <i class="sr flag" />Suriname
-                </div>
-                <div class="item" data-value="sj">
-                  <i class="sj flag" />Svalbard
-                </div>
-                <div class="item" data-value="sz">
-                  <i class="sz flag" />Swaziland
-                </div>
-                <div class="item" data-value="se">
-                  <i class="se flag" />Sweden
-                </div>
-                <div class="item" data-value="ch">
-                  <i class="ch flag" />Switzerland
-                </div>
-                <div class="item" data-value="sy">
-                  <i class="sy flag" />Syria
-                </div>
-                <div class="item" data-value="tw">
-                  <i class="tw flag" />Taiwan
-                </div>
-                <div class="item" data-value="tj">
-                  <i class="tj flag" />Tajikistan
-                </div>
-                <div class="item" data-value="tz">
-                  <i class="tz flag" />Tanzania
-                </div>
-                <div class="item" data-value="th">
-                  <i class="th flag" />Thailand
-                </div>
-                <div class="item" data-value="tl">
-                  <i class="tl flag" />Timorleste
-                </div>
-                <div class="item" data-value="tg">
-                  <i class="tg flag" />Togo
-                </div>
-                <div class="item" data-value="tk">
-                  <i class="tk flag" />Tokelau
-                </div>
-                <div class="item" data-value="to">
-                  <i class="to flag" />Tonga
-                </div>
-                <div class="item" data-value="tt">
-                  <i class="tt flag" />Trinidad
-                </div>
-                <div class="item" data-value="tn">
-                  <i class="tn flag" />Tunisia
-                </div>
-                <div class="item" data-value="tr">
-                  <i class="tr flag" />Turkey
-                </div>
-                <div class="item" data-value="tm">
-                  <i class="tm flag" />Turkmenistan
-                </div>
-                <div class="item" data-value="tv">
-                  <i class="tv flag" />Tuvalu
-                </div>
-                <div class="item" data-value="ug">
-                  <i class="ug flag" />Uganda
-                </div>
-                <div class="item" data-value="ua">
-                  <i class="ua flag" />Ukraine
-                </div>
-                <div class="item" data-value="ae">
-                  <i class="ae flag" />United Arab Emirates
-                </div>
-                <div class="item" data-value="us">
-                  <i class="us flag" />United States
-                </div>
-                <div class="item" data-value="uy">
-                  <i class="uy flag" />Uruguay
-                </div>
-                <div class="item" data-value="um">
-                  <i class="um flag" />Us Minor Islands
-                </div>
-                <div class="item" data-value="vi">
-                  <i class="vi flag" />Us Virgin Islands
-                </div>
-                <div class="item" data-value="uz">
-                  <i class="uz flag" />Uzbekistan
-                </div>
-                <div class="item" data-value="vu">
-                  <i class="vu flag" />Vanuatu
-                </div>
-                <div class="item" data-value="va">
-                  <i class="va flag" />Vatican City
-                </div>
-                <div class="item" data-value="ve">
-                  <i class="ve flag" />Venezuela
-                </div>
-                <div class="item" data-value="vn">
-                  <i class="vn flag" />Vietnam
-                </div>
-                <div class="item" data-value="wf">
-                  <i class="wf flag" />Wallis and Futuna
-                </div>
-                <div class="item" data-value="eh">
-                  <i class="eh flag" />Western Sahara
-                </div>
-                <div class="item" data-value="ye">
-                  <i class="ye flag" />Yemen
-                </div>
-                <div class="item" data-value="zm">
-                  <i class="zm flag" />Zambia
-                </div>
-                <div class="item" data-value="zw">
-                  <i class="zw flag" />Zimbabwe
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <h4 class="ui dividing header">Billing Information</h4>
-        <div class="field">
-          <label>Card Type</label>
-          <div class="ui selection dropdown">
-            <input type="hidden" name="card[type]" />
-            <div class="default text">Type</div>
-            <i class="dropdown icon" />
-            <div class="menu">
-              <div class="item" data-value="visa">
-                <i class="visa icon" />
-                Visa
-              </div>
-              <div class="item" data-value="amex">
-                <i class="amex icon" />
-                American Express
-              </div>
-              <div class="item" data-value="discover">
-                <i class="discover icon" />
-                Discover
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="fields">
-          <div class="seven wide field">
-            <label>Card Number</label>
-            <input
-              type="text"
-              name="card[number]"
-              maxlength="16"
-              placeholder="Card #"
-            />
-          </div>
-          <div class="three wide field">
-            <label>CVC</label>
-            <input
-              type="text"
-              name="card[cvc]"
-              maxlength="3"
-              placeholder="CVC"
-            />
-          </div>
-          <div class="six wide field">
-            <label>Expiration</label>
-            <div class="two fields">
-              <div class="field">
-                <select
-                  class="ui fluid search dropdown"
-                  name="card[expire-month]"
-                >
-                  <option value="">Month</option>
-                  <option value="1">January</option>
-                  <option value="2">February</option>
-                  <option value="3">March</option>
-                  <option value="4">April</option>
-                  <option value="5">May</option>
-                  <option value="6">June</option>
-                  <option value="7">July</option>
-                  <option value="8">August</option>
-                  <option value="9">September</option>
-                  <option value="10">October</option>
-                  <option value="11">November</option>
-                  <option value="12">December</option>
-                </select>
-              </div>
-              <div class="field">
-                <input
-                  type="text"
-                  name="card[expire-year]"
-                  maxlength="4"
-                  placeholder="Year"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <h4 class="ui dividing header">Receipt</h4>
-        <div class="field">
-          <label>Send Receipt To:</label>
-          <div class="ui fluid multiple search selection dropdown">
-            <input type="hidden" name="receipt" />
-            <i class="dropdown icon" />
-            <div class="default text">Saved Contacts</div>
-            <div class="menu">
-              <div class="item" data-value="jenny" data-text="Jenny">
-                <img
-                  class="ui mini avatar image"
-                  src="/images/avatar/small/jenny.jpg"
-                />
-                Jenny Hess
-              </div>
-              <div class="item" data-value="elliot" data-text="Elliot">
-                <img
-                  class="ui mini avatar image"
-                  src="/images/avatar/small/elliot.jpg"
-                />
-                Elliot Fu
-              </div>
-              <div class="item" data-value="stevie" data-text="Stevie">
-                <img
-                  class="ui mini avatar image"
-                  src="/images/avatar/small/stevie.jpg"
-                />
-                Stevie Feliciano
-              </div>
-              <div class="item" data-value="christian" data-text="Christian">
-                <img
-                  class="ui mini avatar image"
-                  src="/images/avatar/small/christian.jpg"
-                />
-                Christian
-              </div>
-              <div class="item" data-value="matt" data-text="Matt">
-                <img
-                  class="ui mini avatar image"
-                  src="/images/avatar/small/matt.jpg"
-                />
-                Matt
-              </div>
-              <div class="item" data-value="justen" data-text="Justen">
-                <img
-                  class="ui mini avatar image"
-                  src="/images/avatar/small/justen.jpg"
-                />
-                Justen Kitsune
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ui segment">
-          <div class="field">
-            <div class="ui toggle checkbox">
-              <input type="checkbox" name="gift" tabindex="0" class="hidden" />
-              <label>Do not include a receipt in the package</label>
-            </div>
-          </div>
-        </div>
-        <div class="ui button" tabindex="0">
-          Submit Order
-        </div>
-      </form>
-    );
-  }
+class Signup extends Component {
+	render() {
+		return (
+			<form className='ui form'>
+				<h4 className='ui dividing header'>Shipping Information</h4>
+				<div className='field'>
+					<label>Name</label>
+					<div className='two fields'>
+						<div className='field'>
+							<input
+								type='text'
+								name='shipping[first-name]'
+								placeholder='First Name'
+							/>
+						</div>
+						<div className='field'>
+							<input
+								type='text'
+								name='shipping[last-name]'
+								placeholder='Last Name'
+							/>
+						</div>
+					</div>
+				</div>
+				<div className='field'>
+					<label>Billing Address</label>
+					<div className='fields'>
+						<div className='twelve wide field'>
+							<input
+								type='text'
+								name='shipping[address]'
+								placeholder='Street Address'
+							/>
+						</div>
+						<div className='four wide field'>
+							<input
+								type='text'
+								name='shipping[address-2]'
+								placeholder='Apt #'
+							/>
+						</div>
+					</div>
+				</div>
+				<div className='two fields'>
+					<div className='field'>
+						<label>State</label>
+						<select className='ui fluid dropdown'>
+							<option value=''>State</option>
+							<option value='AL'>Alabama</option>
+							<option value='AK'>Alaska</option>
+							<option value='AZ'>Arizona</option>
+							<option value='AR'>Arkansas</option>
+							<option value='CA'>California</option>
+							<option value='CO'>Colorado</option>
+							<option value='CT'>Connecticut</option>
+							<option value='DE'>Delaware</option>
+							<option value='DC'>District Of Columbia</option>
+							<option value='FL'>Florida</option>
+							<option value='GA'>Georgia</option>
+							<option value='HI'>Hawaii</option>
+							<option value='ID'>Idaho</option>
+							<option value='IL'>Illinois</option>
+							<option value='IN'>Indiana</option>
+							<option value='IA'>Iowa</option>
+							<option value='KS'>Kansas</option>
+							<option value='KY'>Kentucky</option>
+							<option value='LA'>Louisiana</option>
+							<option value='ME'>Maine</option>
+							<option value='MD'>Maryland</option>
+							<option value='MA'>Massachusetts</option>
+							<option value='MI'>Michigan</option>
+							<option value='MN'>Minnesota</option>
+							<option value='MS'>Mississippi</option>
+							<option value='MO'>Missouri</option>
+							<option value='MT'>Montana</option>
+							<option value='NE'>Nebraska</option>
+							<option value='NV'>Nevada</option>
+							<option value='NH'>New Hampshire</option>
+							<option value='NJ'>New Jersey</option>
+							<option value='NM'>New Mexico</option>
+							<option value='NY'>New York</option>
+							<option value='NC'>North Carolina</option>
+							<option value='ND'>North Dakota</option>
+							<option value='OH'>Ohio</option>
+							<option value='OK'>Oklahoma</option>
+							<option value='OR'>Oregon</option>
+							<option value='PA'>Pennsylvania</option>
+							<option value='RI'>Rhode Island</option>
+							<option value='SC'>South Carolina</option>
+							<option value='SD'>South Dakota</option>
+							<option value='TN'>Tennessee</option>
+							<option value='TX'>Texas</option>
+							<option value='UT'>Utah</option>
+							<option value='VT'>Vermont</option>
+							<option value='VA'>Virginia</option>
+							<option value='WA'>Washington</option>
+							<option value='WV'>West Virginia</option>
+							<option value='WI'>Wisconsin</option>
+							<option value='WY'>Wyoming</option>
+						</select>
+					</div>
+					<div className='field'>
+						<label>Country</label>
+						<div className='ui fluid search selection dropdown'>
+							<input type='hidden' name='country' />
+							<i className='dropdown icon' />
+							<div className='default text'>Select Country</div>
+							<div className='menu'>
+								<div className='item' data-value='af'>
+									<i className='af flag' />
+									Afghanistan
+								</div>
+								<div className='item' data-value='ax'>
+									<i className='ax flag' />
+									Aland Islands
+								</div>
+								<div className='item' data-value='al'>
+									<i className='al flag' />
+									Albania
+								</div>
+								<div className='item' data-value='dz'>
+									<i className='dz flag' />
+									Algeria
+								</div>
+								<div className='item' data-value='as'>
+									<i className='as flag' />
+									American Samoa
+								</div>
+								<div className='item' data-value='ad'>
+									<i className='ad flag' />
+									Andorra
+								</div>
+								<div className='item' data-value='ao'>
+									<i className='ao flag' />
+									Angola
+								</div>
+								<div className='item' data-value='ai'>
+									<i className='ai flag' />
+									Anguilla
+								</div>
+								<div className='item' data-value='ag'>
+									<i className='ag flag' />
+									Antigua
+								</div>
+								<div className='item' data-value='ar'>
+									<i className='ar flag' />
+									Argentina
+								</div>
+								<div className='item' data-value='am'>
+									<i className='am flag' />
+									Armenia
+								</div>
+								<div className='item' data-value='aw'>
+									<i className='aw flag' />
+									Aruba
+								</div>
+								<div className='item' data-value='au'>
+									<i className='au flag' />
+									Australia
+								</div>
+								<div className='item' data-value='at'>
+									<i className='at flag' />
+									Austria
+								</div>
+								<div className='item' data-value='az'>
+									<i className='az flag' />
+									Azerbaijan
+								</div>
+								<div className='item' data-value='bs'>
+									<i className='bs flag' />
+									Bahamas
+								</div>
+								<div className='item' data-value='bh'>
+									<i className='bh flag' />
+									Bahrain
+								</div>
+								<div className='item' data-value='bd'>
+									<i className='bd flag' />
+									Bangladesh
+								</div>
+								<div className='item' data-value='bb'>
+									<i className='bb flag' />
+									Barbados
+								</div>
+								<div className='item' data-value='by'>
+									<i className='by flag' />
+									Belarus
+								</div>
+								<div className='item' data-value='be'>
+									<i className='be flag' />
+									Belgium
+								</div>
+								<div className='item' data-value='bz'>
+									<i className='bz flag' />
+									Belize
+								</div>
+								<div className='item' data-value='bj'>
+									<i className='bj flag' />
+									Benin
+								</div>
+								<div className='item' data-value='bm'>
+									<i className='bm flag' />
+									Bermuda
+								</div>
+								<div className='item' data-value='bt'>
+									<i className='bt flag' />
+									Bhutan
+								</div>
+								<div className='item' data-value='bo'>
+									<i className='bo flag' />
+									Bolivia
+								</div>
+								<div className='item' data-value='ba'>
+									<i className='ba flag' />
+									Bosnia
+								</div>
+								<div className='item' data-value='bw'>
+									<i className='bw flag' />
+									Botswana
+								</div>
+								<div className='item' data-value='bv'>
+									<i className='bv flag' />
+									Bouvet Island
+								</div>
+								<div className='item' data-value='br'>
+									<i className='br flag' />
+									Brazil
+								</div>
+								<div className='item' data-value='vg'>
+									<i className='vg flag' />
+									British Virgin Islands
+								</div>
+								<div className='item' data-value='bn'>
+									<i className='bn flag' />
+									Brunei
+								</div>
+								<div className='item' data-value='bg'>
+									<i className='bg flag' />
+									Bulgaria
+								</div>
+								<div className='item' data-value='bf'>
+									<i className='bf flag' />
+									Burkina Faso
+								</div>
+								<div className='item' data-value='mm'>
+									<i className='mm flag' />
+									Burma
+								</div>
+								<div className='item' data-value='bi'>
+									<i className='bi flag' />
+									Burundi
+								</div>
+								<div className='item' data-value='tc'>
+									<i className='tc flag' />
+									Caicos Islands
+								</div>
+								<div className='item' data-value='kh'>
+									<i className='kh flag' />
+									Cambodia
+								</div>
+								<div className='item' data-value='cm'>
+									<i className='cm flag' />
+									Cameroon
+								</div>
+								<div className='item' data-value='ca'>
+									<i className='ca flag' />
+									Canada
+								</div>
+								<div className='item' data-value='cv'>
+									<i className='cv flag' />
+									Cape Verde
+								</div>
+								<div className='item' data-value='ky'>
+									<i className='ky flag' />
+									Cayman Islands
+								</div>
+								<div className='item' data-value='cf'>
+									<i className='cf flag' />
+									Central African Republic
+								</div>
+								<div className='item' data-value='td'>
+									<i className='td flag' />
+									Chad
+								</div>
+								<div className='item' data-value='cl'>
+									<i className='cl flag' />
+									Chile
+								</div>
+								<div className='item' data-value='cn'>
+									<i className='cn flag' />
+									China
+								</div>
+								<div className='item' data-value='cx'>
+									<i className='cx flag' />
+									Christmas Island
+								</div>
+								<div className='item' data-value='cc'>
+									<i className='cc flag' />
+									Cocos Islands
+								</div>
+								<div className='item' data-value='co'>
+									<i className='co flag' />
+									Colombia
+								</div>
+								<div className='item' data-value='km'>
+									<i className='km flag' />
+									Comoros
+								</div>
+								<div className='item' data-value='cg'>
+									<i className='cg flag' />
+									Congo Brazzaville
+								</div>
+								<div className='item' data-value='cd'>
+									<i className='cd flag' />
+									Congo
+								</div>
+								<div className='item' data-value='ck'>
+									<i className='ck flag' />
+									Cook Islands
+								</div>
+								<div className='item' data-value='cr'>
+									<i className='cr flag' />
+									Costa Rica
+								</div>
+								<div className='item' data-value='ci'>
+									<i className='ci flag' />
+									Cote Divoire
+								</div>
+								<div className='item' data-value='hr'>
+									<i className='hr flag' />
+									Croatia
+								</div>
+								<div className='item' data-value='cu'>
+									<i className='cu flag' />
+									Cuba
+								</div>
+								<div className='item' data-value='cy'>
+									<i className='cy flag' />
+									Cyprus
+								</div>
+								<div className='item' data-value='cz'>
+									<i className='cz flag' />
+									Czech Republic
+								</div>
+								<div className='item' data-value='dk'>
+									<i className='dk flag' />
+									Denmark
+								</div>
+								<div className='item' data-value='dj'>
+									<i className='dj flag' />
+									Djibouti
+								</div>
+								<div className='item' data-value='dm'>
+									<i className='dm flag' />
+									Dominica
+								</div>
+								<div className='item' data-value='do'>
+									<i className='do flag' />
+									Dominican Republic
+								</div>
+								<div className='item' data-value='ec'>
+									<i className='ec flag' />
+									Ecuador
+								</div>
+								<div className='item' data-value='eg'>
+									<i className='eg flag' />
+									Egypt
+								</div>
+								<div className='item' data-value='sv'>
+									<i className='sv flag' />
+									El Salvador
+								</div>
+								<div className='item' data-value='gb'>
+									<i className='gb flag' />
+									England
+								</div>
+								<div className='item' data-value='gq'>
+									<i className='gq flag' />
+									Equatorial Guinea
+								</div>
+								<div className='item' data-value='er'>
+									<i className='er flag' />
+									Eritrea
+								</div>
+								<div className='item' data-value='ee'>
+									<i className='ee flag' />
+									Estonia
+								</div>
+								<div className='item' data-value='et'>
+									<i className='et flag' />
+									Ethiopia
+								</div>
+								<div className='item' data-value='eu'>
+									<i className='eu flag' />
+									European Union
+								</div>
+								<div className='item' data-value='fk'>
+									<i className='fk flag' />
+									Falkland Islands
+								</div>
+								<div className='item' data-value='fo'>
+									<i className='fo flag' />
+									Faroe Islands
+								</div>
+								<div className='item' data-value='fj'>
+									<i className='fj flag' />
+									Fiji
+								</div>
+								<div className='item' data-value='fi'>
+									<i className='fi flag' />
+									Finland
+								</div>
+								<div className='item' data-value='fr'>
+									<i className='fr flag' />
+									France
+								</div>
+								<div className='item' data-value='gf'>
+									<i className='gf flag' />
+									French Guiana
+								</div>
+								<div className='item' data-value='pf'>
+									<i className='pf flag' />
+									French Polynesia
+								</div>
+								<div className='item' data-value='tf'>
+									<i className='tf flag' />
+									French Territories
+								</div>
+								<div className='item' data-value='ga'>
+									<i className='ga flag' />
+									Gabon
+								</div>
+								<div className='item' data-value='gm'>
+									<i className='gm flag' />
+									Gambia
+								</div>
+								<div className='item' data-value='ge'>
+									<i className='ge flag' />
+									Georgia
+								</div>
+								<div className='item' data-value='de'>
+									<i className='de flag' />
+									Germany
+								</div>
+								<div className='item' data-value='gh'>
+									<i className='gh flag' />
+									Ghana
+								</div>
+								<div className='item' data-value='gi'>
+									<i className='gi flag' />
+									Gibraltar
+								</div>
+								<div className='item' data-value='gr'>
+									<i className='gr flag' />
+									Greece
+								</div>
+								<div className='item' data-value='gl'>
+									<i className='gl flag' />
+									Greenland
+								</div>
+								<div className='item' data-value='gd'>
+									<i className='gd flag' />
+									Grenada
+								</div>
+								<div className='item' data-value='gp'>
+									<i className='gp flag' />
+									Guadeloupe
+								</div>
+								<div className='item' data-value='gu'>
+									<i className='gu flag' />
+									Guam
+								</div>
+								<div className='item' data-value='gt'>
+									<i className='gt flag' />
+									Guatemala
+								</div>
+								<div className='item' data-value='gw'>
+									<i className='gw flag' />
+									Guinea-Bissau
+								</div>
+								<div className='item' data-value='gn'>
+									<i className='gn flag' />
+									Guinea
+								</div>
+								<div className='item' data-value='gy'>
+									<i className='gy flag' />
+									Guyana
+								</div>
+								<div className='item' data-value='ht'>
+									<i className='ht flag' />
+									Haiti
+								</div>
+								<div className='item' data-value='hm'>
+									<i className='hm flag' />
+									Heard Island
+								</div>
+								<div className='item' data-value='hn'>
+									<i className='hn flag' />
+									Honduras
+								</div>
+								<div className='item' data-value='hk'>
+									<i className='hk flag' />
+									Hong Kong
+								</div>
+								<div className='item' data-value='hu'>
+									<i className='hu flag' />
+									Hungary
+								</div>
+								<div className='item' data-value='is'>
+									<i className='is flag' />
+									Iceland
+								</div>
+								<div className='item' data-value='in'>
+									<i className='in flag' />
+									India
+								</div>
+								<div className='item' data-value='io'>
+									<i className='io flag' />
+									Indian Ocean Territory
+								</div>
+								<div className='item' data-value='id'>
+									<i className='id flag' />
+									Indonesia
+								</div>
+								<div className='item' data-value='ir'>
+									<i className='ir flag' />
+									Iran
+								</div>
+								<div className='item' data-value='iq'>
+									<i className='iq flag' />
+									Iraq
+								</div>
+								<div className='item' data-value='ie'>
+									<i className='ie flag' />
+									Ireland
+								</div>
+								<div className='item' data-value='il'>
+									<i className='il flag' />
+									Israel
+								</div>
+								<div className='item' data-value='it'>
+									<i className='it flag' />
+									Italy
+								</div>
+								<div className='item' data-value='jm'>
+									<i className='jm flag' />
+									Jamaica
+								</div>
+								<div className='item' data-value='jp'>
+									<i className='jp flag' />
+									Japan
+								</div>
+								<div className='item' data-value='jo'>
+									<i className='jo flag' />
+									Jordan
+								</div>
+								<div className='item' data-value='kz'>
+									<i className='kz flag' />
+									Kazakhstan
+								</div>
+								<div className='item' data-value='ke'>
+									<i className='ke flag' />
+									Kenya
+								</div>
+								<div className='item' data-value='ki'>
+									<i className='ki flag' />
+									Kiribati
+								</div>
+								<div className='item' data-value='kw'>
+									<i className='kw flag' />
+									Kuwait
+								</div>
+								<div className='item' data-value='kg'>
+									<i className='kg flag' />
+									Kyrgyzstan
+								</div>
+								<div className='item' data-value='la'>
+									<i className='la flag' />
+									Laos
+								</div>
+								<div className='item' data-value='lv'>
+									<i className='lv flag' />
+									Latvia
+								</div>
+								<div className='item' data-value='lb'>
+									<i className='lb flag' />
+									Lebanon
+								</div>
+								<div className='item' data-value='ls'>
+									<i className='ls flag' />
+									Lesotho
+								</div>
+								<div className='item' data-value='lr'>
+									<i className='lr flag' />
+									Liberia
+								</div>
+								<div className='item' data-value='ly'>
+									<i className='ly flag' />
+									Libya
+								</div>
+								<div className='item' data-value='li'>
+									<i className='li flag' />
+									Liechtenstein
+								</div>
+								<div className='item' data-value='lt'>
+									<i className='lt flag' />
+									Lithuania
+								</div>
+								<div className='item' data-value='lu'>
+									<i className='lu flag' />
+									Luxembourg
+								</div>
+								<div className='item' data-value='mo'>
+									<i className='mo flag' />
+									Macau
+								</div>
+								<div className='item' data-value='mk'>
+									<i className='mk flag' />
+									Macedonia
+								</div>
+								<div className='item' data-value='mg'>
+									<i className='mg flag' />
+									Madagascar
+								</div>
+								<div className='item' data-value='mw'>
+									<i className='mw flag' />
+									Malawi
+								</div>
+								<div className='item' data-value='my'>
+									<i className='my flag' />
+									Malaysia
+								</div>
+								<div className='item' data-value='mv'>
+									<i className='mv flag' />
+									Maldives
+								</div>
+								<div className='item' data-value='ml'>
+									<i className='ml flag' />
+									Mali
+								</div>
+								<div className='item' data-value='mt'>
+									<i className='mt flag' />
+									Malta
+								</div>
+								<div className='item' data-value='mh'>
+									<i className='mh flag' />
+									Marshall Islands
+								</div>
+								<div className='item' data-value='mq'>
+									<i className='mq flag' />
+									Martinique
+								</div>
+								<div className='item' data-value='mr'>
+									<i className='mr flag' />
+									Mauritania
+								</div>
+								<div className='item' data-value='mu'>
+									<i className='mu flag' />
+									Mauritius
+								</div>
+								<div className='item' data-value='yt'>
+									<i className='yt flag' />
+									Mayotte
+								</div>
+								<div className='item' data-value='mx'>
+									<i className='mx flag' />
+									Mexico
+								</div>
+								<div className='item' data-value='fm'>
+									<i className='fm flag' />
+									Micronesia
+								</div>
+								<div className='item' data-value='md'>
+									<i className='md flag' />
+									Moldova
+								</div>
+								<div className='item' data-value='mc'>
+									<i className='mc flag' />
+									Monaco
+								</div>
+								<div className='item' data-value='mn'>
+									<i className='mn flag' />
+									Mongolia
+								</div>
+								<div className='item' data-value='me'>
+									<i className='me flag' />
+									Montenegro
+								</div>
+								<div className='item' data-value='ms'>
+									<i className='ms flag' />
+									Montserrat
+								</div>
+								<div className='item' data-value='ma'>
+									<i className='ma flag' />
+									Morocco
+								</div>
+								<div className='item' data-value='mz'>
+									<i className='mz flag' />
+									Mozambique
+								</div>
+								<div className='item' data-value='na'>
+									<i className='na flag' />
+									Namibia
+								</div>
+								<div className='item' data-value='nr'>
+									<i className='nr flag' />
+									Nauru
+								</div>
+								<div className='item' data-value='np'>
+									<i className='np flag' />
+									Nepal
+								</div>
+								<div className='item' data-value='an'>
+									<i className='an flag' />
+									Netherlands Antilles
+								</div>
+								<div className='item' data-value='nl'>
+									<i className='nl flag' />
+									Netherlands
+								</div>
+								<div className='item' data-value='nc'>
+									<i className='nc flag' />
+									New Caledonia
+								</div>
+								<div className='item' data-value='pg'>
+									<i className='pg flag' />
+									New Guinea
+								</div>
+								<div className='item' data-value='nz'>
+									<i className='nz flag' />
+									New Zealand
+								</div>
+								<div className='item' data-value='ni'>
+									<i className='ni flag' />
+									Nicaragua
+								</div>
+								<div className='item' data-value='ne'>
+									<i className='ne flag' />
+									Niger
+								</div>
+								<div className='item' data-value='ng'>
+									<i className='ng flag' />
+									Nigeria
+								</div>
+								<div className='item' data-value='nu'>
+									<i className='nu flag' />
+									Niue
+								</div>
+								<div className='item' data-value='nf'>
+									<i className='nf flag' />
+									Norfolk Island
+								</div>
+								<div className='item' data-value='kp'>
+									<i className='kp flag' />
+									North Korea
+								</div>
+								<div className='item' data-value='mp'>
+									<i className='mp flag' />
+									Northern Mariana Islands
+								</div>
+								<div className='item' data-value='no'>
+									<i className='no flag' />
+									Norway
+								</div>
+								<div className='item' data-value='om'>
+									<i className='om flag' />
+									Oman
+								</div>
+								<div className='item' data-value='pk'>
+									<i className='pk flag' />
+									Pakistan
+								</div>
+								<div className='item' data-value='pw'>
+									<i className='pw flag' />
+									Palau
+								</div>
+								<div className='item' data-value='ps'>
+									<i className='ps flag' />
+									Palestine
+								</div>
+								<div className='item' data-value='pa'>
+									<i className='pa flag' />
+									Panama
+								</div>
+								<div className='item' data-value='py'>
+									<i className='py flag' />
+									Paraguay
+								</div>
+								<div className='item' data-value='pe'>
+									<i className='pe flag' />
+									Peru
+								</div>
+								<div className='item' data-value='ph'>
+									<i className='ph flag' />
+									Philippines
+								</div>
+								<div className='item' data-value='pn'>
+									<i className='pn flag' />
+									Pitcairn Islands
+								</div>
+								<div className='item' data-value='pl'>
+									<i className='pl flag' />
+									Poland
+								</div>
+								<div className='item' data-value='pt'>
+									<i className='pt flag' />
+									Portugal
+								</div>
+								<div className='item' data-value='pr'>
+									<i className='pr flag' />
+									Puerto Rico
+								</div>
+								<div className='item' data-value='qa'>
+									<i className='qa flag' />
+									Qatar
+								</div>
+								<div className='item' data-value='re'>
+									<i className='re flag' />
+									Reunion
+								</div>
+								<div className='item' data-value='ro'>
+									<i className='ro flag' />
+									Romania
+								</div>
+								<div className='item' data-value='ru'>
+									<i className='ru flag' />
+									Russia
+								</div>
+								<div className='item' data-value='rw'>
+									<i className='rw flag' />
+									Rwanda
+								</div>
+								<div className='item' data-value='sh'>
+									<i className='sh flag' />
+									Saint Helena
+								</div>
+								<div className='item' data-value='kn'>
+									<i className='kn flag' />
+									Saint Kitts and Nevis
+								</div>
+								<div className='item' data-value='lc'>
+									<i className='lc flag' />
+									Saint Lucia
+								</div>
+								<div className='item' data-value='pm'>
+									<i className='pm flag' />
+									Saint Pierre
+								</div>
+								<div className='item' data-value='vc'>
+									<i className='vc flag' />
+									Saint Vincent
+								</div>
+								<div className='item' data-value='ws'>
+									<i className='ws flag' />
+									Samoa
+								</div>
+								<div className='item' data-value='sm'>
+									<i className='sm flag' />
+									San Marino
+								</div>
+								<div className='item' data-value='gs'>
+									<i className='gs flag' />
+									Sandwich Islands
+								</div>
+								<div className='item' data-value='st'>
+									<i className='st flag' />
+									Sao Tome
+								</div>
+								<div className='item' data-value='sa'>
+									<i className='sa flag' />
+									Saudi Arabia
+								</div>
+								<div className='item' data-value='sn'>
+									<i className='sn flag' />
+									Senegal
+								</div>
+								<div className='item' data-value='cs'>
+									<i className='cs flag' />
+									Serbia
+								</div>
+								<div className='item' data-value='rs'>
+									<i className='rs flag' />
+									Serbia
+								</div>
+								<div className='item' data-value='sc'>
+									<i className='sc flag' />
+									Seychelles
+								</div>
+								<div className='item' data-value='sl'>
+									<i className='sl flag' />
+									Sierra Leone
+								</div>
+								<div className='item' data-value='sg'>
+									<i className='sg flag' />
+									Singapore
+								</div>
+								<div className='item' data-value='sk'>
+									<i className='sk flag' />
+									Slovakia
+								</div>
+								<div className='item' data-value='si'>
+									<i className='si flag' />
+									Slovenia
+								</div>
+								<div className='item' data-value='sb'>
+									<i className='sb flag' />
+									Solomon Islands
+								</div>
+								<div className='item' data-value='so'>
+									<i className='so flag' />
+									Somalia
+								</div>
+								<div className='item' data-value='za'>
+									<i className='za flag' />
+									South Africa
+								</div>
+								<div className='item' data-value='kr'>
+									<i className='kr flag' />
+									South Korea
+								</div>
+								<div className='item' data-value='es'>
+									<i className='es flag' />
+									Spain
+								</div>
+								<div className='item' data-value='lk'>
+									<i className='lk flag' />
+									Sri Lanka
+								</div>
+								<div className='item' data-value='sd'>
+									<i className='sd flag' />
+									Sudan
+								</div>
+								<div className='item' data-value='sr'>
+									<i className='sr flag' />
+									Suriname
+								</div>
+								<div className='item' data-value='sj'>
+									<i className='sj flag' />
+									Svalbard
+								</div>
+								<div className='item' data-value='sz'>
+									<i className='sz flag' />
+									Swaziland
+								</div>
+								<div className='item' data-value='se'>
+									<i className='se flag' />
+									Sweden
+								</div>
+								<div className='item' data-value='ch'>
+									<i className='ch flag' />
+									Switzerland
+								</div>
+								<div className='item' data-value='sy'>
+									<i className='sy flag' />
+									Syria
+								</div>
+								<div className='item' data-value='tw'>
+									<i className='tw flag' />
+									Taiwan
+								</div>
+								<div className='item' data-value='tj'>
+									<i className='tj flag' />
+									Tajikistan
+								</div>
+								<div className='item' data-value='tz'>
+									<i className='tz flag' />
+									Tanzania
+								</div>
+								<div className='item' data-value='th'>
+									<i className='th flag' />
+									Thailand
+								</div>
+								<div className='item' data-value='tl'>
+									<i className='tl flag' />
+									Timorleste
+								</div>
+								<div className='item' data-value='tg'>
+									<i className='tg flag' />
+									Togo
+								</div>
+								<div className='item' data-value='tk'>
+									<i className='tk flag' />
+									Tokelau
+								</div>
+								<div className='item' data-value='to'>
+									<i className='to flag' />
+									Tonga
+								</div>
+								<div className='item' data-value='tt'>
+									<i className='tt flag' />
+									Trinidad
+								</div>
+								<div className='item' data-value='tn'>
+									<i className='tn flag' />
+									Tunisia
+								</div>
+								<div className='item' data-value='tr'>
+									<i className='tr flag' />
+									Turkey
+								</div>
+								<div className='item' data-value='tm'>
+									<i className='tm flag' />
+									Turkmenistan
+								</div>
+								<div className='item' data-value='tv'>
+									<i className='tv flag' />
+									Tuvalu
+								</div>
+								<div className='item' data-value='ug'>
+									<i className='ug flag' />
+									Uganda
+								</div>
+								<div className='item' data-value='ua'>
+									<i className='ua flag' />
+									Ukraine
+								</div>
+								<div className='item' data-value='ae'>
+									<i className='ae flag' />
+									United Arab Emirates
+								</div>
+								<div className='item' data-value='us'>
+									<i className='us flag' />
+									United States
+								</div>
+								<div className='item' data-value='uy'>
+									<i className='uy flag' />
+									Uruguay
+								</div>
+								<div className='item' data-value='um'>
+									<i className='um flag' />
+									Us Minor Islands
+								</div>
+								<div className='item' data-value='vi'>
+									<i className='vi flag' />
+									Us Virgin Islands
+								</div>
+								<div className='item' data-value='uz'>
+									<i className='uz flag' />
+									Uzbekistan
+								</div>
+								<div className='item' data-value='vu'>
+									<i className='vu flag' />
+									Vanuatu
+								</div>
+								<div className='item' data-value='va'>
+									<i className='va flag' />
+									Vatican City
+								</div>
+								<div className='item' data-value='ve'>
+									<i className='ve flag' />
+									Venezuela
+								</div>
+								<div className='item' data-value='vn'>
+									<i className='vn flag' />
+									Vietnam
+								</div>
+								<div className='item' data-value='wf'>
+									<i className='wf flag' />
+									Wallis and Futuna
+								</div>
+								<div className='item' data-value='eh'>
+									<i className='eh flag' />
+									Western Sahara
+								</div>
+								<div className='item' data-value='ye'>
+									<i className='ye flag' />
+									Yemen
+								</div>
+								<div className='item' data-value='zm'>
+									<i className='zm flag' />
+									Zambia
+								</div>
+								<div className='item' data-value='zw'>
+									<i className='zw flag' />
+									Zimbabwe
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h4 className='ui dividing header'>Billing Information</h4>
+				<div className='field'>
+					<label>Card Type</label>
+					<div className='ui selection dropdown'>
+						<input type='hidden' name='card[type]' />
+						<div className='default text'>Type</div>
+						<i className='dropdown icon' />
+						<div className='menu'>
+							<div className='item' data-value='visa'>
+								<i className='visa icon' />
+								Visa
+							</div>
+							<div className='item' data-value='amex'>
+								<i className='amex icon' />
+								American Express
+							</div>
+							<div className='item' data-value='discover'>
+								<i className='discover icon' />
+								Discover
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className='fields'>
+					<div className='seven wide field'>
+						<label>Card Number</label>
+						<input
+							type='text'
+							name='card[number]'
+							maxlength='16'
+							placeholder='Card #'
+						/>
+					</div>
+					<div className='three wide field'>
+						<label>CVC</label>
+						<input
+							type='text'
+							name='card[cvc]'
+							maxlength='3'
+							placeholder='CVC'
+						/>
+					</div>
+					<div className='six wide field'>
+						<label>Expiration</label>
+						<div className='two fields'>
+							<div className='field'>
+								<select
+									className='ui fluid search dropdown'
+									name='card[expire-month]'
+								>
+									<option value=''>Month</option>
+									<option value='1'>January</option>
+									<option value='2'>February</option>
+									<option value='3'>March</option>
+									<option value='4'>April</option>
+									<option value='5'>May</option>
+									<option value='6'>June</option>
+									<option value='7'>July</option>
+									<option value='8'>August</option>
+									<option value='9'>September</option>
+									<option value='10'>October</option>
+									<option value='11'>November</option>
+									<option value='12'>December</option>
+								</select>
+							</div>
+							<div className='field'>
+								<input
+									type='text'
+									name='card[expire-year]'
+									maxlength='4'
+									placeholder='Year'
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h4 className='ui dividing header'>Receipt</h4>
+				<div className='field'>
+					<label>Send Receipt To:</label>
+					<div className='ui fluid multiple search selection dropdown'>
+						<input type='hidden' name='receipt' />
+						<i className='dropdown icon' />
+						<div className='default text'>Saved Contacts</div>
+						<div className='menu'>
+							<div className='item' data-value='jenny' data-text='Jenny'>
+								<img
+									className='ui mini avatar image'
+									src='/images/avatar/small/jenny.jpg'
+								/>
+								Jenny Hess
+							</div>
+							<div className='item' data-value='elliot' data-text='Elliot'>
+								<img
+									className='ui mini avatar image'
+									src='/images/avatar/small/elliot.jpg'
+								/>
+								Elliot Fu
+							</div>
+							<div className='item' data-value='stevie' data-text='Stevie'>
+								<img
+									className='ui mini avatar image'
+									src='/images/avatar/small/stevie.jpg'
+								/>
+								Stevie Feliciano
+							</div>
+							<div
+								className='item'
+								data-value='christian'
+								data-text='Christian'
+							>
+								<img
+									className='ui mini avatar image'
+									src='/images/avatar/small/christian.jpg'
+								/>
+								Christian
+							</div>
+							<div className='item' data-value='matt' data-text='Matt'>
+								<img
+									className='ui mini avatar image'
+									src='/images/avatar/small/matt.jpg'
+								/>
+								Matt
+							</div>
+							<div className='item' data-value='justen' data-text='Justen'>
+								<img
+									className='ui mini avatar image'
+									src='/images/avatar/small/justen.jpg'
+								/>
+								Justen Kitsune
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className='ui segment'>
+					<div className='field'>
+						<div className='ui toggle checkbox'>
+							<input
+								type='checkbox'
+								name='gift'
+								tabindex='0'
+								className='hidden'
+							/>
+							<label>Do not include a receipt in the package</label>
+						</div>
+					</div>
+				</div>
+				<div className='ui button' tabindex='0'>
+					Submit Order
+				</div>
+			</form>
+		);
+	}
 }
 
 export default Signup;

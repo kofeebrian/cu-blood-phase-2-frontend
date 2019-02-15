@@ -2,27 +2,27 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {
-  Menu,
-  Sidebar,
-  Segment,
-  Button,
-  Header,
-  Icon,
-  Dimmer
+	Menu,
+	Sidebar,
+	Segment,
+	Button,
+	Header,
+	Icon,
+	Dimmer
 } from "semantic-ui-react";
 
 class NavbarMobile extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+	constructor(props) {
+		super(props);
+	}
 
-  state = { visible: false };
+	state = { visible: false };
 
-  handleHideClick = () => this.setState({ visible: false });
-  handleShowClick = () => this.setState({ visible: true });
-  handleSidebarHide = () => this.setState({ visible: false });
-  handlePusher = () => {
-    const { visible } = this.state;
+	handleHideClick = () => this.setState({ visible: false });
+	handleShowClick = () => this.setState({ visible: true });
+	handleSidebarHide = () => this.setState({ visible: false });
+	handlePusher = () => {
+		const { visible } = this.state;
 
     if (visible) this.setState({ visible: false });
   };
