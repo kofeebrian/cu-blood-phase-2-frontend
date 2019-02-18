@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import QrReader from "react-qr-reader";
-import { Segment, Modal, Button, Image, Header } from "semantic-ui-react";
+import { Segment, Modal, Button, Header } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import { verifyCode, checkIn, checkOut } from "../../actions";
@@ -13,14 +13,14 @@ class QRReader extends Component {
 		open: false
 	};
 
-	componentDidMount = async () => {
-		await this.props.verifyCode("71fbbda5-c627-476d-b1b3-85f5416544e0");
-		this.setState({
-			result: this.props.result,
-			dimmer: true,
-			open: true
-		});
-	};
+	// componentDidMount = async () => {
+	// 	await this.props.verifyCode("71fbbda5-c627-476d-b1b3-85f5416544e0");
+	// 	this.setState({
+	// 		result: this.props.result,
+	// 		dimmer: true,
+	// 		open: true
+	// 	});
+	// };
 
 	close = () => this.setState({ open: false });
 

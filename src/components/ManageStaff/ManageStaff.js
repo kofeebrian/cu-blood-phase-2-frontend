@@ -24,7 +24,7 @@ class ManageStaff extends Component {
 	}
 
 	renderList = () => {
-		const { staffs } = this.props.staffs;
+		const { staffs } = this.props;
 		return staffs.map(staff => {
 			return (
 				<Item key={staff.id}>
@@ -93,7 +93,7 @@ class ManageStaff extends Component {
 const mapStateToProps = state => {
 	return {
 		userPriority: state.auth.priority,
-		staffs: state.staffs
+		staffs: Object.values(state.staffs.staffs)
 	};
 };
 

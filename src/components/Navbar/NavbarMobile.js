@@ -14,6 +14,11 @@ class NavbarMobile extends React.Component {
 
 		if (visible) this.setState({ visible: false });
 	};
+
+	renderAuthButton = () => {
+		return 
+	}
+
 	render() {
 		const { visible } = this.state;
 		return (
@@ -50,7 +55,13 @@ class NavbarMobile extends React.Component {
 						<Icon name='camera' />
 						Manage Staff
 					</Menu.Item>
-					<Menu.Item onClick={this.props.logout}>
+					<Menu.Item
+						onClick={() =>
+							this.props.logout(() => {
+								this.setState({ visible: false });
+							})
+						}
+					>
 						<Icon name='key' />
 						Logout
 					</Menu.Item>

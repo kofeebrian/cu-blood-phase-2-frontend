@@ -6,22 +6,28 @@ import NavbarDesktop from "./NavbarDesktop";
 import NavbarMobile from "./NavbarMobile";
 import { fakelogout } from "../../actions";
 
-const handlelogout = () => {};
+const Navbar = props => {
+  
+  const handlelogout = cb => {
+		props.fakelogout();
+		setTimeout(cb, 100);
+	};
 
-const Navbar = props => (
-	<div>
-		<Responsive
-			as={NavbarMobile}
-			{...Responsive.onlyMobile}
-			logout={props.fakelogout}
-		/>
-		<Responsive
-			as={NavbarDesktop}
-			minWidth={Responsive.onlyTablet.minWidth}
-			logout={props.fakelogout}
-		/>
-	</div>
-);
+	return (
+		<div>
+			<Responsive
+				as={NavbarMobile}
+				{...Responsive.onlyMobile}
+				logout={handlelogout}
+			/>
+			<Responsive
+				as={NavbarDesktop}
+				minWidth={Responsive.onlyTablet.minWidth}
+				logout={handlelogout}
+			/>
+		</div>
+	);
+};
 
 const mapStateToProps = stateRedux => {
 	return {

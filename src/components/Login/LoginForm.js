@@ -93,7 +93,6 @@ class LoginForm extends React.Component {
 				>
 					<Grid.Column style={{ maxWidth: 450 }} widt={8}>
 						<Header as='h2' color='black' textAlign='center'>
-							<Image src='/logo.png' />
 							Log-in to your account
 						</Header>
 						<h4>Test Login</h4>

@@ -30,12 +30,7 @@ class App extends Component {
 		}
 	}
 
-	// componentWillMount(){
-	// 	const token = localStorage.getItem('token');
-	// 	if(token) setAuth(true)
-	// }
 	render() {
-		// localStorage.removeItem('token');
 		return (
 			<div className='ui container'>
 				<Router history={history}>

@@ -2,7 +2,6 @@ import _ from "lodash";
 import faker from "faker";
 import React, { Component } from "react";
 import { Search, Grid, Header, Segment } from "semantic-ui-react";
-import Axios from "axios";
 
 const source = _.times(5, () => ({
 	title: faker.company.companyName(),
@@ -10,8 +9,6 @@ const source = _.times(5, () => ({
 	image: faker.internet.avatar(),
 	price: faker.finance.amount(0, 100, 2, "$")
 }));
-
-
 
 export default class SearchStaff extends Component {
 	componentDidMount() {
