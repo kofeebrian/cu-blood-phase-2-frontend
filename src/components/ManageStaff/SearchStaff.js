@@ -1,14 +1,14 @@
 import _ from "lodash";
-import faker from "faker";
+// import faker from "faker";
 import React, { Component } from "react";
-import { Search, Input } from "semantic-ui-react";
+import { Input } from "semantic-ui-react";
 
-const source = _.times(5, () => ({
-	title: faker.company.companyName(),
-	description: faker.company.catchPhrase(),
-	image: faker.internet.avatar(),
-	price: faker.finance.amount(0, 100, 2, "$")
-}));
+// const source = _.times(5, () => ({
+// 	title: faker.company.companyName(),
+// 	description: faker.company.catchPhrase(),
+// 	image: faker.internet.avatar(),
+// 	price: faker.finance.amount(0, 100, 2, "$")
+// }));
 
 export default class SearchStaff extends Component {
 	componentDidMount() {

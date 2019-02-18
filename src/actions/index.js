@@ -60,11 +60,13 @@ export const checkOut = (code, status) => async dispatch => {
 };
 
 //STAFF CU BLOOD ACTIONS
-export const getUserData = userID => async (dispatch, getState) => {
+export const getUserData = userId => async (dispatch, getState) => {
 	try {
 		const res = await staffs.get(
-			"/api/Users/" + userID + "?access_token=" + getState().auth.accessToken
+			"/api/Users/" + userId + "?access_token=" + getState().auth.accessToken
 		);
+		console.log("getUserData");
+		console.log(res);
 		dispatch({ type: ADD_AUTH, payload: res.data });
 	} catch (err) {
 		console.log("Get user data error");
@@ -74,10 +76,10 @@ export const getUserData = userID => async (dispatch, getState) => {
 	}
 };
 
-export const getRememberUserData = (userID, id) => async dispatch => {
+export const getRememberUserData = (userId, id) => async dispatch => {
 	try {
-		await dispatch({ type: REQUEST_SIGN_IN, payload: { userID, id } });
-		getUserData(userID);
+		await dispatch({ type: REQUEST_SIGN_IN, payload: { userId, id } });
+		dispatch(getUserData(userId));
 	} catch (err) {
 		console.log("Get Remembered User error");
 		console.log(err);
@@ -86,35 +88,22 @@ export const getRememberUserData = (userID, id) => async dispatch => {
 	}
 };
 
-// FAKE LOGIN LOGOUT
-export const fakelogin = formData => async dispatch => {
-	const { username, password } = formData;
-	// hardcode username and password
-	if (username === "test@gmail.com" && password === "123") {
-		dispatch({ type: "FAKE_REQUEST_SIGN_IN" });
-	} else {
-		alert("username or password wrong");
-	}
-};
-
-export const fakelogout = () => async dispatch => {
-	dispatch({ type: "FAKE_REQUEST_SIGN_OUT" });
-};
-
 export const login = formData => async (dispatch, getState) => {
 	try {
 		const res = await staffs.post("/api/Users/login", formData);
+		console.log("login");
+		console.log(res);
 		dispatch({ type: REQUEST_SIGN_IN, payload: res.data });
 		const accessToken = res.data.id;
-		const userID = res.data.userID;
+		const userId = res.data.userId;
 		if (!formData.remember_me) {
 			sessionStorage.setItem("accessToken", accessToken);
-			sessionStorage.setItem("userID", userID);
+			sessionStorage.setItem("userId", userId);
 		} else {
 			localStorage.setItem("accessToken", accessToken);
-			localStorage.setItem("userID", userID);
+			localStorage.setItem("userId", userId);
 		}
-		getUserData(userID);
+		dispatch(getUserData(userId));
 	} catch (err) {
 		console.log("login error");
 		console.log(err);
@@ -125,15 +114,17 @@ export const login = formData => async (dispatch, getState) => {
 
 export const logout = () => async (dispatch, getState) => {
 	try {
-		await staffs.post(
+		const res = await staffs.post(
 			"/api/Users/logout?access_token=" + getState().auth.accessToken
 		);
+		console.log("logout");
+		console.log(res);
 		dispatch({ type: REQUEST_SIGN_OUT });
 
 		sessionStorage.removeItem("accessToken");
 		localStorage.removeItem("accessToken");
-		sessionStorage.removeItem("userID");
-		localStorage.removeItem("userID");
+		sessionStorage.removeItem("userId");
+		localStorage.removeItem("userId");
 	} catch (err) {
 		console.log("logout error");
 		console.log(err);

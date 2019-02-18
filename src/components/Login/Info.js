@@ -1,3 +1,9 @@
+import React from "react";
+
+const Signup = () => <div>Sign Up</div>;
+
+export default Signup;
+
 // import React, { Component } from "react";
 // import {
 // 	Container,

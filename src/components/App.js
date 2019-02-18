@@ -21,12 +21,12 @@ class App extends Component {
 			sessionStorage.getItem("accessToken") ||
 			localStorage.getItem("accessToken") ||
 			null;
-		const userID =
-			sessionStorage.getItem("userID") ||
-			localStorage.getItem("userID") ||
+		const userId =
+			sessionStorage.getItem("userId") ||
+			localStorage.getItem("userId") ||
 			null;
-		if (accessToken && userID) {
-			this.props.getRememberUserData(userID, accessToken);
+		if (accessToken && userId) {
+			this.props.getRememberUserData(userId, accessToken);
 		}
 	}
 
@@ -56,11 +56,7 @@ class App extends Component {
 	}
 }
 
-const mapStateToProps = stateRedux => {
-	return { isAuthenticated: stateRedux.auth.isAuthenticated };
-};
-
 export default connect(
-	mapStateToProps,
+	null,
 	{ getRememberUserData }
 )(App);

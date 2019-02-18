@@ -16,15 +16,55 @@ class NavbarMobile extends React.Component {
 	};
 
 	renderAuthButton = () => {
-		return 
-	}
+		return this.props.isAuthenticated ? (
+			<React.Fragment>
+				<Menu.Item as={Link} to='/' onClick={this.handleHideClick}>
+					<Icon name='home' />
+					Home
+				</Menu.Item>
+				<Menu.Item as={Link} to='/qr' onClick={this.handleHideClick}>
+					<Icon name='gamepad' />
+					QR Reader
+				</Menu.Item>
+				<Menu.Item as={Link} to='/manage-staff' onClick={this.handleHideClick}>
+					<Icon name='camera' />
+					Manage Staff
+				</Menu.Item>
+				<Menu.Item
+					onClick={() => {
+						this.props.logout().then(() => this.handleHideClick());
+					}}
+				>
+					<Icon name='key' />
+					Logout
+				</Menu.Item>
+			</React.Fragment>
+		) : (
+			<React.Fragment>
+				<Menu.Item as={Link} to='/login' onClick={this.handleHideClick}>
+					<Icon name='key' />
+					Login
+				</Menu.Item>
+				<Menu.Item as={Link} to='/signup' onClick={this.handleHideClick}>
+					<Icon name='key' />
+					Signup
+				</Menu.Item>
+			</React.Fragment>
+		);
+	};
 
 	render() {
 		const { visible } = this.state;
 		return (
 			<div>
 				<Menu inverted color={"red"} fixed='top'>
-					<Menu.Item as={Link} to='/' header className='ui borderless'>
+					<Menu.Item
+						as={Link}
+						to='/'
+						header
+						className='ui borderless'
+						onClick={this.handleHideClick}
+					>
 						CU Blood
 					</Menu.Item>
 					<Menu.Item
@@ -43,28 +83,7 @@ class NavbarMobile extends React.Component {
 					direction='right'
 					animation='overlay'
 				>
-					<Menu.Item>
-						<Icon name='home' />
-						Home
-					</Menu.Item>
-					<Menu.Item>
-						<Icon name='gamepad' />
-						QR Reader
-					</Menu.Item>
-					<Menu.Item>
-						<Icon name='camera' />
-						Manage Staff
-					</Menu.Item>
-					<Menu.Item
-						onClick={() =>
-							this.props.logout(() => {
-								this.setState({ visible: false });
-							})
-						}
-					>
-						<Icon name='key' />
-						Logout
-					</Menu.Item>
+					{this.renderAuthButton()}
 				</Sidebar>
 			</div>
 		);

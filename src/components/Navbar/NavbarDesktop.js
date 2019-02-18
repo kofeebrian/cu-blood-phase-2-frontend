@@ -3,13 +3,9 @@ import { NavLink } from "react-router-dom";
 import { Menu, Dropdown } from "semantic-ui-react";
 
 class NavbarDesktop extends React.Component {
-	render() {
-		return (
-			<Menu stackable inverted color={"red"} fixed='top'>
-				<Menu.Item header className='ui text centered width 10px'>
-					CU Blood
-				</Menu.Item>
-
+	renderAuthMenuItem = () =>
+		this.props.isAuthenticated ? (
+			<React.Fragment>
 				<Menu.Item className='ui borderless' name='Home' as={NavLink} to='/' />
 
 				<Menu.Item
@@ -34,6 +30,23 @@ class NavbarDesktop extends React.Component {
 						</Dropdown.Menu>
 					</Dropdown>
 				</Menu.Menu>
+			</React.Fragment>
+		) : (
+			<React.Fragment>
+				<Menu.Menu position='right'>
+					<Menu.Item name='Sign up' as={NavLink} to='/signup' active={false} />
+					<Menu.Item name='Login' as={NavLink} to='/login' active={false} />
+				</Menu.Menu>
+			</React.Fragment>
+		);
+
+	render() {
+		return (
+			<Menu stackable inverted color={"red"} fixed='top'>
+				<Menu.Item header className='ui text centered width 10px'>
+					CU Blood
+				</Menu.Item>
+				{this.renderAuthMenuItem()}
 			</Menu>
 		);
 	}

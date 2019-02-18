@@ -3,7 +3,7 @@ import { ADD_AUTH, REQUEST_SIGN_IN, REQUEST_SIGN_OUT } from "../actions/types";
 const INIT_STATE = {
 	isAuthenticated: false,
 	user: null,
-	userID: null,
+	userId: null,
 	accessToken: null
 };
 
@@ -14,7 +14,7 @@ export default (state = INIT_STATE, action) => {
 		case REQUEST_SIGN_IN:
 			return {
 				...state,
-				userID: action.payload.userID,
+				userId: action.payload.userId,
 				accessToken: action.payload.id,
 				isAuthenticated: true
 			};
@@ -22,14 +22,10 @@ export default (state = INIT_STATE, action) => {
 			return {
 				...state,
 				user: null,
-				userID: null,
+				userId: null,
 				accessToken: null,
 				isAuthenticated: false
 			};
-		case "FAKE_REQUEST_SIGN_IN":
-			return { ...state, isAuthenticated: true };
-		case "FAKE_REQUEST_SIGN_OUT":
-			return { ...state, isAuthenticated: false };
 		default:
 			return state;
 	}
