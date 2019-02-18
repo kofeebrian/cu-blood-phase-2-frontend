@@ -4,12 +4,32 @@ import { Responsive } from "semantic-ui-react";
 
 import NavbarDesktop from "./NavbarDesktop";
 import NavbarMobile from "./NavbarMobile";
+import { fakelogout } from "../../actions";
 
-const Navbar = () => (
-  <div>
-    <Responsive as={NavbarMobile} {...Responsive.onlyMobile} />
-    <Responsive as={NavbarDesktop} minWidth={Responsive.onlyTablet.minWidth} />
-  </div>
+const handlelogout = () => {};
+
+const Navbar = props => (
+	<div>
+		<Responsive
+			as={NavbarMobile}
+			{...Responsive.onlyMobile}
+			logout={props.fakelogout}
+		/>
+		<Responsive
+			as={NavbarDesktop}
+			minWidth={Responsive.onlyTablet.minWidth}
+			logout={props.fakelogout}
+		/>
+	</div>
 );
 
-export default connect(null)(Navbar);
+const mapStateToProps = stateRedux => {
+	return {
+		isAuthenticated: stateRedux.auth.isAuthenticated
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	{ fakelogout }
+)(Navbar);

@@ -8,27 +8,70 @@ import {
 	Message,
 	Segment
 } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+
+import { fakelogin } from "../../actions";
 
 class LoginForm extends React.Component {
 	state = {
-		email: "",
-		password: ""
+		formData: {
+			username: "",
+			password: "",
+			remember_me: false
+		}
 	};
 
-	handleChange = e => {
+	handleInputChange = e => {
 		this.setState({
-			[e.target.id]: e.target.value
+			formData: {
+				...this.state.formData,
+				[e.target.id]: e.target.value
+			}
 		});
 	};
 
-	handleSubmit = e => {
+	handleCheckboxChange = e => {
+		this.setState({
+			formData: {
+				...this.state.formData,
+				remember_me: !this.state.formData.remember_me
+			}
+		});
+	};
+
+	handleFormSubmit = e => {
 		e.preventDefault();
-		this.props.signIn(this.state);
+
+		if (
+			this.state.formData.username !== "" &&
+			this.state.formData.password !== ""
+		) {
+			this.props.fakelogin(this.state.formData);
+			this.setState({
+				formData: {
+					...this.state.formData,
+					username: "",
+					password: ""
+				}
+			});
+		}
+		if (this.state.formData.username === "") {
+			alert("Not proper username");
+		}
+		if (this.state.formData.password === "") {
+			alert("Not proper password");
+		}
 	};
 
 	render() {
+		const { isAuthenticated } = this.props;
+		const { from } = this.props.location.state || { from: { pathname: "/" } };
+		console.log(isAuthenticated);
+		if (isAuthenticated === true) {
+			return <Redirect to={from} />;
+		}
+
 		return (
 			<div className='login-form'>
 				{/*
@@ -40,7 +83,7 @@ class LoginForm extends React.Component {
 		  body > div,
 		  body > div > div,
 		  body > div > div > div.login-form {
-			margin-top: 100px;
+			margin-top: 2.5rem;
 		  }
 		`}</style>
 				<Grid
@@ -53,16 +96,20 @@ class LoginForm extends React.Component {
 							<Image src='/logo.png' />
 							Log-in to your account
 						</Header>
-						<Form size='large' onSubmit={this.handleSubmit}>
-							<Segment stacked>
+						<h4>Test Login</h4>
+						<p>username: test@gmail.com</p>
+						<p>password: 123</p>
+						<Form size='large' onSubmit={this.handleFormSubmit}>
+							<Segment>
 								<Form.Input
-									id='email'
+									id='username'
 									fluid
 									icon='user'
 									iconPosition='left'
 									placeholder='E-mail address'
 									type='email'
-									onChange={this.handleChange}
+									value={this.state.formData.username}
+									onChange={this.handleInputChange}
 								/>
 								<Form.Input
 									id='password'
@@ -71,7 +118,13 @@ class LoginForm extends React.Component {
 									iconPosition='left'
 									placeholder='Password'
 									type='password'
-									onChange={this.handleChange}
+									value={this.state.formData.password}
+									onChange={this.handleInputChange}
+								/>
+								<Form.Checkbox
+									id='remember_me'
+									label={<label>Remember Me</label>}
+									onChange={this.handleCheckboxChange}
 								/>
 
 								<Button color='red' fluid size='large'>
@@ -89,4 +142,15 @@ class LoginForm extends React.Component {
 	}
 }
 
-export default connect(null)(LoginForm);
+const mapStateToProps = stateRedux => {
+	return {
+		isAuthenticated: stateRedux.auth.isAuthenticated
+		// userId: stateRedux.auth.userId,
+		// accessToken: stateRedux.auth.accessToken
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	{ fakelogin }
+)(LoginForm);

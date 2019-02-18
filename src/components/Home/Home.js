@@ -6,11 +6,23 @@ import { Segment, Grid, Icon, Header } from "semantic-ui-react";
 import "./Home.css";
 
 class Home extends React.Component {
+	// componentDidMount() {
+	// 	Axios.request({
+	// 		method: "POST",
+	// 		headers: { Authorization: "keyboard cat" },
+	// 		url: "/users/verify",
+	// 		data: {
+	// 			code: "123"
+	// 		}
+	// 	})
+	// 		.then(res => console.log(res.data.result))
+	// 		.catch(err => console.log(err));
+	// }
 	render() {
 		return (
 			<Grid stackable divided columns='equal' className='Home'>
 				<Grid.Column textAlign='center'>
-					<Segment basic as={Link} to='/'>
+					<Segment basic as={Link} to='/edit'>
 						<Icon size='massive' name='user' color='black' />
 						<br />
 						<Header as='h1'>Edit Profile</Header>

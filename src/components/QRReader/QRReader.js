@@ -1,21 +1,85 @@
 import React, { Component } from "react";
 import QrReader from "react-qr-reader";
 import { Segment, Modal, Button, Image, Header } from "semantic-ui-react";
+import { connect } from "react-redux";
+
+import { verifyCode, checkIn, checkOut } from "../../actions";
 
 class QRReader extends Component {
 	state = {
 		delay: 300,
-		result: "No Result",
+		result: null,
 		loading: true,
 		open: false
 	};
 
+	componentDidMount = async () => {
+		await this.props.verifyCode("71fbbda5-c627-476d-b1b3-85f5416544e0");
+		this.setState({
+			result: this.props.result,
+			dimmer: true,
+			open: true
+		});
+	};
+
 	close = () => this.setState({ open: false });
 
-	handleScan = data => {
-		if (data) {
+	handleCheckIn = async code => {
+		await this.props.checkIn(code);
+		this.close();
+	};
+
+	handleCheckOut = async (code, status) => {
+		await this.props.checkOut(code, status);
+		this.close();
+	};
+
+	renderModal() {
+		if (this.state.result) {
+			// result in props
+			console.log(this.state.result.id);
+			const { dimmer, open, result } = this.state; // result in state component
+			return (
+				//For non check in user
+				<Modal dimmer={dimmer} open={open} onClose={this.close}>
+					<Modal.Header>Welcome!</Modal.Header>
+					<Modal.Content>
+						<Modal.Description>
+							<Header>Profile</Header>
+							<p>First name: {result.user.firstName}</p>
+							<p>Last name: {result.user.lastName}</p>
+							<p>Gender: {result.user.gender === 0 ? "Male" : "Female"}</p>
+						</Modal.Description>
+					</Modal.Content>
+					<Modal.Actions>
+						<Button
+							color='black'
+							content="No it's not me"
+							onClick={() => this.handleCheckOut(result.id, result.status)}
+						/>
+						<Button
+							positive
+							icon='checkmark'
+							labelPosition='right'
+							content="Yes, it's me"
+							onClick={() => this.handleCheckIn(result.id)}
+						/>
+					</Modal.Actions>
+				</Modal>
+			);
+		}
+
+		return null;
+	}
+
+	handleScan = async code => {
+		if (code) {
+			console.log(code);
+			if (this.state.open === false) await this.props.verifyCode(code);
+			console.log("continue update state!");
+			console.log(this.props.result);
 			this.setState({
-				result: data,
+				result: this.props.result,
 				dimmer: true,
 				open: true
 			});
@@ -31,7 +95,6 @@ class QRReader extends Component {
 	};
 
 	render() {
-		const { dimmer, open } = this.state;
 		return (
 			<div>
 				<Segment basic loading={this.state.loading}>
@@ -44,37 +107,18 @@ class QRReader extends Component {
 					/>
 				</Segment>
 
-				<Modal dimmer={dimmer} open={open} onClose={this.close}>
-					<Modal.Header>Welcome!</Modal.Header>
-					<Modal.Content image>
-						<Image
-							wrapped
-							size='medium'
-							circular
-							src='https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
-						/>
-						<Modal.Description>
-							<Header>Profile</Header>
-							<p>Place data Here!:</p>
-							<p>{this.state.result}</p>
-						</Modal.Description>
-					</Modal.Content>
-					<Modal.Actions>
-						<Button color='black' onClick={this.close}>
-							Nope
-						</Button>
-						<Button
-							positive
-							icon='checkmark'
-							labelPosition='right'
-							content="Yep, that's me"
-							onClick={this.close}
-						/>
-					</Modal.Actions>
-				</Modal>
+				{this.renderModal()}
 			</div>
 		);
 	}
 }
 
-export default QRReader;
+const mapStateToProps = stateRedux => {
+	console.log(stateRedux);
+	return { result: stateRedux.user.result };
+};
+
+export default connect(
+	mapStateToProps,
+	{ verifyCode, checkIn, checkOut }
+)(QRReader);

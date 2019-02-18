@@ -28,8 +28,6 @@ class ManageStaff extends Component {
 		return staffs.map(staff => {
 			return (
 				<Item key={staff.id}>
-					<Item.Image src='/images/wireframe/image.png' />
-
 					<Item.Content>
 						<Item.Header as='a'>My Neighbor Totoro</Item.Header>
 						<Item.Meta>
@@ -45,6 +43,8 @@ class ManageStaff extends Component {
 			);
 		});
 	};
+
+	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
 	render() {
 		const { activeItem } = this.state;

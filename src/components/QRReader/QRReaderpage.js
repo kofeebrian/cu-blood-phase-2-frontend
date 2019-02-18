@@ -9,7 +9,7 @@ export default class QRReaderpage extends Component {
 		return (
 			<Grid className='Change'>
 				<Grid.Row centered>
-					<Grid.Column computer={10} tablet={12} mobile={15}>
+					<Grid.Column computer={7} tablet={12} mobile={15}>
 						<QRReader />
 					</Grid.Column>
 				</Grid.Row>
