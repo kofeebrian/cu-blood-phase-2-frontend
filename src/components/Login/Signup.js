@@ -4,7 +4,7 @@ import { Container, Grid } from "semantic-ui-react";
 class Signup extends Component {
   render() {
     return (
-      <Grid class="ui centered grid" style={{ padding: "60px" }}>
+      <Grid class="ui centered grid" textAlign='center' style={{ padding: "60px" }}>
         <form class="ui form">
           <h4 class="ui dividing header">ข้อมูลส่วนตัว</h4>
           <div class="field">
