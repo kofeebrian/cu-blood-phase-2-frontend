@@ -1,7 +1,7 @@
 import _ from "lodash";
 import faker from "faker";
 import React, { Component } from "react";
-import { Search, Grid, Header, Segment } from "semantic-ui-react";
+import { Search, Input } from "semantic-ui-react";
 
 const source = _.times(5, () => ({
 	title: faker.company.companyName(),
@@ -47,10 +47,10 @@ export default class SearchStaff extends Component {
 		const { isLoading, value, results } = this.state;
 
 		return (
-			<Search
+			<Input
 				loading={isLoading}
 				onResultSelect={this.handleResultSelect}
-				onSearchChange={_.debounce(this.handleSearchChange, 500, {
+				onChange={_.debounce(this.handleSearchChange, 500, {
 					leading: true
 				})}
 				results={results}
