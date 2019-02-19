@@ -8,6 +8,7 @@ import {
 } from "./types";
 import users from "../apis/users";
 import staffs from "../apis/staffs";
+import history from "../history";
 
 // CLIENT CU BLOOD ACTIONS
 export const verifyCode = code => async dispatch => {
@@ -125,6 +126,7 @@ export const logout = () => async (dispatch, getState) => {
 		localStorage.removeItem("accessToken");
 		sessionStorage.removeItem("userId");
 		localStorage.removeItem("userId");
+		history.push("/");
 	} catch (err) {
 		console.log("logout error");
 		console.log(err);

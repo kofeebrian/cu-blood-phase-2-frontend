@@ -16,7 +16,7 @@ import PrivateRoute from "./PrivateRoute";
 import { getRememberUserData } from "../actions";
 
 class App extends Component {
-	componentWillMount() {
+	componentWillMount = async () => {
 		const accessToken =
 			sessionStorage.getItem("accessToken") ||
 			localStorage.getItem("accessToken") ||
@@ -26,9 +26,9 @@ class App extends Component {
 			localStorage.getItem("userId") ||
 			null;
 		if (accessToken && userId) {
-			this.props.getRememberUserData(userId, accessToken);
+			await this.props.getRememberUserData(userId, accessToken);
 		}
-	}
+	};
 
 	render() {
 		return (
