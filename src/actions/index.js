@@ -4,7 +4,9 @@ import {
 	CHECK_OUT,
 	ADD_AUTH,
 	REQUEST_SIGN_IN,
-	REQUEST_SIGN_OUT
+	REQUEST_SIGN_OUT,
+	FETCH_STAFFS,
+	DELETE_STAFF
 } from "./types";
 import users from "../apis/users";
 import staffs from "../apis/staffs";
@@ -133,4 +135,26 @@ export const logout = () => async (dispatch, getState) => {
 		alert("logout error");
 		alert(JSON.stringify(err.response));
 	}
+};
+
+export const fetchStaffs = () => async (dispatch, getState) => {
+	//axios.get('/api/Users?access_token=...')
+	try {
+		const res = await staffs.get(
+			"/api/Users?access_token=" + getState().auth.accessToken
+		);
+		console.log("fetchStaffs");
+		console.log(res);
+		dispatch({ type: FETCH_STAFFS, payload: res.data });
+	} catch (err) {
+		console.log("fetch Staffs error");
+		console.log(err);
+		alert("fetch Staffs error");
+		alert(JSON.stringify(err.response));
+	}
+};
+
+export const deleteStaff = id => async dispatch => {
+	// axios
+	dispatch({ type: DELETE_STAFF, payload: id });
 };

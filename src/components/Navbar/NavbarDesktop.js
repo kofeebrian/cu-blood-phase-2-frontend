@@ -1,24 +1,24 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Menu, Dropdown } from "semantic-ui-react";
 
 class NavbarDesktop extends React.Component {
 	renderAuthMenuItem = () =>
 		this.props.isAuthenticated ? (
 			<React.Fragment>
-				<Menu.Item className='ui borderless' name='Home' as={NavLink} to='/' />
+				<Menu.Item className='ui borderless' name='Home' as={Link} to='/' />
 
 				<Menu.Item
 					className='ui borderless'
 					name='QR reader'
-					as={NavLink}
+					as={Link}
 					to='/qr'
 				/>
 
 				<Menu.Item
 					className='ui borderless'
 					name='Manage staff'
-					as={NavLink}
+					as={Link}
 					to='/manage-staff'
 				/>
 
@@ -28,7 +28,7 @@ class NavbarDesktop extends React.Component {
 						pointing
 						text={
 							this.props.user
-								? this.props.user.username + " " + this.props.user.lastName
+								? this.props.user.firstName + " " + this.props.user.lastName
 								: "username"
 						}
 					>
@@ -42,8 +42,8 @@ class NavbarDesktop extends React.Component {
 		) : (
 			<React.Fragment>
 				<Menu.Menu position='right'>
-					<Menu.Item name='Sign up' as={NavLink} to='/signup' active={false} />
-					<Menu.Item name='Login' as={NavLink} to='/login' active={false} />
+					<Menu.Item name='Sign up' as={Link} to='/signup' active={false} />
+					<Menu.Item name='Login' as={Link} to='/login' active={false} />
 				</Menu.Menu>
 			</React.Fragment>
 		);

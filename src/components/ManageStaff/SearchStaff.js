@@ -1,19 +1,11 @@
 import _ from "lodash";
-// import faker from "faker";
 import React, { Component } from "react";
 import { Input } from "semantic-ui-react";
-
-// const source = _.times(5, () => ({
-// 	title: faker.company.companyName(),
-// 	description: faker.company.catchPhrase(),
-// 	image: faker.internet.avatar(),
-// 	price: faker.finance.amount(0, 100, 2, "$")
-// }));
 
 export default class SearchStaff extends Component {
 	componentDidMount() {
 		this.setState({
-			staffs: this.props.staffs.staffs
+			staffs: this.props.staffs
 		});
 	}
 
@@ -23,9 +15,6 @@ export default class SearchStaff extends Component {
 
 	resetComponent = () =>
 		this.setState({ isLoading: false, results: [], value: "" });
-
-	handleResultSelect = (e, { result }) =>
-		this.setState({ value: result.title });
 
 	handleSearchChange = (e, { value }) => {
 		this.setState({ isLoading: true, value });
@@ -49,7 +38,6 @@ export default class SearchStaff extends Component {
 		return (
 			<Input
 				loading={isLoading}
-				onResultSelect={this.handleResultSelect}
 				onChange={_.debounce(this.handleSearchChange, 500, {
 					leading: true
 				})}

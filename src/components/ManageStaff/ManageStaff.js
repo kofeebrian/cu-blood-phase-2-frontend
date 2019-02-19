@@ -1,52 +1,121 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import { connect } from "react-redux";
-import { Menu, Header, Dropdown, Item, Label, Button } from "semantic-ui-react";
+import {
+	Menu,
+	Header,
+	Dropdown,
+	Item,
+	Label,
+	Button,
+	Input
+} from "semantic-ui-react";
 
-import SearchStaff from "./SearchStaff";
+import { fetchStaffs, deleteStaff } from "../../actions";
 
 class ManageStaff extends Component {
-	state = { activeItem: "staff" };
+	state = { activeItem: "staff", staff_results: [] };
+
+	componentDidMount = async () => {
+		await this.props.fetchStaffs();
+		this.resetComponent();
+	};
+
+	componentWillMount() {
+		this.resetComponent();
+	}
+
+	handleDeleteClick = () => {};
+
+	handleChangeStatus = () => {};
+
+	resetComponent = () => {
+		console.log("resetComponent");
+		return this.setState({
+			isLoading: false,
+			staff_results: this.props.staffs,
+			value: ""
+		});
+	};
+
+	handleSearchChange = (e, { value }) => {
+		const { staffs } = this.props;
+
+		this.setState({ isLoading: true, value });
+
+		setTimeout(() => {
+			if (this.state.value.length < 1) return this.resetComponent();
+
+			const re = new RegExp(_.escapeRegExp(this.state.value), "i");
+			const isMatch = result => re.test(result.email); // <-- change type of searching
+
+			this.setState({
+				isLoading: false,
+				staff_results: _.filter(staffs, isMatch)
+			});
+
+			console.log(this.state.staff_results);
+		}, 300);
+	};
 
 	renderAdmin() {
-		if (this.props.userPriority === "Admin") {
-			return (
-				<>
-					<Button negative floated='right'>
-						Delete
-					</Button>
-					<Button floated='right'>View</Button>
-				</>
-			);
+		const { user } = this.props;
+		if (user) {
+			if (user.isAdmin) {
+				return (
+					<>
+						<Button name='delete' negative floated='right'>
+							Delete
+						</Button>
+						<Button name='view' floated='right'>
+							View
+						</Button>
+					</>
+				);
+			}
 		}
 
 		return null;
 	}
 
 	renderList = () => {
-		const { staffs } = this.props;
-		return staffs.map(staff => {
-			return (
-				<Item key={staff.id}>
-					<Item.Content>
-						<Item.Header as='a'>My Neighbor Totoro</Item.Header>
-						<Item.Meta>
-							<span className='cinema'>IFC Cinema</span>
-						</Item.Meta>
-						<Item.Description>{}</Item.Description>
-						<Item.Extra>
-							{this.renderAdmin()}
-							<Label>Limited</Label>
-						</Item.Extra>
-					</Item.Content>
-				</Item>
-			);
-		});
+		const { staff_results } = this.state;
+		return staff_results
+			.map(staff => {
+				return (
+					<Item key={staff.id}>
+						<Item.Content>
+							<Item.Header as='a'>My Neighbor Totoro</Item.Header>
+							<Item.Meta>
+								<span className='cinema'>{staff.email}</span>
+							</Item.Meta>
+							<Item.Description>{}</Item.Description>
+							<Item.Extra>
+								{this.renderAdmin()}
+								<Label>Limited</Label>
+							</Item.Extra>
+						</Item.Content>
+					</Item>
+				);
+			})
+			.sort((a, b) => {
+				const email_a = a.email;
+				const email_b = b.email;
+				if (email_a < email_b) {
+					return -1;
+				}
+				if (email_a > email_b) {
+					return 1;
+				}
+				return 0;
+			});
 	};
 
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
 	render() {
-		const { activeItem } = this.state;
+		const { activeItem, isLoading, value } = this.state;
+
 		return (
 			<div>
 				<Header
@@ -77,7 +146,14 @@ class ManageStaff extends Component {
 							</Dropdown.Menu>
 						</Dropdown>
 						<Menu.Item>
-							<SearchStaff staffs={this.props.staffs} />
+							<Input
+								loading={isLoading}
+								icon='search'
+								onChange={_.debounce(this.handleSearchChange, 500, {
+									leading: true
+								})}
+								value={value}
+							/>
 						</Menu.Item>
 					</Menu.Menu>
 				</Menu>
@@ -91,9 +167,12 @@ class ManageStaff extends Component {
 
 const mapStateToProps = state => {
 	return {
-		userPriority: state.auth.priority,
-		staffs: Object.values(state.staffs.staffs)
+		user: state.auth.user,
+		staffs: Object.values(state.staffs)
 	};
 };
 
-export default connect(mapStateToProps)(ManageStaff);
+export default connect(
+	mapStateToProps,
+	{ fetchStaffs, deleteStaff }
+)(ManageStaff);

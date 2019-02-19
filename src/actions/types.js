@@ -4,3 +4,7 @@ export const ADD_AUTH = "ADD_AUTH";
 export const VERIFY_CODE = "VERIFY_CODE";
 export const CHECK_IN = "USER_CHECK_IN";
 export const CHECK_OUT = "USER_CHECK_OUT";
+export const FETCH_STAFFS = "FETCH_STAFFS";
+export const DELETE_STAFF = "DELETE_STAFF";
+export const PROMOTE_STAFF = "PROMOTE_STAFF";
+export const VIEW_STAFF = "VIEW_STAFF";

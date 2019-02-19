@@ -1,6 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 
-const Signup = () => <div>Sign Up</div>;
+const Signup = () => (
+	<div>
+		<h1>Sign Up</h1>
+		<Button as={Link} to='/signupform'>
+			To Signup Form
+		</Button>
+	</div>
+);
 
 export default Signup;
 
