@@ -13,15 +13,6 @@ class QRReader extends Component {
 		open: false
 	};
 
-	// componentDidMount = async () => {
-	// 	await this.props.verifyCode("71fbbda5-c627-476d-b1b3-85f5416544e0");
-	// 	this.setState({
-	// 		result: this.props.result,
-	// 		dimmer: true,
-	// 		open: true
-	// 	});
-	// };
-
 	close = () => this.setState({ open: false });
 
 	handleCheckIn = async code => {
@@ -97,13 +88,13 @@ class QRReader extends Component {
 	render() {
 		return (
 			<div>
-				<Segment basic loading={this.state.loading}>
+				<Segment loading={this.state.loading}>
 					<QrReader
 						delay={this.state.delay}
 						onError={this.handleError}
 						onScan={this.handleScan}
 						onLoad={this.handleLoad}
-						style={{ width: "100%" }}
+						style={{ width: "100%", height: "100%" }}
 					/>
 				</Segment>
 

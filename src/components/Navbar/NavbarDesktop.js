@@ -23,7 +23,15 @@ class NavbarDesktop extends React.Component {
 				/>
 
 				<Menu.Menu position='right'>
-					<Dropdown item pointing text='username'>
+					<Dropdown
+						item
+						pointing
+						text={
+							this.props.user
+								? this.props.user.username + " " + this.props.user.lastName
+								: "username"
+						}
+					>
 						<Dropdown.Menu>
 							<Dropdown.Item text='Edit profile' />
 							<Dropdown.Item text='Logout' onClick={this.props.logout} />
