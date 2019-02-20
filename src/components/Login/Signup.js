@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
 
 class Signup extends Component {
+  state = {
+
+  }
+
   render() {
     return (
       <Grid className="ui centered grid" textAlign='center' style={{ padding: "60px" }}>
@@ -11,7 +15,7 @@ class Signup extends Component {
             <div className="two fields">
               <div className="field">
                 <label>ชื่อ</label>
-                <input type="text" name="first-name" placeholder="First Name" />
+                <input type="text" name="first-name" placeholder="First Name" /> 
               </div>
               <div className="field">
                 <label>นามสกุล</label>

@@ -82,7 +82,7 @@ export const getUserData = userId => async (dispatch, getState) => {
 export const getRememberUserData = (userId, id) => async dispatch => {
 	try {
 		await dispatch({ type: REQUEST_SIGN_IN, payload: { userId, id } });
-		dispatch(getUserData(userId));
+		await dispatch(getUserData(userId));
 	} catch (err) {
 		console.log("Get Remembered User error");
 		console.log(err);
@@ -107,6 +107,7 @@ export const login = formData => async (dispatch, getState) => {
 			localStorage.setItem("userId", userId);
 		}
 		dispatch(getUserData(userId));
+		history.push("/");
 	} catch (err) {
 		console.log("login error");
 		console.log(err);

@@ -11,7 +11,9 @@ import Info from "./Login/Info";
 import LoginForm from "./Login/LoginForm";
 import ManageStaff from "./ManageStaff/ManageStaff";
 import Edit from "./Edit/Edit";
+
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 import { getRememberUserData } from "../actions";
 
@@ -40,14 +42,10 @@ class App extends Component {
 							<Route path='/login' exact component={LoginForm} />
 							<Route path='/signup' exact component={Info} />
 							<Route path='/signupform' exact component={Signup} />
+							<PrivateRoute path='/' exact component={Home} />
 							<PrivateRoute path='/edit' exact component={Edit} />
 							<PrivateRoute path='/qr' exact component={QRReaderpage} />
-							<PrivateRoute
-								path='/manage-staff'
-								exact
-								component={ManageStaff}
-							/>
-							<PrivateRoute path='/' exact component={Home} />
+							<AdminRoute path='/manage-staff' exact component={ManageStaff} />
 						</Switch>
 					</div>
 				</Router>

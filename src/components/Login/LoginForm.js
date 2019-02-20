@@ -6,7 +6,8 @@ import {
 	Header,
 	Image,
 	Message,
-	Segment
+	Segment,
+	Loader
 } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -65,10 +66,21 @@ class LoginForm extends React.Component {
 	};
 
 	render() {
-		const { isAuthenticated } = this.props;
+		const { isAuthenticated, user } = this.props;
 		const { from } = this.props.location.state || { from: { pathname: "/" } };
-		if (isAuthenticated === true) {
+
+		if (user) {
 			return <Redirect to={from} />;
+		}
+
+		if (isAuthenticated && !user) {
+			return (
+				<div className='ui container'>
+					<Loader active size='massive'>
+						Loading
+					</Loader>
+				</div>
+			);
 		}
 
 		return (
@@ -141,6 +153,7 @@ class LoginForm extends React.Component {
 const mapStateToProps = stateRedux => {
 	return {
 		isAuthenticated: stateRedux.auth.isAuthenticated,
+		user: stateRedux.auth.user,
 		userId: stateRedux.auth.userId,
 		accessToken: stateRedux.auth.accessToken
 	};

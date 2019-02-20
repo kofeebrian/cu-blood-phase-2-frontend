@@ -8,3 +8,6 @@ export const FETCH_STAFFS = "FETCH_STAFFS";
 export const DELETE_STAFF = "DELETE_STAFF";
 export const PROMOTE_STAFF = "PROMOTE_STAFF";
 export const VIEW_STAFF = "VIEW_STAFF";
+export const REQUEST_SIGN_UP = "REQUEST_SIGN_UP";
+export const CREATE_STAFF = "CREATE_STAFF";
+export const EDIT_STAFF = "EDIT_STAFF";

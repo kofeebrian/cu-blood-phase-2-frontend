@@ -67,8 +67,6 @@ class QRReader extends Component {
 		if (code) {
 			console.log(code);
 			if (this.state.open === false) await this.props.verifyCode(code);
-			console.log("continue update state!");
-			console.log(this.props.result);
 			this.setState({
 				result: this.props.result,
 				dimmer: true,
@@ -77,9 +75,18 @@ class QRReader extends Component {
 		}
 	};
 
-	handleError(err) {
-		console.error(err);
+	resetComponent() {
+		this.setState({
+			delay: 300,
+			result: null,
+			loading: true,
+			open: false
+		});
 	}
+
+	handleError = () => {
+		this.resetComponent();
+	};
 
 	handleLoad = () => {
 		this.setState({ loading: false });
@@ -106,7 +113,7 @@ class QRReader extends Component {
 
 const mapStateToProps = stateRedux => {
 	console.log(stateRedux);
-	return { result: stateRedux.user.result };
+	return { result: stateRedux.client.result };
 };
 
 export default connect(

@@ -8,16 +8,22 @@ import {
 	Item,
 	Label,
 	Button,
-	Input
+	Input,
+	Modal
 } from "semantic-ui-react";
 
 import { fetchStaffs, deleteStaff } from "../../actions";
 
 class ManageStaff extends Component {
-	state = { activeItem: "staff", staff_results: [] };
+	state = { activeItem: "staff", staff_results: [], isfetched: false };
 
 	componentDidMount = async () => {
 		await this.props.fetchStaffs();
+		setTimeout(() => {
+			this.setState({
+				isfetched: true
+			});
+		}, 100);
 		this.resetComponent();
 	};
 
@@ -25,18 +31,19 @@ class ManageStaff extends Component {
 		this.resetComponent();
 	}
 
-	handleDeleteClick = () => {};
+	handleDeleteClick = async id => {
+		await this.props.deleteStaff(id);
+		this.setState({
+			staff_results: this.state.staff_results.filter(staff => staff.id !== id)
+		});
+	};
 
-	handleChangeStatus = () => {};
-
-	resetComponent = () => {
-		console.log("resetComponent");
-		return this.setState({
+	resetComponent = () =>
+		this.setState({
 			isLoading: false,
 			staff_results: this.props.staffs,
 			value: ""
 		});
-	};
 
 	handleSearchChange = (e, { value }) => {
 		const { staffs } = this.props;
@@ -54,19 +61,35 @@ class ManageStaff extends Component {
 				staff_results: _.filter(staffs, isMatch)
 			});
 
-			console.log(this.state.staff_results);
+			// console.log(this.state.staff_results);
 		}, 300);
 	};
 
-	renderAdmin() {
+	renderAdmin = id => {
 		const { user } = this.props;
 		if (user) {
-			if (user.isAdmin) {
+			if (user.isAdmin && user.id !== id) {
 				return (
 					<>
-						<Button name='delete' negative floated='right'>
-							Delete
-						</Button>
+						<Modal
+							trigger={
+								<Button name='delete' negative floated='right'>
+									Delete
+								</Button>
+							}
+							header='Delete Staff'
+							content={`Are you sure to delete this staff`}
+							actions={[
+								{
+									key: "delete",
+									content: "Delete",
+									negative: true,
+									onClick: e => this.handleDeleteClick(id)
+								},
+								{ key: "cancel", content: "Cancel" }
+							]}
+						/>
+
 						<Button name='view' floated='right'>
 							View
 						</Button>
@@ -76,39 +99,43 @@ class ManageStaff extends Component {
 		}
 
 		return null;
-	}
+	};
 
 	renderList = () => {
-		const { staff_results } = this.state;
-		return staff_results
-			.map(staff => {
+		const { staff_results, isfetched } = this.state;
+		if (!isfetched) {
+			return (
+				<div>
+					<h2>Loading...</h2>
+				</div>
+			);
+		}
+
+		if (staff_results.length > 0) {
+			return staff_results.map(staff => {
 				return (
 					<Item key={staff.id}>
 						<Item.Content>
-							<Item.Header as='a'>My Neighbor Totoro</Item.Header>
+							<Item.Header as='a'>{staff.username}</Item.Header>
 							<Item.Meta>
 								<span className='cinema'>{staff.email}</span>
 							</Item.Meta>
 							<Item.Description>{}</Item.Description>
 							<Item.Extra>
-								{this.renderAdmin()}
+								{this.renderAdmin(staff.id)}
 								<Label>Limited</Label>
 							</Item.Extra>
 						</Item.Content>
 					</Item>
 				);
-			})
-			.sort((a, b) => {
-				const email_a = a.email;
-				const email_b = b.email;
-				if (email_a < email_b) {
-					return -1;
-				}
-				if (email_a > email_b) {
-					return 1;
-				}
-				return 0;
 			});
+		}
+
+		return (
+			<div>
+				<h2>No Result</h2>
+			</div>
+		);
 	};
 
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
