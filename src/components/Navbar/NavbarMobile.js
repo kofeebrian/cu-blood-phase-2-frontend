@@ -7,7 +7,7 @@ import {
   Sidebar,
   Image,
   Segment,
-  MenuMenu
+  Divider
 } from "semantic-ui-react";
 
 class NavbarMobile extends React.Component {
@@ -41,8 +41,9 @@ class NavbarMobile extends React.Component {
             </Menu.Item>
           </Menu.Menu>
         </Menu.Menu>
+        <Menu.Item as={Divider} horizontal fitted />
         <Menu.Item as={Link} to="/" onClick={this.handleHideClick}>
-          <Icon name="home" size="large" />
+          <Icon name="home" />
           Home
         </Menu.Item>
         <Menu.Item as={Link} to="/qr" onClick={this.handleHideClick}>
@@ -100,7 +101,7 @@ class NavbarMobile extends React.Component {
           onHide={this.handleSidebarHide}
           visible={visible}
           direction="top"
-          animation="overlay"
+          animation="push"
         >
           {this.renderAuthButton()}
         </Sidebar>
