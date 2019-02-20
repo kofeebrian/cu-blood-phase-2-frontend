@@ -155,7 +155,40 @@ export const fetchStaffs = () => async (dispatch, getState) => {
 	}
 };
 
-export const deleteStaff = id => async dispatch => {
-	// axios
-	dispatch({ type: DELETE_STAFF, payload: id });
+export const createStaff = formData => async dispatch => {
+	try {
+		/*
+		const res = await staffs.post("/api/Users", formData)
+		dispatch({type: CREATE_STAFF, payload: res.data})
+		history.push('/')
+		*/
+	} catch (err) {
+		console.log("create Staffs error");
+		console.log(err);
+		alert("create Staffs error");
+		alert(JSON.stringify(err.response));
+	}
+};
+
+export const approveStaff = id => async (dispatch, getState) => {
+	try {
+		
+	} catch (err) {
+		console.log("approve Staffs error");
+		console.log(err);
+		alert("approve Staffs error");
+		alert(JSON.stringify(err.response));
+	}
+};
+
+export const deleteStaff = id => async (dispatch, getState) => {
+	try {
+		// const res = await staffs.delete(`/api/Users/${id}?acess_token=${getState().auth.acessToken}`)
+		dispatch({ type: DELETE_STAFF, payload: id });
+	} catch (err) {
+		console.log("delete Staffs error");
+		console.log(err);
+		alert("delete Staffs error");
+		alert(JSON.stringify(err.response));
+	}
 };

@@ -15,6 +15,21 @@ class NavbarMobile extends React.Component {
 		if (visible) this.setState({ visible: false });
 	};
 
+	renderAdminMenuItem = () => {
+		const { user } = this.props;
+
+		if (user && user.isAdmin) {
+			return (
+				<Menu.Item as={Link} to='/manage-staff' onClick={this.handleHideClick}>
+					<Icon name='camera' />
+					Manage Staff
+				</Menu.Item>
+			);
+		}
+
+		return null;
+	};
+
 	renderAuthButton = () => {
 		return this.props.isAuthenticated ? (
 			<React.Fragment>
@@ -26,10 +41,7 @@ class NavbarMobile extends React.Component {
 					<Icon name='gamepad' />
 					QR Reader
 				</Menu.Item>
-				<Menu.Item as={Link} to='/manage-staff' onClick={this.handleHideClick}>
-					<Icon name='camera' />
-					Manage Staff
-				</Menu.Item>
+				{this.renderAdminMenuItem()}
 				<Menu.Item
 					onClick={() => {
 						this.props.logout().then(() => this.handleHideClick());

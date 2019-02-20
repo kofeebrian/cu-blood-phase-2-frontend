@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import {
 	Menu,
 	Header,
-	Dropdown,
 	Item,
 	Label,
 	Button,
@@ -15,7 +14,11 @@ import {
 import { fetchStaffs, deleteStaff } from "../../actions";
 
 class ManageStaff extends Component {
-	state = { activeItem: "staff", staff_results: [], isfetched: false };
+	state = {
+		staff_status: "staff",
+		staff_results: [],
+		isfetched: false
+	};
 
 	componentDidMount = async () => {
 		await this.props.fetchStaffs();
@@ -39,11 +42,18 @@ class ManageStaff extends Component {
 	};
 
 	resetComponent = () =>
-		this.setState({
-			isLoading: false,
-			staff_results: this.props.staffs,
-			value: ""
-		});
+		this.state.staff_status === "staff"
+			? this.setState({
+					isLoading: false,
+					staff_results: this.props.staffs,
+					value: ""
+			  })
+			: //   is pending change here: from this.props.staffs to this.props.staffs.filter(staff => !isApproved)
+			  this.setState({
+					isLoading: false,
+					staff_results: this.props.staffs,
+					value: ""
+			  });
 
 	handleSearchChange = (e, { value }) => {
 		const { staffs } = this.props;
@@ -61,41 +71,40 @@ class ManageStaff extends Component {
 				staff_results: _.filter(staffs, isMatch)
 			});
 
-			// console.log(this.state.staff_results);
+			console.log(this.state.staff_results);
 		}, 300);
 	};
 
 	renderAdmin = id => {
 		const { user } = this.props;
-		if (user) {
-			if (user.isAdmin && user.id !== id) {
-				return (
-					<>
-						<Modal
-							trigger={
-								<Button name='delete' negative floated='right'>
-									Delete
-								</Button>
-							}
-							header='Delete Staff'
-							content={`Are you sure to delete this staff`}
-							actions={[
-								{
-									key: "delete",
-									content: "Delete",
-									negative: true,
-									onClick: e => this.handleDeleteClick(id)
-								},
-								{ key: "cancel", content: "Cancel" }
-							]}
-						/>
 
-						<Button name='view' floated='right'>
-							View
-						</Button>
-					</>
-				);
-			}
+		if (user && user.isAdmin && user.id !== id) {
+			return (
+				<>
+					<Modal
+						trigger={
+							<Button name='delete' negative floated='right'>
+								Delete
+							</Button>
+						}
+						header='Delete Staff'
+						content={`Are you sure to delete this staff`}
+						actions={[
+							{
+								key: "delete",
+								content: "Delete",
+								negative: true,
+								onClick: e => this.handleDeleteClick(id)
+							},
+							{ key: "cancel", content: "Cancel" }
+						]}
+					/>
+
+					<Button name='view' floated='right'>
+						View
+					</Button>
+				</>
+			);
 		}
 
 		return null;
@@ -138,10 +147,10 @@ class ManageStaff extends Component {
 		);
 	};
 
-	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+	handleItemClick = (e, { name }) => this.setState({ staff_status: name });
 
 	render() {
-		const { activeItem, isLoading, value } = this.state;
+		const { staff_status, isLoading, value } = this.state;
 
 		return (
 			<div>
@@ -155,27 +164,21 @@ class ManageStaff extends Component {
 					<Menu.Item header>Status</Menu.Item>
 					<Menu.Item
 						name='staff'
-						active={activeItem === "staff"}
+						active={staff_status === "staff"}
 						onClick={this.handleItemClick}
 					/>
 					<Menu.Item
 						name='pending'
-						active={activeItem === "pending"}
+						active={staff_status === "pending"}
 						onClick={this.handleItemClick}
 					/>
 
 					<Menu.Menu position='right'>
-						<Dropdown item text='Search by'>
-							<Dropdown.Menu>
-								<Dropdown.Item>Position</Dropdown.Item>
-								<Dropdown.Item>Name</Dropdown.Item>
-								<Dropdown.Item>Year</Dropdown.Item>
-							</Dropdown.Menu>
-						</Dropdown>
 						<Menu.Item>
 							<Input
 								loading={isLoading}
 								icon='search'
+								placeholder='Search...'
 								onChange={_.debounce(this.handleSearchChange, 500, {
 									leading: true
 								})}

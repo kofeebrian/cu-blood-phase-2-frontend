@@ -3,6 +3,23 @@ import { Link } from "react-router-dom";
 import { Menu, Dropdown } from "semantic-ui-react";
 
 class NavbarDesktop extends React.Component {
+	renderAdminMenuItem = () => {
+		const { user } = this.props;
+
+		if (user && user.isAdmin) {
+			return (
+				<Menu.Item
+					className='ui borderless'
+					name='Manage Staffs'
+					as={Link}
+					to='/manage-staff'
+				/>
+			);
+		}
+
+		return null;
+	};
+
 	renderAuthMenuItem = () =>
 		this.props.isAuthenticated ? (
 			<React.Fragment>
@@ -15,12 +32,7 @@ class NavbarDesktop extends React.Component {
 					to='/qr'
 				/>
 
-				<Menu.Item
-					className='ui borderless'
-					name='Manage staff'
-					as={Link}
-					to='/manage-staff'
-				/>
+				{this.renderAdminMenuItem()}
 
 				<Menu.Menu position='right'>
 					<Dropdown
@@ -33,7 +45,7 @@ class NavbarDesktop extends React.Component {
 						}
 					>
 						<Dropdown.Menu>
-							<Dropdown.Item text='Edit profile' />
+							<Dropdown.Item text='Edit profile' as={Link} to='/edit' />
 							<Dropdown.Item text='Logout' onClick={this.props.logout} />
 						</Dropdown.Menu>
 					</Dropdown>
