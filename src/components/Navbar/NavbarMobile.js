@@ -1,6 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Icon, Menu, Sidebar } from "semantic-ui-react";
+import {
+	Button,
+	Icon,
+	Menu,
+	Sidebar,
+	Image,
+	Segment,
+	MenuMenu
+} from "semantic-ui-react";
 
 class NavbarMobile extends React.Component {
 	state = { visible: false };
@@ -29,19 +37,36 @@ class NavbarMobile extends React.Component {
 
 		return null;
 	};
-
 	renderAuthButton = () => {
+		const screenHeight = window.screen.height;
+
 		return this.props.isAuthenticated ? (
 			<React.Fragment>
+				<Menu.Menu as={Segment} basic>
+					<Menu.Item>
+						<Image
+							src='https://cu-blood.herokuapp.com/static/logo/logo1.svg'
+							size='mini'
+						/>
+					</Menu.Item>
+					<Menu.Menu position='right'>
+						<Menu.Item as={Button} onClick={this.handleHideClick}>
+							<Icon name='close' circular inverted color={"grey"} />
+						</Menu.Item>
+					</Menu.Menu>
+				</Menu.Menu>
 				<Menu.Item as={Link} to='/' onClick={this.handleHideClick}>
-					<Icon name='home' />
+					<Icon name='home' size='large' />
 					Home
 				</Menu.Item>
 				<Menu.Item as={Link} to='/qr' onClick={this.handleHideClick}>
 					<Icon name='gamepad' />
 					QR Reader
 				</Menu.Item>
-				{this.renderAdminMenuItem()}
+				<Menu.Item as={Link} to='/manage-staff' onClick={this.handleHideClick}>
+					<Icon name='camera' />
+					Manage Staff
+				</Menu.Item>
 				<Menu.Item
 					onClick={() => {
 						this.props.logout().then(() => this.handleHideClick());
@@ -50,6 +75,7 @@ class NavbarMobile extends React.Component {
 					<Icon name='key' />
 					Logout
 				</Menu.Item>
+				<Menu.Item as={Segment} style={{ minHeight: screenHeight }} />
 			</React.Fragment>
 		) : (
 			<React.Fragment>
@@ -70,13 +96,7 @@ class NavbarMobile extends React.Component {
 		return (
 			<div>
 				<Menu inverted color={"red"} fixed='top'>
-					<Menu.Item
-						as={Link}
-						to='/'
-						header
-						className='ui borderless'
-						onClick={this.handleHideClick}
-					>
+					<Menu.Item as={Link} to='/' header className='ui borderless'>
 						CU Blood
 					</Menu.Item>
 					<Menu.Item
@@ -89,10 +109,11 @@ class NavbarMobile extends React.Component {
 				</Menu>
 				<Sidebar
 					as={Menu}
+					size='massive'
 					vertical
 					onHide={this.handleSidebarHide}
 					visible={visible}
-					direction='right'
+					direction='top'
 					animation='overlay'
 				>
 					{this.renderAuthButton()}
