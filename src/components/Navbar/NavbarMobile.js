@@ -23,63 +23,10 @@ class NavbarMobile extends React.Component {
     if (visible) this.setState({ visible: false });
   };
 
-  renderAuthButton = () => {
-    const screenHeight = window.screen.height;
-
-    return this.props.isAuthenticated ? (
-      <React.Fragment>
-        <Menu.Menu as={Segment} basic>
-          <Menu.Item>
-            <Image
-              src="https://cu-blood.herokuapp.com/static/logo/logo1.svg"
-              size="mini"
-            />
-          </Menu.Item>
-          <Menu.Menu position="right">
-            <Menu.Item as={Button} onClick={this.handleHideClick}>
-              <Icon name="close" circular inverted color={"grey"} />
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu.Menu>
-        <Menu.Item as={Divider} horizontal fitted />
-        <Menu.Item as={Link} to="/" onClick={this.handleHideClick}>
-          <Icon name="home" />
-          Home
-        </Menu.Item>
-        <Menu.Item as={Link} to="/qr" onClick={this.handleHideClick}>
-          <Icon name="gamepad" />
-          QR Reader
-        </Menu.Item>
-        <Menu.Item as={Link} to="/manage-staff" onClick={this.handleHideClick}>
-          <Icon name="camera" />
-          Manage Staff
-        </Menu.Item>
-        <Menu.Item
-          onClick={() => {
-            this.props.logout().then(() => this.handleHideClick());
-          }}
-        >
-          <Icon name="key" />
-          Logout
-        </Menu.Item>
-        <Menu.Item as={Segment} style={{ minHeight: screenHeight }} />
-      </React.Fragment>
-    ) : (
-      <React.Fragment>
-        <Menu.Item as={Link} to="/login" onClick={this.handleHideClick}>
-          <Icon name="key" />
-          Login
-        </Menu.Item>
-        <Menu.Item as={Link} to="/signup" onClick={this.handleHideClick}>
-          <Icon name="key" />
-          Signup
-        </Menu.Item>
-      </React.Fragment>
-    );
-  };
-
   render() {
     const { visible } = this.state;
+    const screenHeight = window.screen.height;
+
     return (
       <div>
         <Menu inverted color={"red"} fixed="top">
@@ -103,7 +50,45 @@ class NavbarMobile extends React.Component {
           direction="top"
           animation="push"
         >
-          {this.renderAuthButton()}
+          <Menu.Menu as={Segment} basic>
+            <Menu.Item>
+              <Image
+                src="https://cu-blood.herokuapp.com/static/logo/logo1.svg"
+                size="mini"
+              />
+            </Menu.Item>
+            <Menu.Menu position="right">
+              <Menu.Item as={Button} onClick={this.handleHideClick}>
+                <Icon name="close" circular inverted color={"grey"} />
+              </Menu.Item>
+            </Menu.Menu>
+          </Menu.Menu>
+          <Menu.Item as={Divider} horizontal fitted />
+          <Menu.Item as={Link} to="/" onClick={this.handleHideClick}>
+            <Icon name="home" />
+            Home
+          </Menu.Item>
+          <Menu.Item as={Link} to="/qr" onClick={this.handleHideClick}>
+            <Icon name="gamepad" />
+            QR Reader
+          </Menu.Item>
+          <Menu.Item
+            as={Link}
+            to="/manage-staff"
+            onClick={this.handleHideClick}
+          >
+            <Icon name="camera" />
+            Manage Staff
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              this.props.logout().then(() => this.handleHideClick());
+            }}
+          >
+            <Icon name="key" />
+            Logout
+          </Menu.Item>
+          <Menu.Item as={Segment} style={{ minHeight: screenHeight }} />
         </Sidebar>
       </div>
     );
