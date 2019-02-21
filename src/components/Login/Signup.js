@@ -3,6 +3,16 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Grid, Loader } from "semantic-ui-react";
 
+import "./Login.css";
+
+/* values ฝ่ายต่างๆ
+	0 - Event
+	1 - PR
+	2 - Reception
+	3 -	Registration
+	4 - HR
+*/
+
 class Signup extends Component {
 	state = {};
 
@@ -24,12 +34,6 @@ class Signup extends Component {
 		console.log(this.state);
 	};
 
-	handleRadioCheck = e => {};
-
-	// handleGetValue = e => {
-	// 	return this.state[e.target.name];
-	// };
-
 	render() {
 		const { isAuthenticated, user } = this.props;
 		const { from } = this.props.location.state || { from: { pathname: "/" } };
@@ -50,13 +54,32 @@ class Signup extends Component {
 
 		return (
 			<div id='signup-form'>
-				<style>{`
-		  .ui.centered.grid, .ui.centered.grid>.row, .ui.grid>.centered.row {
-        text-align: left;
-		  }
-		`}</style>
 				<Grid className='ui centered grid' style={{ padding: "60px" }}>
 					<form className='ui form' onSubmit={this.handleFormSubmit}>
+						<h4 className='ui dividing header'>Username and Password</h4>
+						<div className='field'>
+							<div className='two fields'>
+								<div className='field'>
+									<label htmlFor='username'>username</label>
+									<input
+										type='text'
+										name='username'
+										id='username'
+										onChange={this.handleInputChange}
+									/>
+								</div>
+								<div className='field'>
+									<label htmlFor='password'>password</label>
+									<input
+										type='password'
+										name='password'
+										id='password'
+										onChange={this.handleInputChange}
+									/>
+								</div>
+							</div>
+						</div>
+
 						<h4 className='ui dividing header'>ข้อมูลส่วนตัว</h4>
 						<div className='field'>
 							<div className='two fields'>

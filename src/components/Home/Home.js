@@ -4,25 +4,18 @@ import { Link } from "react-router-dom";
 import { Segment, Grid, Icon, Header } from "semantic-ui-react";
 
 import "./Home.css";
+import { fetchStaffs } from "../../actions";
 
 class Home extends React.Component {
-	// componentDidMount() {
-	// 	Axios.request({
-	// 		method: "POST",
-	// 		headers: { Authorization: "keyboard cat" },
-	// 		url: "/users/verify",
-	// 		data: {
-	// 			code: "123"
-	// 		}
-	// 	})
-	// 		.then(res => console.log(res.data.result))
-	// 		.catch(err => console.log(err));
-	// }
+	componentDidMount() {
+		this.props.fetchStaffs();
+	}
+
 	render() {
 		return (
 			<Grid stackable divided columns='equal' className='Home'>
 				<Grid.Column textAlign='center'>
-					<Segment basic as={Link} to='/edit'>
+					<Segment basic as={Link} to={`/edit/${this.props.userId}`}>
 						<Icon size='massive' name='user' color='black' />
 						<br />
 						<Header as='h1'>Edit Profile</Header>
@@ -47,4 +40,16 @@ class Home extends React.Component {
 	}
 }
 
-export default connect(null)(Home);
+const mapStateToProps = stateRedux => {
+	return {
+		isAuthenticated: stateRedux.auth.isAuthenticated,
+		user: stateRedux.auth.user,
+		userId: stateRedux.auth.userId,
+		accessToken: stateRedux.auth.accessToken
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	{ fetchStaffs }
+)(Home);

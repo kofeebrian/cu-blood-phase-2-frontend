@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
 	Menu,
@@ -100,7 +101,7 @@ class ManageStaff extends Component {
 						]}
 					/>
 
-					<Button name='view' floated='right'>
+					<Button as={Link} to={`/edit/${id}`} name='view' floated='right'>
 						View
 					</Button>
 				</>

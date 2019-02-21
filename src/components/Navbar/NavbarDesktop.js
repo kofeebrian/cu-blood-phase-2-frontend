@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Dropdown } from "semantic-ui-react";
+import { Menu, Dropdown, Image } from "semantic-ui-react";
 
 class NavbarDesktop extends React.Component {
 	renderAdminMenuItem = () => {
@@ -64,6 +64,10 @@ class NavbarDesktop extends React.Component {
 		return (
 			<Menu stackable inverted color={"red"} fixed='top'>
 				<Menu.Item header className='ui text centered width 10px'>
+					<Image
+						src='https://cu-blood.herokuapp.com/static/logo/logo1.svg'
+						size='mini'
+					/>
 					CU Blood
 				</Menu.Item>
 				{this.renderAuthMenuItem()}

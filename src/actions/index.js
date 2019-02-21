@@ -155,6 +155,21 @@ export const fetchStaffs = () => async (dispatch, getState) => {
 	}
 };
 
+export const fetchStaff = id => async (dispatch, getState) => {
+	try {
+		const res = await staffs.get(
+			`/api/Users/${id}?access_token=${getState().auth.accessToken}`
+		);
+		console.log("fetchStaff");
+		console.log(res);
+	} catch (err) {
+		console.log("fetch Staff error");
+		console.log(err);
+		alert("fetch Staff error");
+		alert(JSON.stringify(err.response));
+	}
+};
+
 export const createStaff = formData => async dispatch => {
 	try {
 		/*
@@ -172,7 +187,6 @@ export const createStaff = formData => async dispatch => {
 
 export const approveStaff = id => async (dispatch, getState) => {
 	try {
-		
 	} catch (err) {
 		console.log("approve Staffs error");
 		console.log(err);

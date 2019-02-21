@@ -43,7 +43,7 @@ class App extends Component {
 							<Route path='/signup' exact component={Info} />
 							<Route path='/signupform' exact component={Signup} />
 							<PrivateRoute path='/' exact component={Home} />
-							<PrivateRoute path='/edit' exact component={Edit} />
+							<PrivateRoute path='/edit/:id' exact component={Edit} />
 							<PrivateRoute path='/qr' exact component={QRReaderpage} />
 							<AdminRoute path='/manage-staff' exact component={ManageStaff} />
 						</Switch>

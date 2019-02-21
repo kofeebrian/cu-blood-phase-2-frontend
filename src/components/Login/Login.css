@@ -1,0 +1,5 @@
+.ui.centered.grid,
+.ui.centered.grid > .row,
+.ui.grid > .centered.row {
+	text-align: left;
+}

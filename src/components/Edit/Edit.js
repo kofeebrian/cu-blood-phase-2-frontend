@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
+import { connect } from "react-redux";
+
+import { fetchStaff } from "../../actions";
+import "../Login/Login.css";
 
 class Edit extends Component {
+	componentDidMount() {
+		this.props.fetchStaff(this.props.match.params.id);
+	}
+
 	render() {
+		if (!this.props.editee) {
+			return <div>Loading</div>;
+		}
+
 		return (
 			<div id='edit-form'>
-				<style>{`
-		  .ui.centered.grid, .ui.centered.grid>.row, .ui.grid>.centered.row {
-        text-align: left;
-		  }
-		`}</style>
 				<Grid
 					className='ui centered grid'
 					textAlign='center'
@@ -135,10 +142,10 @@ class Edit extends Component {
 							textAlign='center'
 							style={{ padding: "30px" }}
 						>
-							<div className='ui button' tabindex='0'>
+							<div className='ui button' tabIndex='0'>
 								Edit
 							</div>
-							<div className='ui button' tabindex='0'>
+							<div className='ui button' tabIndex='0'>
 								Save
 							</div>
 						</Grid>
@@ -149,4 +156,14 @@ class Edit extends Component {
 	}
 }
 
-export default Edit;
+const mapStateToProps = (stateRedux, ownProps) => {
+	return {
+		editor: stateRedux.auth.user,
+		editee: stateRedux.staffs[ownProps.match.params.id] // Change to userId, it will work!
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	{ fetchStaff }
+)(Edit);
