@@ -1,19 +1,32 @@
 import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Loader, Input, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import { fetchStaff } from "../../actions";
 import "../Login/Login.css";
 
 class Edit extends Component {
-	componentDidMount() {
+	state = { editing: false };
+
+	componentWillMount() {
 		this.props.fetchStaff(this.props.match.params.id);
 	}
 
+	isBeingEdited = () => {};
+
 	render() {
+		console.log(this.props);
 		if (!this.props.editee) {
-			return <div>Loading</div>;
+			return (
+				<div className='ui container'>
+					<Loader active size='massive'>
+						Loading
+					</Loader>
+				</div>
+			);
 		}
+
+		const { firstName, lastName, email } = this.props.editee;
 
 		return (
 			<div id='edit-form'>
@@ -28,15 +41,21 @@ class Edit extends Component {
 							<div className='two fields'>
 								<div className='field'>
 									<label>ชื่อ</label>
-									<input
+									<Input
 										type='text'
-										name='first-name'
+										name='firstName'
 										placeholder='First Name'
+										defaultValue={firstName}
 									/>
 								</div>
 								<div className='field'>
 									<label>นามสกุล</label>
-									<input type='text' name='last-name' placeholder='Last Name' />
+									<input
+										type='text'
+										name='lastName'
+										placeholder='Last Name'
+										defaultValue={lastName}
+									/>
 								</div>
 							</div>
 						</div>
@@ -119,7 +138,12 @@ class Edit extends Component {
 								</div>
 								<div className='field'>
 									<label>E-mail</label>
-									<input type='text' name='mail' placeholder='E-mail' />
+									<input
+										type='text'
+										name='email'
+										placeholder='E-mail'
+										defaultValue={email}
+									/>
 								</div>
 							</div>
 						</div>
@@ -142,10 +166,18 @@ class Edit extends Component {
 							textAlign='center'
 							style={{ padding: "30px" }}
 						>
-							<div className='ui button' tabIndex='0'>
+							<div
+								onClick={e => this.setState({ editing: true })}
+								className='ui button'
+								tabIndex='0'
+							>
 								Edit
 							</div>
-							<div className='ui button' tabIndex='0'>
+							<div
+								onClick={e => this.setState({ editing: false })}
+								className='ui button'
+								tabIndex='0'
+							>
 								Save
 							</div>
 						</Grid>
@@ -159,7 +191,7 @@ class Edit extends Component {
 const mapStateToProps = (stateRedux, ownProps) => {
 	return {
 		editor: stateRedux.auth.user,
-		editee: stateRedux.staffs[ownProps.match.params.id] // Change to userId, it will work!
+		editee: stateRedux.staffs[ownProps.match.params.id]
 	};
 };
 

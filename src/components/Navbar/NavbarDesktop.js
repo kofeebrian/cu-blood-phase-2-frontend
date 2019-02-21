@@ -63,7 +63,7 @@ class NavbarDesktop extends React.Component {
 	render() {
 		return (
 			<Menu stackable inverted color={"red"} fixed='top'>
-				<Menu.Item header className='ui text centered width 10px'>
+				<Menu.Item header className='ui text centered width 10px '>
 					<Image
 						src='https://cu-blood.herokuapp.com/static/logo/logo1.svg'
 						size='mini'

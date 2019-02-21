@@ -45,14 +45,14 @@ class QRReader extends Component {
 					<Modal.Actions>
 						<Button
 							color='black'
-							content="No it's not me"
-							onClick={() => this.handleCheckOut(result.id, result.status)}
+							content='Check out'
+							onClick={() => this.handleCheckOut(result.id, 0)}
 						/>
 						<Button
 							positive
 							icon='checkmark'
 							labelPosition='right'
-							content="Yes, it's me"
+							content='Check in'
 							onClick={() => this.handleCheckIn(result.id)}
 						/>
 					</Modal.Actions>
@@ -66,12 +66,19 @@ class QRReader extends Component {
 	handleScan = async code => {
 		if (code) {
 			console.log(code);
-			if (this.state.open === false) await this.props.verifyCode(code);
-			this.setState({
-				result: this.props.result,
-				dimmer: true,
-				open: true
-			});
+			if (this.state.open === false) {
+				try {
+					await this.props.verifyCode(code);
+					this.setState({
+						result: this.props.result,
+						dimmer: true,
+						open: true
+					});
+				} catch (e) {
+					console.log("it error but ok");
+					// do nothing
+				}
+			}
 		}
 	};
 

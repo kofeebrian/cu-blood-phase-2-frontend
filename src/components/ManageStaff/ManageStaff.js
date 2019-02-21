@@ -43,18 +43,11 @@ class ManageStaff extends Component {
 	};
 
 	resetComponent = () =>
-		this.state.staff_status === "staff"
-			? this.setState({
-					isLoading: false,
-					staff_results: this.props.staffs,
-					value: ""
-			  })
-			: //   is pending change here: from this.props.staffs to this.props.staffs.filter(staff => !isApproved)
-			  this.setState({
-					isLoading: false,
-					staff_results: this.props.staffs,
-					value: ""
-			  });
+		this.setState({
+			isLoading: false,
+			staff_results: this.props.staffs,
+			value: ""
+		});
 
 	handleSearchChange = (e, { value }) => {
 		const { staffs } = this.props;
@@ -196,10 +189,11 @@ class ManageStaff extends Component {
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = stateRedux => {
+	console.log(stateRedux);
 	return {
-		user: state.auth.user,
-		staffs: Object.values(state.staffs)
+		user: stateRedux.auth.user,
+		staffs: Object.values(stateRedux.staffs)
 	};
 };
 

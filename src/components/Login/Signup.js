@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Grid, Loader } from "semantic-ui-react";
 
 import "./Login.css";
+import { createStaff } from "../../actions";
 
 /* values ฝ่ายต่างๆ
 	0 - Event
@@ -14,12 +15,27 @@ import "./Login.css";
 */
 
 class Signup extends Component {
-	state = {};
+	state = {
+		fields: {},
+		error: {},
+		accepted: false
+	};
+
+	handleValidation = () => {};
+
+	handleAcceptedCheck = e => {
+		this.setState({
+			accepted: e.target.checked
+		});
+		console.log(this.state.accepted);
+	};
 
 	handleFormSubmit = e => {
 		e.preventDefault();
-		const formData = { ...this.state };
+		const formData = { ...this.state.fields };
+		console.log("from FormSubmit");
 		console.log(formData);
+		this.props.createStaff(formData);
 	};
 
 	handleInputChange = e => {
@@ -28,10 +44,11 @@ class Signup extends Component {
 		const name = target.name;
 
 		this.setState({
-			[name]: value
+			...this.state,
+			fields: { ...this.state.fields, [name]: value }
 		});
 
-		console.log(this.state);
+		console.log(this.state.fields);
 	};
 
 	render() {
@@ -65,6 +82,7 @@ class Signup extends Component {
 										type='text'
 										name='username'
 										id='username'
+										placeholder='username'
 										onChange={this.handleInputChange}
 									/>
 								</div>
@@ -74,6 +92,7 @@ class Signup extends Component {
 										type='password'
 										name='password'
 										id='password'
+										placeholder='password'
 										onChange={this.handleInputChange}
 									/>
 								</div>
@@ -88,7 +107,7 @@ class Signup extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='first-name'
+										name='firstName'
 										placeholder='First Name'
 									/>
 								</div>
@@ -97,7 +116,7 @@ class Signup extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='last-name'
+										name='lastName'
 										placeholder='Last Name'
 									/>
 								</div>
@@ -122,6 +141,7 @@ class Signup extends Component {
 										onChange={this.handleInputChange}
 										className='ui fluid dropdown'
 									>
+										<option value=''>-</option>
 										<option value='M'>ชาย</option>
 										<option value='F'>หญิง</option>
 									</select>
@@ -204,7 +224,7 @@ class Signup extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='email'
-										name='mail'
+										name='email'
 										placeholder='E-mail'
 									/>
 								</div>
@@ -324,7 +344,7 @@ class Signup extends Component {
 							</h4>
 							<div className='ui checkbox'>
 								<input
-									onChange={this.handleInputChange}
+									onChange={this.handleAcceptedCheck}
 									type='checkbox'
 									name='accepted'
 								/>
@@ -358,4 +378,7 @@ const mapStateToProps = stateRedux => {
 	};
 };
 
-export default connect(mapStateToProps)(Signup);
+export default connect(
+	mapStateToProps,
+	{ createStaff }
+)(Signup);

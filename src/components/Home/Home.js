@@ -1,21 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Segment, Grid, Icon, Header } from "semantic-ui-react";
+import { Segment, Grid, Icon, Header, Loader } from "semantic-ui-react";
 
 import "./Home.css";
-import { fetchStaffs } from "../../actions";
 
 class Home extends React.Component {
-	componentDidMount() {
-		this.props.fetchStaffs();
-	}
-
 	render() {
+		if (!this.props.user) {
+			return (
+				<div className='ui container'>
+					<Loader active size='massive' />
+					Loading
+				</div>
+			);
+		}
+
 		return (
 			<Grid stackable divided columns='equal' className='Home'>
 				<Grid.Column textAlign='center'>
-					<Segment basic as={Link} to={`/edit/${this.props.userId}`}>
+					<Segment basic as={Link} to={`/edit/${this.props.user.id}`}>
 						<Icon size='massive' name='user' color='black' />
 						<br />
 						<Header as='h1'>Edit Profile</Header>
@@ -42,14 +46,8 @@ class Home extends React.Component {
 
 const mapStateToProps = stateRedux => {
 	return {
-		isAuthenticated: stateRedux.auth.isAuthenticated,
-		user: stateRedux.auth.user,
-		userId: stateRedux.auth.userId,
-		accessToken: stateRedux.auth.accessToken
+		user: stateRedux.auth.user
 	};
 };
 
-export default connect(
-	mapStateToProps,
-	{ fetchStaffs }
-)(Home);
+export default connect(mapStateToProps)(Home);

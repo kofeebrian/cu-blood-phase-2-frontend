@@ -85,21 +85,18 @@ class LoginForm extends React.Component {
 
 		return (
 			<div className='login-form'>
-				<style>{`
-		  body > div,
-		  body > div > div,
-		  body > div > div > div.login-form {
-			margin-top: 2.5rem;
-		  }
-		`}</style>
 				<Grid
 					textAlign='center'
 					style={{ height: "100%" }}
 					verticalAlign='middle'
 				>
 					<Grid.Column style={{ maxWidth: 450 }} widt={8}>
+						<Image
+							className='ui image centered'
+							src='https://cu-blood.herokuapp.com/static/logo/logo1.svg'
+							size='small'
+						/>
 						<Header as='h2' color='black' textAlign='center'>
-							<Image src='/logo.png' />
 							Log-in to your account
 						</Header>
 						<Form size='large' onSubmit={this.handleFormSubmit}>

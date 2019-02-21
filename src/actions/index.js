@@ -6,7 +6,10 @@ import {
 	REQUEST_SIGN_IN,
 	REQUEST_SIGN_OUT,
 	FETCH_STAFFS,
-	DELETE_STAFF
+	FETCH_STAFF,
+	DELETE_STAFF,
+	CREATE_STAFF,
+	EDIT_STAFF
 } from "./types";
 import users from "../apis/users";
 import staffs from "../apis/staffs";
@@ -14,20 +17,16 @@ import history from "../history";
 
 // CLIENT CU BLOOD ACTIONS
 export const verifyCode = code => async dispatch => {
-	try {
-		const res = await users.request({
-			method: "POST",
-			url: "users/verify",
-			data: {
-				code
-			}
-		});
-		console.log("Request Done!");
-		console.log(res);
-		dispatch({ type: VERIFY_CODE, payload: res.data });
-	} catch (err) {
-		console.log(err);
-	}
+	const res = await users.request({
+		method: "POST",
+		url: "users/verify",
+		data: {
+			code
+		}
+	});
+	console.log("Request Done!");
+	console.log(res);
+	dispatch({ type: VERIFY_CODE, payload: res.data });
 };
 
 export const checkIn = code => async dispatch => {
@@ -111,7 +110,7 @@ export const login = formData => async (dispatch, getState) => {
 	} catch (err) {
 		console.log("login error");
 		console.log(err);
-		alert("logout error");
+		alert("login error");
 		alert(JSON.stringify(err.response));
 	}
 };
@@ -162,6 +161,7 @@ export const fetchStaff = id => async (dispatch, getState) => {
 		);
 		console.log("fetchStaff");
 		console.log(res);
+		dispatch({ type: FETCH_STAFF, payload: res.data });
 	} catch (err) {
 		console.log("fetch Staff error");
 		console.log(err);
@@ -172,11 +172,11 @@ export const fetchStaff = id => async (dispatch, getState) => {
 
 export const createStaff = formData => async dispatch => {
 	try {
-		/*
-		const res = await staffs.post("/api/Users", formData)
-		dispatch({type: CREATE_STAFF, payload: res.data})
-		history.push('/')
-		*/
+		console.log("from create action");
+		console.log(formData);
+		const res = await staffs.post("/api/Users", formData);
+		dispatch({ type: CREATE_STAFF, payload: res.data });
+		history.push("/");
 	} catch (err) {
 		console.log("create Staffs error");
 		console.log(err);
@@ -195,9 +195,25 @@ export const approveStaff = id => async (dispatch, getState) => {
 	}
 };
 
+export const editStaff = id => async (dispatch, getState) => {
+	try {
+		const res = await staffs.patch(
+			`/api/Users/${id}?access_token=${getState().auth.accessToken}`
+		);
+		dispatch({ type: EDIT_STAFF, payload: res.data });
+	} catch (err) {
+		console.log("edit Staffs error");
+		console.log(err);
+		alert("edit Staffs error");
+		alert(JSON.stringify(err.response));
+	}
+};
+
 export const deleteStaff = id => async (dispatch, getState) => {
 	try {
-		// const res = await staffs.delete(`/api/Users/${id}?acess_token=${getState().auth.acessToken}`)
+		await staffs.delete(
+			`/api/Users/${id}?access_token=${getState().auth.accessToken}`
+		);
 		dispatch({ type: DELETE_STAFF, payload: id });
 	} catch (err) {
 		console.log("delete Staffs error");
