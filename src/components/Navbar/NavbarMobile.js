@@ -18,12 +18,6 @@ class NavbarMobile extends React.Component {
   handleShowClick = () => this.setState({ visible: true });
   handleSidebarHide = () => this.setState({ visible: false });
 
-  handlePusher = () => {
-    const { visible } = this.state;
-
-    if (visible) this.setState({ visible: false });
-  };
-
   render() {
     const { visible } = this.state;
     const screenHeight = window.screen.height;

@@ -13,6 +13,13 @@ const Navbar = props => {
     <div>
       <Responsive
         as={NavbarMobile}
+        {...Responsive.onlyTablet}
+        logout={logout}
+        isAuthenticated={isAuthenticated}
+        user={user}
+      />
+      <Responsive
+        as={NavbarMobile}
         {...Responsive.onlyMobile}
         logout={logout}
         isAuthenticated={isAuthenticated}
@@ -20,7 +27,7 @@ const Navbar = props => {
       />
       <Responsive
         as={NavbarDesktop}
-        minWidth={Responsive.onlyTablet.minWidth}
+        minWidth={Responsive.onlyComputer.minWidth}
         logout={logout}
         isAuthenticated={isAuthenticated}
         user={user}
