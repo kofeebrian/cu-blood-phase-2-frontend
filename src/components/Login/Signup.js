@@ -4,6 +4,30 @@ import { Grid } from "semantic-ui-react";
 class Signup extends Component {
 	state = {};
 
+	handleFormSubmit = e => {
+		e.preventDefault();
+		const formData = { ...this.state };
+		console.log(formData);
+	};
+
+	handleInputChange = e => {
+		const target = e.target;
+		const value = target.type === "checkbox" ? target.checked : target.value;
+		const name = target.name;
+
+		this.setState({
+			[name]: value
+		});
+
+		console.log(this.state);
+	};
+
+	handleRadioCheck = e => {};
+
+	// handleGetValue = e => {
+	// 	return this.state[e.target.name];
+	// };
+
 	render() {
 		return (
 			<div id='signup-form'>
@@ -13,13 +37,14 @@ class Signup extends Component {
 		  }
 		`}</style>
 				<Grid className='ui centered grid' style={{ padding: "60px" }}>
-					<form className='ui form'>
+					<form className='ui form' onSubmit={this.handleFormSubmit}>
 						<h4 className='ui dividing header'>ข้อมูลส่วนตัว</h4>
 						<div className='field'>
 							<div className='two fields'>
 								<div className='field'>
 									<label>ชื่อ</label>
 									<input
+										onChange={this.handleInputChange}
 										type='text'
 										name='first-name'
 										placeholder='First Name'
@@ -27,7 +52,12 @@ class Signup extends Component {
 								</div>
 								<div className='field'>
 									<label>นามสกุล</label>
-									<input type='text' name='last-name' placeholder='Last Name' />
+									<input
+										onChange={this.handleInputChange}
+										type='text'
+										name='last-name'
+										placeholder='Last Name'
+									/>
 								</div>
 							</div>
 						</div>
@@ -36,11 +66,20 @@ class Signup extends Component {
 							<div className='two fields'>
 								<div className='field'>
 									<label>ชื่อเล่น</label>
-									<input type='text' name='nick-name' placeholder='Nickname' />
+									<input
+										onChange={this.handleInputChange}
+										type='text'
+										name='nick-name'
+										placeholder='Nickname'
+									/>
 								</div>
 								<div className='field'>
 									<label>เพศ</label>
-									<select className='ui fluid dropdown'>
+									<select
+										name='gender'
+										onChange={this.handleInputChange}
+										className='ui fluid dropdown'
+									>
 										<option value='M'>ชาย</option>
 										<option value='F'>หญิง</option>
 									</select>
@@ -53,6 +92,7 @@ class Signup extends Component {
 								<div className='field'>
 									<label>รหัสนิสิต</label>
 									<input
+										onChange={this.handleInputChange}
 										type='text'
 										name='student-id'
 										placeholder='Student ID'
@@ -60,7 +100,11 @@ class Signup extends Component {
 								</div>
 								<div className='field'>
 									<label>คณะ</label>
-									<select className='ui fluid dropdown'>
+									<select
+										name='Fac'
+										className='ui fluid dropdown'
+										onChange={this.handleInputChange}
+									>
 										<option value='Med'>อื่นๆ</option>
 										<option value='Med'>พยาบาลศาสตร์</option>
 										<option value='Eng'>วิศวกรรมศาสตร์</option>
@@ -86,7 +130,11 @@ class Signup extends Component {
 								</div>
 								<div className='field'>
 									<label>ชั้นปี</label>
-									<select className='ui fluid dropdown'>
+									<select
+										name='year'
+										className='ui fluid dropdown'
+										onChange={this.handleInputChange}
+									>
 										<option value='1'>1</option>
 										<option value='2'>2</option>
 										<option value='3'>3</option>
@@ -103,6 +151,7 @@ class Signup extends Component {
 								<div className='field'>
 									<label>เบอร์โทรศัพท์</label>
 									<input
+										onChange={this.handleInputChange}
 										type='text'
 										name='phone-number'
 										placeholder='Phone number'
@@ -110,7 +159,12 @@ class Signup extends Component {
 								</div>
 								<div className='field'>
 									<label>E-mail</label>
-									<input type='text' name='mail' placeholder='E-mail' />
+									<input
+										onChange={this.handleInputChange}
+										type='email'
+										name='mail'
+										placeholder='E-mail'
+									/>
 								</div>
 							</div>
 						</div>
@@ -119,11 +173,21 @@ class Signup extends Component {
 							<div className='two fields'>
 								<div className='field'>
 									<label>Line ID</label>
-									<input type='text' name='line-id' placeholder='Line  ID' />
+									<input
+										onChange={this.handleInputChange}
+										type='text'
+										name='line-id'
+										placeholder='Line  ID'
+									/>
 								</div>
 								<div className='field'>
 									<label>Facebook</label>
-									<input type='text' name='fb' placeholder='Facebook' />
+									<input
+										onChange={this.handleInputChange}
+										type='text'
+										name='fb'
+										placeholder='Facebook'
+									/>
 								</div>
 							</div>
 						</div>
@@ -132,129 +196,77 @@ class Signup extends Component {
 						<h4 className='ui dividing header'>ฝ่ายที่ต้องการเข้า</h4>
 						<div className='field'>
 							<div className='two fields'>
-								<div className='grouped fields'>
-									<label htmlFor='role'>ฝ่ายที่สังกัดใน Season 1:</label>
+								<div
+									name='season1'
+									className='grouped fields'
+									onChange={this.handleInputChange}
+								>
+									<label htmlFor='role1'>ฝ่ายที่สังกัดใน Season 1:</label>
 									<div className='field'>
 										<div className='ui radio checkbox'>
-											<input
-												type='radio'
-												name='role'
-												checked=''
-												tabIndex='0'
-												className='hidden'
-											/>
+											<input type='radio' name='role1' value='0' tabIndex='0' />
 											<label>กิจกรรม (Event)</label>
 										</div>
 									</div>
 									<div className='field'>
 										<div className='ui radio checkbox'>
-											<input
-												type='radio'
-												name='role'
-												checked=''
-												tabIndex='0'
-												className='hidden'
-											/>
+											<input type='radio' name='role1' value='1' tabIndex='0' />
 											<label>ประชาสัมพันธ์ (PR)</label>
 										</div>
 									</div>
 									<div className='field'>
 										<div className='ui radio checkbox'>
-											<input
-												type='radio'
-												name='role'
-												checked=''
-												tabIndex='0'
-												className='hidden'
-											/>
+											<input type='radio' name='role1' tabIndex='0' value='2' />
 											<label>ปฏิคม (Reception)</label>
 										</div>
 									</div>
 									<div className='field'>
 										<div className='ui radio checkbox'>
-											<input
-												type='radio'
-												name='role'
-												checked=''
-												tabIndex='0'
-												className='hidden'
-											/>
+											<input type='radio' name='role1' tabIndex='0' value='3' />
 											<label>ทะเบียน (Registration)</label>
 										</div>
 									</div>
 									<div className='field'>
 										<div className='ui radio checkbox'>
-											<input
-												type='radio'
-												name='role'
-												checked=''
-												tabIndex='0'
-												className='hidden'
-											/>
+											<input type='radio' name='role1' tabIndex='0' value='4' />
 											<label>ทรัพยากรบุคคล (HR)</label>
 										</div>
 									</div>
 								</div>
 
-								<div className='grouped fields'>
-									<label htmlFor='role'>ฝ่ายที่สังกัดใน Season 2:</label>
+								<div
+									name='season2'
+									className='grouped fields'
+									onChange={this.handleInputChange}
+								>
+									<label htmlFor='role2'>ฝ่ายที่สังกัดใน Season 2:</label>
 									<div className='field'>
 										<div className='ui radio checkbox'>
-											<input
-												type='radio'
-												name='role'
-												checked=''
-												tabIndex='0'
-												className='hidden'
-											/>
+											<input type='radio' name='role2' tabIndex='0' value='0' />
 											<label>กิจกรรม (Event)</label>
 										</div>
 									</div>
 									<div className='field'>
 										<div className='ui radio checkbox'>
-											<input
-												type='radio'
-												name='role'
-												checked=''
-												tabIndex='0'
-												className='hidden'
-											/>
+											<input type='radio' name='role2' tabIndex='0' value='1' />
 											<label>ประชาสัมพันธ์ (PR)</label>
 										</div>
 									</div>
 									<div className='field'>
 										<div className='ui radio checkbox'>
-											<input
-												type='radio'
-												name='role'
-												checked=''
-												tabIndex='0'
-												className='hidden'
-											/>
+											<input type='radio' name='role2' tabIndex='0' value='2' />
 											<label>ปฏิคม (Reception)</label>
 										</div>
 									</div>
 									<div className='field'>
 										<div className='ui radio checkbox'>
-											<input
-												type='radio'
-												name='role'
-												checked=''
-												tabIndex='0'
-												className='hidden'
-											/>
+											<input type='radio' name='role2' tabIndex='0' value='3' />
 											<label>ทะเบียน (Registration)</label>
 										</div>
 									</div>
 									<div className='field'>
 										<div className='ui radio checkbox'>
-											<input
-												type='radio'
-												name='role'
-												checked=''
-												tabIndex='0'
-												className='hidden'
-											/>
+											<input type='radio' name='role2' tabIndex='0' value='4' />
 											<label>ทรัพยากรบุคคล (HR)</label>
 										</div>
 									</div>
@@ -269,14 +281,22 @@ class Signup extends Component {
 								ขึ้นอยู่กับการพิจารณาของแต่ละฝ่าย*
 							</h4>
 							<div className='ui checkbox'>
-								<input type='checkbox' name='example' />
+								<input
+									onChange={this.handleInputChange}
+									type='checkbox'
+									name='accepted'
+								/>
 								<label>รับทราบ</label>
 							</div>
 						</div>
 						<br />
-						<div className='ui button' tabIndex='0'>
+						<button
+							className='ui button'
+							tabIndex='0'
+							disabled={!this.state.accepted}
+						>
 							Submit
-						</div>
+						</button>
 					</form>
 				</Grid>
 			</div>
