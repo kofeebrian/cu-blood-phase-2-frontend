@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Grid, Loader } from "semantic-ui-react";
 
 class Signup extends Component {
 	state = {};
@@ -29,6 +31,23 @@ class Signup extends Component {
 	// };
 
 	render() {
+		const { isAuthenticated, user } = this.props;
+		const { from } = this.props.location.state || { from: { pathname: "/" } };
+
+		if (user) {
+			return <Redirect to={from} />;
+		}
+
+		if (isAuthenticated && !user) {
+			return (
+				<div className='ui container'>
+					<Loader active size='massive'>
+						Loading
+					</Loader>
+				</div>
+			);
+		}
+
 		return (
 			<div id='signup-form'>
 				<style>{`
@@ -291,12 +310,15 @@ class Signup extends Component {
 						</div>
 						<br />
 						<button
-							className='ui button'
+							className='ui button left floated'
 							tabIndex='0'
 							disabled={!this.state.accepted}
 						>
 							Submit
 						</button>
+						<Link className='ui button primary right floated' to='/signup'>
+							Back
+						</Link>
 					</form>
 				</Grid>
 			</div>
@@ -304,4 +326,13 @@ class Signup extends Component {
 	}
 }
 
-export default Signup;
+const mapStateToProps = stateRedux => {
+	return {
+		isAuthenticated: stateRedux.auth.isAuthenticated,
+		user: stateRedux.auth.user,
+		userId: stateRedux.auth.userId,
+		accessToken: stateRedux.auth.accessToken
+	};
+};
+
+export default connect(mapStateToProps)(Signup);

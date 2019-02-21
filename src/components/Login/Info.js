@@ -1,17 +1,49 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Button, Loader } from "semantic-ui-react";
 
-const Signup = () => (
-	<div>
-		<h1>Sign Up</h1>
-		<Button as={Link} to='/signupform'>
-			To Signup Form
-		</Button>
-	</div>
-);
+const Info = props => {
+	const { isAuthenticated, user } = props;
+	const { from } = props.location.state || { from: { pathname: "/" } };
 
-export default Signup;
+	if (user) {
+		return <Redirect to={from} />;
+	}
+
+	if (isAuthenticated && !user) {
+		return (
+			<div className='ui container'>
+				<Loader active size='massive'>
+					Loading
+				</Loader>
+			</div>
+		);
+	}
+
+	return (
+		<div>
+			<h1>Sign Up</h1>
+			<Button as={Link} floated='left' to='/signupform'>
+				To Signup Form
+			</Button>
+			<Button primary floated='right' as={Link} to='/'>
+				Back
+			</Button>
+		</div>
+	);
+};
+
+const mapStateToProps = stateRedux => {
+	return {
+		isAuthenticated: stateRedux.auth.isAuthenticated,
+		user: stateRedux.auth.user,
+		userId: stateRedux.auth.userId,
+		accessToken: stateRedux.auth.accessToken
+	};
+};
+
+export default connect(mapStateToProps)(Info);
 
 // import React, { Component } from "react";
 // import {
