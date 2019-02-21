@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Dropdown, Image } from "semantic-ui-react";
+import { Menu, Dropdown, Image, Header } from "semantic-ui-react";
 
 class NavbarDesktop extends React.Component {
   renderAdminMenuItem = () => {
@@ -8,12 +8,9 @@ class NavbarDesktop extends React.Component {
 
     if (user && user.isAdmin) {
       return (
-        <Menu.Item
-          className="ui borderless"
-          name="Manage Staffs"
-          as={Link}
-          to="/manage-staff"
-        />
+        <Menu.Item className="ui borderless" as={Link} to="/manage-staff">
+          <Header as="h4">Manage Staff</Header>
+        </Menu.Item>
       );
     }
 
@@ -22,22 +19,20 @@ class NavbarDesktop extends React.Component {
 
   render() {
     return (
-      <Menu stackable color={"white"} fixed="top">
+      <Menu stackable fixed="top">
         <Menu.Item header className="ui text centered width 10px">
           <Image
             src="https://cu-blood.herokuapp.com/static/logo/logo1.svg"
-            size="mini"
+            size="tiny"
           />
           CU Blood
         </Menu.Item>
-        <Menu.Item className="ui borderless" name="Home" as={Link} to="/" />
-
-        <Menu.Item
-          className="ui borderless"
-          name="QR reader"
-          as={Link}
-          to="/qr"
-        />
+        <Menu.Item className="ui borderless" as={Link} to="/">
+          <Header as="h4">Home</Header>
+        </Menu.Item>
+        <Menu.Item className="ui borderless" as={Link} to="/qr">
+          <Header as="h4">QR reader</Header>
+        </Menu.Item>
 
         {this.renderAdminMenuItem()}
 
