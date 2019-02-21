@@ -7,7 +7,8 @@ import {
   Image,
   Message,
   Segment,
-  Loader
+  Loader,
+  Responsive
 } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -87,17 +88,32 @@ class LoginForm extends React.Component {
       <div className="login-form">
         <Grid centered>
           <Grid.Column>
-            <Image
-              src="https://cu-blood.herokuapp.com/static/logo/logo1.svg"
-              size="tiny"
-              style={{
-                display: "block",
-                position: "relative",
-                marginLeft: "auto",
-                marginRight: "auto",
-                marginTop: "-10%"
-              }}
-            />
+            <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+              <Image
+                src="https://cu-blood.herokuapp.com/static/logo/logo1.svg"
+                size="tiny"
+                style={{
+                  display: "block",
+                  position: "relative",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  marginTop: "0%"
+                }}
+              />
+            </Responsive>
+            <Responsive {...Responsive.onlyMobile}>
+              <Image
+                src="https://cu-blood.herokuapp.com/static/logo/logo1.svg"
+                size="tiny"
+                style={{
+                  display: "block",
+                  position: "relative",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  marginTop: "-10%"
+                }}
+              />
+            </Responsive>
           </Grid.Column>
         </Grid>
         <Grid
