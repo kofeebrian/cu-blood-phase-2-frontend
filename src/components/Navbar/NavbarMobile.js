@@ -7,7 +7,8 @@ import {
   Sidebar,
   Image,
   Segment,
-  Divider
+  Divider,
+  Header
 } from "semantic-ui-react";
 
 class NavbarMobile extends React.Component {
@@ -29,8 +30,12 @@ class NavbarMobile extends React.Component {
 
     return (
       <div>
-        <Menu inverted color={"red"} fixed="top">
+        <Menu fixed="top">
           <Menu.Item as={Link} to="/" header className="ui borderless">
+            <Image
+              src="https://cu-blood.herokuapp.com/static/logo/logo1.svg"
+              size="mini"
+            />
             CU Blood
           </Menu.Item>
           <Menu.Item
@@ -50,21 +55,31 @@ class NavbarMobile extends React.Component {
           direction="top"
           animation="push"
         >
-          <Menu.Menu as={Segment} basic>
+          <Menu.Menu as={Segment} basic style={{ padding: "9px" }}>
             <Menu.Item>
               <Image
                 src="https://cu-blood.herokuapp.com/static/logo/logo1.svg"
                 size="mini"
               />
             </Menu.Item>
+            <Menu.Item style={{ padding: "20px 0 0 6px" }}>
+              <Header as="h3" textAlign="center">
+                CU Blood
+              </Header>
+            </Menu.Item>
             <Menu.Menu position="right">
               <Menu.Item as={Button} onClick={this.handleHideClick}>
-                <Icon name="close" circular inverted color={"grey"} />
+                <Icon name="close" circular inverted color={"red"} />
               </Menu.Item>
             </Menu.Menu>
           </Menu.Menu>
           <Menu.Item as={Divider} horizontal fitted />
-          <Menu.Item as={Link} to="/" onClick={this.handleHideClick}>
+          <Menu.Item
+            as={Link}
+            to="/"
+            onClick={this.handleHideClick}
+            style={{ margin: "auto" }}
+          >
             <Icon name="home" />
             Home
           </Menu.Item>
