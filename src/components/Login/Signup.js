@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Grid, Loader } from "semantic-ui-react";
+import { Grid, Loader, Header, Icon } from "semantic-ui-react";
 
 import "./Login.css";
 import { createStaff } from "../../actions";
@@ -70,8 +70,12 @@ class Signup extends Component {
 		}
 
 		return (
-			<div id='signup-form'>
-				<Grid className='ui centered grid' style={{ padding: "60px" }}>
+			<div id='signup-form' className='ui container'>
+				<Header as='h1' icon textAlign='center'>
+					<Icon name='signup' circular inverted color='red' size='mini' />
+					<Header.Content>Sign Up</Header.Content>
+				</Header>
+				<Grid className='ui centered grid' style={{ padding: "30px" }}>
 					<form className='ui form' onSubmit={this.handleFormSubmit}>
 						<h4 className='ui dividing header'>Username and Password</h4>
 						<div className='field'>
@@ -258,84 +262,39 @@ class Signup extends Component {
 						<h4 className='ui dividing header'>ฝ่ายที่ต้องการเข้า</h4>
 						<div className='field'>
 							<div className='two fields'>
-								<div
-									name='season1'
-									className='grouped fields'
-									onChange={this.handleInputChange}
-								>
-									<label htmlFor='role1'>ฝ่ายที่สังกัดใน Season 1:</label>
-									<div className='field'>
-										<div className='ui radio checkbox'>
-											<input type='radio' name='role1' value='0' tabIndex='0' />
-											<label>กิจกรรม (Event)</label>
-										</div>
-									</div>
-									<div className='field'>
-										<div className='ui radio checkbox'>
-											<input type='radio' name='role1' value='1' tabIndex='0' />
-											<label>ประชาสัมพันธ์ (PR)</label>
-										</div>
-									</div>
-									<div className='field'>
-										<div className='ui radio checkbox'>
-											<input type='radio' name='role1' tabIndex='0' value='2' />
-											<label>ปฏิคม (Reception)</label>
-										</div>
-									</div>
-									<div className='field'>
-										<div className='ui radio checkbox'>
-											<input type='radio' name='role1' tabIndex='0' value='3' />
-											<label>ทะเบียน (Registration)</label>
-										</div>
-									</div>
-									<div className='field'>
-										<div className='ui radio checkbox'>
-											<input type='radio' name='role1' tabIndex='0' value='4' />
-											<label>ทรัพยากรบุคคล (HR)</label>
-										</div>
+								<div className='field'>
+									<div className='ui radio checkbox'>
+										<input type='radio' name='role' value='0' tabIndex='0' />
+										<label>กิจกรรม (Event)</label>
 									</div>
 								</div>
-
-								<div
-									name='season2'
-									className='grouped fields'
-									onChange={this.handleInputChange}
-								>
-									<label htmlFor='role2'>ฝ่ายที่สังกัดใน Season 2:</label>
-									<div className='field'>
-										<div className='ui radio checkbox'>
-											<input type='radio' name='role2' tabIndex='0' value='0' />
-											<label>กิจกรรม (Event)</label>
-										</div>
+								<div className='field'>
+									<div className='ui radio checkbox'>
+										<input type='radio' name='role' value='1' tabIndex='0' />
+										<label>ประชาสัมพันธ์ (PR)</label>
 									</div>
-									<div className='field'>
-										<div className='ui radio checkbox'>
-											<input type='radio' name='role2' tabIndex='0' value='1' />
-											<label>ประชาสัมพันธ์ (PR)</label>
-										</div>
+								</div>
+								<div className='field'>
+									<div className='ui radio checkbox'>
+										<input type='radio' name='role' tabIndex='0' value='2' />
+										<label>ปฏิคม (Reception)</label>
 									</div>
-									<div className='field'>
-										<div className='ui radio checkbox'>
-											<input type='radio' name='role2' tabIndex='0' value='2' />
-											<label>ปฏิคม (Reception)</label>
-										</div>
+								</div>
+								<div className='field'>
+									<div className='ui radio checkbox'>
+										<input type='radio' name='role' tabIndex='0' value='3' />
+										<label>ทะเบียน (Registration)</label>
 									</div>
-									<div className='field'>
-										<div className='ui radio checkbox'>
-											<input type='radio' name='role2' tabIndex='0' value='3' />
-											<label>ทะเบียน (Registration)</label>
-										</div>
-									</div>
-									<div className='field'>
-										<div className='ui radio checkbox'>
-											<input type='radio' name='role2' tabIndex='0' value='4' />
-											<label>ทรัพยากรบุคคล (HR)</label>
-										</div>
+								</div>
+								<div className='field'>
+									<div className='ui radio checkbox'>
+										<input type='radio' name='role' tabIndex='0' value='4' />
+										<label>ทรัพยากรบุคคล (HR)</label>
 									</div>
 								</div>
 							</div>
 						</div>
-
+						<br />
 						<div className='field'>
 							<h4>
 								กรุณาตรวจสอบรายละเอียดให้ครบถ้วน

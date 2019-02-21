@@ -43,11 +43,17 @@ class ManageStaff extends Component {
 	};
 
 	resetComponent = () =>
-		this.setState({
-			isLoading: false,
-			staff_results: this.props.staffs,
-			value: ""
-		});
+		this.state.staff_status === "staff"
+			? this.setState({
+					isLoading: false,
+					staff_results: this.props.staffs,
+					value: ""
+			  })
+			: this.setState({
+					isLoading: false,
+					staff_results: this.props.staffs.filter(staff => !staff.isApproved),
+					value: ""
+			  });
 
 	handleSearchChange = (e, { value }) => {
 		const { staffs } = this.props;
@@ -58,21 +64,49 @@ class ManageStaff extends Component {
 			if (this.state.value.length < 1) return this.resetComponent();
 
 			const re = new RegExp(_.escapeRegExp(this.state.value), "i");
-			const isMatch = result => re.test(result.email); // <-- change type of searching
+			const isMatch = result =>
+				re.test(result.username) &&
+				(this.state.staff_status !== "staff" ? !result.isApproved : true); // <-- change type of searching
 
 			this.setState({
 				isLoading: false,
 				staff_results: _.filter(staffs, isMatch)
 			});
-
-			console.log(this.state.staff_results);
 		}, 300);
 	};
 
-	renderAdmin = id => {
+	renderAdmin = staff => {
 		const { user } = this.props;
 
-		if (user && user.isAdmin && user.id !== id) {
+		if (user && user.isAdmin && user.id !== staff.id) {
+			if (!staff.isAdmin && !staff.isApproved) {
+				return (
+					<>
+						<Modal
+							trigger={
+								<Button name='delete' negative floated='right'>
+									Decline
+								</Button>
+							}
+							header='Decline Staff'
+							content={`Are you sure to decline this staff`}
+							actions={[
+								{
+									key: "delete",
+									content: "Decline",
+									negative: true,
+									onClick: e => this.handleDeleteClick(staff.id)
+								},
+								{ key: "cancel", content: "Cancel" }
+							]}
+						/>
+
+						<Button primary name='approve' floated='right'>
+							Approve
+						</Button>
+					</>
+				);
+			}
 			return (
 				<>
 					<Modal
@@ -88,13 +122,18 @@ class ManageStaff extends Component {
 								key: "delete",
 								content: "Delete",
 								negative: true,
-								onClick: e => this.handleDeleteClick(id)
+								onClick: e => this.handleDeleteClick(staff.id)
 							},
 							{ key: "cancel", content: "Cancel" }
 						]}
 					/>
 
-					<Button as={Link} to={`/edit/${id}`} name='view' floated='right'>
+					<Button
+						as={Link}
+						to={`/edit/${staff.id}`}
+						name='view'
+						floated='right'
+					>
 						View
 					</Button>
 				</>
@@ -125,7 +164,7 @@ class ManageStaff extends Component {
 							</Item.Meta>
 							<Item.Description>{}</Item.Description>
 							<Item.Extra>
-								{this.renderAdmin(staff.id)}
+								{this.renderAdmin(staff)}
 								<Label>Limited</Label>
 							</Item.Extra>
 						</Item.Content>
@@ -141,7 +180,10 @@ class ManageStaff extends Component {
 		);
 	};
 
-	handleItemClick = (e, { name }) => this.setState({ staff_status: name });
+	handleItemClick = async (e, { name }) => {
+		await this.setState({ staff_status: name });
+		this.resetComponent();
+	};
 
 	render() {
 		const { staff_status, isLoading, value } = this.state;
