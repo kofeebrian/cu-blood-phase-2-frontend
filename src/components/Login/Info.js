@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Button, Loader } from "semantic-ui-react";
+import { Button, Loader, Grid, Accordion,Icon} from "semantic-ui-react";
 
 const Info = props => {
 	const { isAuthenticated, user } = props;
@@ -20,16 +20,118 @@ const Info = props => {
 			</div>
 		);
 	}
-
+	
 	return (
 		<div>
+			<Grid className="ui centered grid"  >
 			<h1>Sign Up</h1>
-			<Button as={Link} floated='left' to='/signupform'>
-				To Signup Form
-			</Button>
-			<Button primary floated='right' as={Link} to='/'>
+			</Grid>
+			<h1>หน้าที่แต่ละฝ่าย</h1>
+			<Grid.Row>
+				<h3>1.ฝ่ายกิจกรรม (Event) </h3>
+				<p>หน้าที่</p>
+				<p>	• ร่วมกันสร้างสรรค์เกม กิจกรรมและของตกแต่งที่ใช้ในซุ้มวันงานจริงให้ผู้เข้าร่วมบริจาคโลหิต พร้อมทั้งแจกของรางวัลจากการเล่นเกมให้ผู้มาบริจาค</p>
+				<p>		• จัดซุ้มงาน และเฝ้าซุ้มในสัปดาห์บริจาคโลหิต</p>
+				<p>		• มาทำอุปกรณ์ และของตกแต่งที่ต้องใช้ก่อนวันจริง</p>
+				<p>		• มาร่วมกิจกรรมสัปดาห์ประชาสัมพันธ์โครงการ</p>
+				<p>		• มาปฏิบัติงานในช่วงสัปดาห์บริจาคโลหิต คือวันที่ 25 - 29 มีนาคม 2562</p>
+				<p>	✿ คุณสมบัติ</p>
+				<p>	• มีความสามารถทางศิลปะ มีความคิดสร้างสรรค์ ชอบวาดภาพ ตัดกระดาษ ทำของตกแต่งต่าง ๆ</p>
+				<p>	• ชอบความสนุกท้าทาย พร้อมเรียนรู้สิ่งใหม่ ๆ อยากรู้จักคนใหม่ ๆ มีมนุษยสัมพันธ์ที่ดี และมีความรับผิดชอบ</p>
+				<p>	• สร้างรอยยิ้มและเสียงหัวเราะให้แก่ผู้เข้าร่วมบริจาคโลหิต</p>
+				<p>	• สร้างสีสันและมิตรภาพระหว่างสตาฟกับผู้เข้าร่วมบริจาคโลหิต รวมถึงระหว่างสตาฟกันเอง</p>
+			</Grid.Row>
+
+
+			<Grid.Row>
+			<br/>
+			<h3>2. ฝ่ายประชาสัมพันธ์ (PR) </h3>
+			<p>โดยแบ่งเป็นฝ่ายย่อยอีก 3 ฝ่ายคือ ฝ่าย Roadshow ฝ่าย Content และฝ่าย Social media</p>
+			<p>2.1) PR ฝ่าย Roadshow</p>
+			<p>❀ หน้าที่ </p>
+			<p>• จัดกิจกรรมสัปดาห์ประชาสัมพันธ์โครงการที่จะจัดขึ้นตามสถานที่ต่าง ๆ ภายในมหาวิทยาลัย</p>
+			<p>• พูดเชิญชวนและให้ข้อมูลเกี่ยวกับการบริจาคเลือดและรายละเอียดของโครงการ</p>
+			<p>2.2) PR ฝ่าย Content</p>
+			<p>❀ หน้าที่ </p>
+			<p>• ออกแบบงานอาร์ตเพื่อใช้ประชาสัมพันธ์โครงการผ่านช่องทางต่าง ๆ เช่น online, poster, cutout หรือช่องทางอื่น ๆ</p>
+			<p>2.3) PR ฝ่าย Social media</p>
+			<p>❀ หน้าที่ </p>
+			<p>• ให้ข้อมูลและลงประชาสัมพันธ์ผ่าน Social media ต่าง ๆ </p>
+			<p>• ดูแลเพจเฟซบุ๊ก CU Blood</p>
+
+			<p>✿ คุณสมบัติ</p>
+			<p>• มีความรับผิดชอบ</p>
+			<p>• กระตือรืนร้น สามารถทำงานเป็นทีมได้</p>
+			<p>• ฝ่าย Roadshow จะต้องมีมนุษยสัมพันธ์ดี กล้าพูด กล้าแสดงออก</p>
+			<p>• ฝ่าย Content จะต้องชอบงานออกแบบ สามารถใช้โปรแกรม Photoshop หรือ Illustrator และรับแรงกดดันในการทำงานได้</p>
+			<p>• ฝ่าย Social media จะต้องสามารถให้ข้อมูลของโครงการ ตอบคำถาม และรับผิดชอบการประชาสัมพันธ์ออนไลน์ได้</p>
+			</Grid.Row>
+		
+			<Grid.Row>
+				<br/>
+				<h3>3. ฝ่ายปฏิคม (Reception) </h3>
+				<p>❀ หน้าที่</p>
+				<p>• โทรศัพท์หาผู้ที่มาลงทะเบียนบริจาคล่วงหน้า เพื่อย้ำเตือนในช่วงใกล้สัปดาห์บริจาคจริง</p>
+				<p>• มาปฏิบัติงานในช่วงสัปดาห์บริจาคจริง คือวันที่ 25 - 29 มีนาคม 2562 (จะมีรอบให้เลือกภายหลัง)</p>
+				<p>• ต้อนรับ พร้อมทั้งอธิบายขั้นตอนการบริจาค ตำแหน่งของสถานที่บริจาค รวมถึงประโยชน์ และสิทธิพิเศษภายหลังการบริจาคแก่ผู้เข้าร่วมโครงการ</p>
+				<p>• คอยให้คำปรึกษาและคำแนะนำเกี่ยวกับการเตรียมตัวที่ถูกต้องในการมาบริจาคโลหิตแก่ผู้เข้าร่วมโครงการ พร้อมทั้งพาผู้บริจาคไปยังจุดต่าง ๆ เพื่อดำเนินการบริจาคโลหิต ที่สภากาชาดไทย</p>
+				<p>• ติดต่อประสานงานในการรับ-ส่งผู้เข้าร่วมโครงการระหว่างตึกมหิตลาธิเบศร กับศูนย์บริการโลหิตแห่งชาติ สภากาชาดไทย</p>
+
+				<p>✿ คุณสมบัติ</p>
+				<p>• มีความรับผิดชอบ อดทน พยายาม ตรงต่อเวลา และกระตือรือร้นในหน้าที่ของตน</p>
+				<p>• มีมนุษยสัมพันธ์ที่ดี ยิ้มแย้มแจ่มใส</p>
+				<p>• มีใจรักในงานบริการ และอยากทำงานในฝ่ายปฏิคม</p>
+				<p>• สามารถให้คำแนะนำเกี่ยวกับการบริจาคโลหิตแก่ผู้มาสอบถามได้ (ไม่จำเป็นต้องมีความรู้มาก่อน)</p>
+
+
+			</Grid.Row>
+
+			<Grid.Row>
+				<br/>
+			<h3>4. ฝ่ายทะเบียน (Registration) </h3>
+			<p>❀ หน้าที่</p>
+			<p>• รับลงทะเบียนให้กับผู้มาบริจาคโลหิต</p>
+			<p>• เช็ครายชื่อสำหรับผู้ที่ลงทะเบียนบริจาคล่วงหน้า พร้อมทั้งแจกใบกรอกข้อมูลของสภากาชาด และใบประเมินโครงการให้แก่ผู้บริจาคในวันบริจาคจริง</p>
+			<p>• ให้คำแนะนำ และตอบคำถามแก่ผู้บริจาคโลหิต</p>
+			<p>•โทรศัพท์หาผู้ที่มาลงทะเบียนบริจาคล่วงหน้า เพื่อย้ำเตือนในช่วงใกล้สัปดาห์บริจาคจริง</p>
+			<p>• มาร่วมกิจกรรมสัปดาห์ประชาสัมพันธ์โครงการ (ไม่จำเป็นต้องมาทุกวัน)</p>
+			<p>• แจกของที่ระลึกให้แก่ผู้มาบริจาคเลือดกับโครงการฯ ณ ศูนย์บริการโลหิตแห่งชาติ สภากาชาดไทย</p>
+			<p>• มาปฏิบัติงานในช่วงสัปดาห์บริจาคโลหิต คือวันที่ 25 - 29 มีนาคม 2562 ได้อย่างน้อย 6 ชั่วโมง (ไม่จำเป็นต้องมาทุกวัน)</p>
+
+			<p>✿ คุณสมบัติ</p>
+			<p>• มีมนุษยสัมพันธ์ดี ยิ้มแย้มแจ่มใส เข้ากับผู้อื่นได้ง่าย</p>
+			<p>• ตรงต่อเวลา มีความตั้งใจ ทุ่มเท และมีความรับผิดชอบต่องานที่ทำ</p>
+			<p>• มีความรู้ ความเข้าใจเกี่ยวกับการบริจาคโลหิต สามารถให้คำแนะนำแก่ผู้บริจาคได้</p>
+
+
+
+			</Grid.Row>
+
+			<Grid.Row>
+			<br/>
+			<h3>5. ฝ่ายทรัพยากรบุคคล (Human Resource) </h3>
+			<p>❀ หน้าที่</p>
+<p>• ดำเนินการสรรหาสตาฟเพื่อเข้าร่วมโครงการ</p>
+<p>• ดูแลฐานข้อมูลสตาฟ</p>
+<p>• จัดกิจกรรมให้กับสตาฟในโครงการ ได้แก่ งาน CU First Blood และ งาน Thank Staff</p>
+<p>• จัดทำแบบประเมินที่เกี่ยวข้องกับโครงการ และสรุปผล</p>
+<p>• จัดทำเกียรติบัตรให้แก่สตาฟผู้ผ่านเกณฑ์การทำงาน</p>
+
+<p>✿ คุณสมบัติ</p>
+<p>• มีมนุษยสัมพันธ์ดี ยิ้มแย้มแจ่มใส เข้ากับผู้อื่นได้ง่าย</p>
+<p>• มีความตั้งใจ รอบคอบ และมีความรับผิดชอบต่องานที่ได้รับ</p>
+<p>• มีความกระตือรือร้น และตรงต่อเวลา</p>
+
+			</Grid.Row>
+			<br/>
+			<Grid.Column>
+			<Button primary floated='left' as={Link} to='/'>
 				Back
 			</Button>
+			<Button as={Link} floated='right' to='/signupform'>
+				To Signup Form
+			</Button>
+			</Grid.Column>
 		</div>
 	);
 };
@@ -45,276 +147,4 @@ const mapStateToProps = stateRedux => {
 
 export default connect(mapStateToProps)(Info);
 
-// import React, { Component } from "react";
-// import {
-// 	Container,
-// 	Dropdown,
-// 	Header,
-// 	Menu,
-// 	Button,
-// 	Accordion,
-// 	Icon
-// } from "semantic-ui-react";
-// export default class AccordionExampleStandard extends Component {
-// 	state = {
-// 		activeIndex: 0,
-// 		activeDuty: 0,
-// 		activeProperty: 0,
-// 		activeDuty2: 0,
-// 		activeProperty2: 0
-// 	};
 
-// 	handleClick = (e, titleProps) => {
-// 		const { index } = titleProps;
-// 		const {
-// 			activeIndex,
-// 			activeDuty,
-// 			activeProperty,
-// 			activeDuty2,
-// 			activeProperty2
-// 		} = this.state;
-// 		const newIndex = activeIndex === index ? -1 : index;
-// 		const newIndexDuty = activeDuty === index ? -1 : index;
-// 		const newIndexDuty2 = activeDuty2 === index ? -1 : index;
-// 		const newIndexProperty = activeProperty === index ? -1 : index;
-// 		const newIndexProperty2 = activeProperty2 === index ? -1 : index;
-// 		this.setState({
-// 			activeIndex: newIndex,
-// 			activeDuty: newIndexDuty,
-// 			activeProperty: newIndexProperty,
-// 			activeDuty2: newIndexProperty2
-// 		});
-// 	};
-// 	handleClickDuty = (e, titleProps) => {
-// 		const { index } = titleProps;
-// 		const { activeDuty } = this.state;
-// 		const newIndexDuty = activeDuty === index ? -1 : index;
-
-// 		this.setState({ activeDuty: newIndexDuty });
-// 	};
-// 	handleClickProperty = (e, titleProps) => {
-// 		const { index } = titleProps;
-// 		const { activeProperty } = this.state;
-// 		const newIndexProperty = activeProperty === index ? -1 : index;
-// 		this.setState({ activeProperty: newIndexProperty });
-// 	};
-// 	handleClickDuty2 = (e, titleProps) => {
-// 		const { index } = titleProps;
-// 		const { activeDuty2 } = this.state;
-// 		const newIndexDuty2 = activeDuty2 === index ? -1 : index;
-// 		this.setState({ activeDuty2: newIndexProperty2 });
-// 		handleClickProperty2 = (e, titleProps) => {
-// 			const { index } = titleProps;
-// 			const { activeProperty2 } = this.state;
-// 		};
-// 			const newIndexProperty2 = activeProperty2 === index ? -1 : index;
-// 		};
-// 	render() {
-// 		const { activeIndex } = this.state;
-// 		const { activeDuty } = this.state;
-// 		const { activeProperty } = this.state;
-// 		const { activeDuty2 } = this.state;
-// 		const { activeProperty2 } = this.state;
-// 		return (
-// 			<div>
-// 				<Menu inverted>
-// 					<Container>
-// 						<Menu.Item as='a' header>
-// 							Staff Recruitment CU Blood
-// 						</Menu.Item>
-
-// 						<Dropdown item simple text='ฝ่ายที่เปิดรับ'>
-// 							<Dropdown.Menu>
-// 								<Dropdown.Item>
-// 									<Accordion>
-// 										<Accordion.Title
-// 											active={activeIndex === 0}
-// 											index={0}
-// 											onClick={this.handleClick}
-// 										>
-// 											<Icon name='dropdown' />
-// 											1. ฝ่ายกิจกรรม (Event)
-// 										</Accordion.Title>
-// 										<Accordion.Content active={activeIndex === 0}>
-// 											<Accordion>
-// 												<Accordion.Title
-// 													active={activeIndex === 0}
-// 													index={0}
-// 													onClick={this.handleClickDuty}
-// 												>
-// 													<Icon name='dropdown' />
-// 													<p> หน้าที่</p>
-// 												</Accordion.Title>
-// 												<Accordion.Content active={activeDuty === 0}>
-// 													<p>
-// 														• ร่วมกันสร้างสรรค์เกม
-// 														กิจกรรมและของตกแต่งที่ใช้ในซุ้มวันงานจริงให้ผู้เข้าร่วมบริจาคโลหิต
-// 														พร้อมทั้งแจกของรางวัลจากการเล่นเกมให้ผู้มาบริจาค
-// 													</p>
-// 													<p>• จัดซุ้มงาน และเฝ้าซุ้มในสัปดาห์บริจาคโลหิต</p>
-// 													<p>• มาทำอุปกรณ์ และของตกแต่งที่ต้องใช้ก่อนวันจริง</p>
-// 													<p> • มาร่วมกิจกรรมสัปดาห์ประชาสัมพันธ์โครงการ</p>
-// 													<p>
-// 														{" "}
-// 														• มาปฏิบัติงานในช่วงสัปดาห์บริจาคโลหิต คือวันที่ 25
-// 														- 29 มีนาคม 2562
-// 													</p>
-// 												</Accordion.Content>
-// 											</Accordion>
-// 											<Accordion>
-// 												<Accordion.Title
-// 													active={activeIndex === 0}
-// 													index={0}
-// 													onClick={this.handleClickProperty}
-// 												>
-// 													<Icon name='dropdown' />
-// 													<p>คุณสมบัติ</p>
-// 												</Accordion.Title>
-// 												<Accordion.Content active={activeProperty === 0}>
-// 													<p>
-// 														• มีความสามารถทางศิลปะ มีความคิดสร้างสรรค์ ชอบวาดภาพ
-// 														ตัดกระดาษ ทำของตกแต่งต่าง ๆ
-// 													</p>
-// 													<p>
-// 														• ชอบความสนุกท้าทาย พร้อมเรียนรู้สิ่งใหม่ ๆ
-// 														อยากรู้จักคนใหม่ ๆ มีมนุษยสัมพันธ์ที่ดี
-// 														และมีความรับผิดชอบ
-// 													</p>
-// 													<p>
-// 														•
-// 														สร้างรอยยิ้มและเสียงหัวเราะให้แก่ผู้เข้าร่วมบริจาคโลหิต
-// 													</p>
-// 													<p>
-// 														•
-// 														สร้างสีสันและมิตรภาพระหว่างสตาฟกับผู้เข้าร่วมบริจาคโลหิต
-// 														รวมถึงระหว่างสตาฟกันเอง
-// 													</p>
-// 												</Accordion.Content>
-// 											</Accordion>
-// 										</Accordion.Content>
-// 									</Accordion>
-// 								</Dropdown.Item>
-// 								<Dropdown.Item>
-// 									<Accordion>
-// 										<Accordion.Title
-// 											active={activeIndex === 0}
-// 											index={0}
-// 											onClick={this.handleClick}
-// 										>
-// 											<Icon name='dropdown' />
-// 											2. ฝ่ายประชาสัมพันธ์ (PR)
-// 										</Accordion.Title>
-// 										<Accordion.Content active={activeIndex === 0}>
-// 											<Accordion>
-// 												<Accordion.Title
-// 													active={activeIndex === 0}
-// 													index={0}
-// 													onClick={this.handleClickDuty2}
-// 												>
-// 													<Icon name='dropdown' />
-// 													<p> PR ฝ่าย Roadshow</p>
-// 												</Accordion.Title>
-// 												<Accordion.Content active={activeDuty2 === 0}>
-// 													<p>
-// 														•
-// 														จัดกิจกรรมสัปดาห์ประชาสัมพันธ์โครงการที่จะจัดขึ้นตามสถานที่ต่าง
-// 														ๆ ภายในมหาวิทยาลัย
-// 													</p>
-// 													<p>
-// 														•
-// 														พูดเชิญชวนและให้ข้อมูลเกี่ยวกับการบริจาคเลือดและรายละเอียดของโครงการ
-// 													</p>
-// 												</Accordion.Content>
-
-// 												<Accordion.Title
-// 													active={activeIndex === 1}
-// 													index={1}
-// 													onClick={this.handleClickDuty2}
-// 												>
-// 													<Icon name='dropdown' />
-// 													<p> PR ฝ่าย Roadshow</p>
-// 												</Accordion.Title>
-// 												<Accordion.Content active={activeDuty2 === 1}>
-// 													<p>
-// 														•
-// 														ออกแบบงานอาร์ตเพื่อใช้ประชาสัมพันธ์โครงการผ่านช่องทางต่าง
-// 														ๆ เช่น online, poster, cutout หรือช่องทางอื่น ๆ
-// 													</p>
-// 												</Accordion.Content>
-
-// 												<Accordion.Title
-// 													active={activeIndex === 2}
-// 													index={2}
-// 													onClick={this.handleClickDuty2}
-// 												>
-// 													<Icon name='dropdown' />
-// 													<p> PR ฝ่าย Social media</p>
-// 												</Accordion.Title>
-// 												<Accordion.Content active={activeDuty2 === 2}>
-// 													<p>
-// 														• ให้ข้อมูลและลงประชาสัมพันธ์ผ่าน Social media ต่าง
-// 														ๆ{" "}
-// 													</p>
-// 													<p>• ดูแลเพจเฟซบุ๊ก CU Blood</p>
-// 												</Accordion.Content>
-// 											</Accordion>
-// 											<Accordion>
-// 												<Accordion.Title
-// 													active={activeIndex === 0}
-// 													index={0}
-// 													onClick={this.handleClickProperty}
-// 												>
-// 													<Icon name='dropdown' />
-// 													<p>คุณสมบัติ</p>
-// 												</Accordion.Title>
-// 												<Accordion.Content active={activeProperty === 0}>
-// 													<p>
-// 														• มีความสามารถทางศิลปะ มีความคิดสร้างสรรค์ ชอบวาดภาพ
-// 														ตัดกระดาษ ทำของตกแต่งต่าง ๆ
-// 													</p>
-// 													<p>
-// 														• ชอบความสนุกท้าทาย พร้อมเรียนรู้สิ่งใหม่ ๆ
-// 														อยากรู้จักคนใหม่ ๆ มีมนุษยสัมพันธ์ที่ดี
-// 														และมีความรับผิดชอบ
-// 													</p>
-// 													<p>
-// 														•
-// 														สร้างรอยยิ้มและเสียงหัวเราะให้แก่ผู้เข้าร่วมบริจาคโลหิต
-// 													</p>
-// 													<p>
-// 														•
-// 														สร้างสีสันและมิตรภาพระหว่างสตาฟกับผู้เข้าร่วมบริจาคโลหิต
-// 														รวมถึงระหว่างสตาฟกันเอง
-// 													</p>
-// 												</Accordion.Content>
-// 											</Accordion>
-// 										</Accordion.Content>
-// 									</Accordion>
-// 								</Dropdown.Item>
-// 								<Dropdown.Item>3. ฝ่ายปฏิคม (Reception)</Dropdown.Item>
-// 								<Dropdown.Item>4. ฝ่ายทะเบียน (Registration)</Dropdown.Item>
-// 								<Dropdown.Item>
-// 									5. ฝ่ายทรัพยากรบุคคล (Human Resource)
-// 								</Dropdown.Item>
-// 							</Dropdown.Menu>
-// 						</Dropdown>
-// 					</Container>
-// 				</Menu>
-
-// 				<Container text style={{ marginTop: "7em" }}>
-// 					<Header as='h1'>Staff Recruitment CU Blood</Header>
-// 					<p>1. ฝ่ายกิจกรรม (Event)</p>
-// 					<p>2. ฝ่ายประชาสัมพันธ์ (PR)</p>
-// 					<p>3. ฝ่ายปฏิคม (Reception)</p>
-// 					<p>4. ฝ่ายทะเบียน (Registration)</p>
-// 					<p>5. ฝ่ายทรัพยากรบุคคล (Human Resource)</p>
-// 					<br />
-// 					<br />
-// 					<Button color='red' fluid size='large' href='signupform'>
-// 						Register
-// 					</Button>
-// 				</Container>
-// 			</div>
-// 		);
-// 	}
-// }
