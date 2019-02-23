@@ -114,6 +114,15 @@ class ManageStaff extends Component {
 						>
 							Approve
 						</Button>
+
+						<Button
+							as={Link}
+							to={`/edit/${staff.id}`}
+							name='view'
+							floated='right'
+						>
+							View
+						</Button>
 					</>
 				);
 			}
@@ -190,7 +199,13 @@ class ManageStaff extends Component {
 								<Item.Description>{}</Item.Description>
 								<Item.Extra>
 									{this.renderAdmin(staff)}
-									<Label>Limited</Label>
+									<Label>
+										{staff.isApproved
+											? staff.isAdmin
+												? "Admin"
+												: "Staff"
+											: "Pending"}
+									</Label>
 								</Item.Extra>
 							</Item.Content>
 						</Item>

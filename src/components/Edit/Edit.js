@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Loader, Input, Segment } from "semantic-ui-react";
+import { Grid, Loader } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import { fetchStaff } from "../../actions";
@@ -35,17 +35,17 @@ class Edit extends Component {
 					textAlign='center'
 					style={{ padding: "60px" }}
 				>
-					<form className='ui form'>
+					<form className='ui form '>
 						<h4 className='ui dividing header'>ข้อมูลส่วนตัว</h4>
 						<div className='field'>
 							<div className='two fields'>
 								<div className='field'>
 									<label>ชื่อ</label>
-									<EditComponent
+									<input
 										type='text'
 										name='firstName'
 										placeholder='First Name'
-										value={firstName}
+										defaultValue={firstName}
 										isediting={this.state.isediting}
 									/>
 								</div>
@@ -89,11 +89,10 @@ class Edit extends Component {
 								</div>
 								<div className='field'>
 									<label>คณะ</label>
-									<EditComponent
+									<select
 										name='Faculty'
 										className='ui fluid dropdown'
 										type='select'
-										options={optionsFaculty}
 										isediting={this.state.isediting}
 									/>
 								</div>
@@ -151,18 +150,10 @@ class Edit extends Component {
 							textAlign='center'
 							style={{ padding: "30px" }}
 						>
-							<div
-								onClick={e => this.setState({ isediting: true })}
-								className='ui button'
-								tabIndex='0'
-							>
+							<div className='ui button' tabIndex='0'>
 								Edit
 							</div>
-							<div
-								onClick={e => this.setState({ isediting: false })}
-								className='ui button'
-								tabIndex='0'
-							>
+							<div className='ui button' tabIndex='0'>
 								Save
 							</div>
 						</Grid>

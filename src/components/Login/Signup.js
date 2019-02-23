@@ -160,7 +160,7 @@ class Signup extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='studentId'
+										name='studentNumber'
 										placeholder='Student ID'
 									/>
 								</div>
@@ -251,7 +251,7 @@ class Signup extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='fb'
+										name='facebook'
 										placeholder='Facebook'
 									/>
 								</div>
@@ -260,35 +260,39 @@ class Signup extends Component {
 
 						<br />
 						<h4 className='ui dividing header'>ฝ่ายที่ต้องการเข้า</h4>
-						<div className='field'>
+						<div
+							className='field'
+							name='team'
+							onChange={this.handleInputChange}
+						>
 							<div className='two fields'>
 								<div className='field'>
 									<div className='ui radio checkbox'>
-										<input type='radio' name='role' value='0' tabIndex='0' />
+										<input type='radio' name='team' value='0' tabIndex='0' />
 										<label>กิจกรรม (Event)</label>
 									</div>
 								</div>
 								<div className='field'>
 									<div className='ui radio checkbox'>
-										<input type='radio' name='role' value='1' tabIndex='0' />
+										<input type='radio' name='team' value='1' tabIndex='0' />
 										<label>ประชาสัมพันธ์ (PR)</label>
 									</div>
 								</div>
 								<div className='field'>
 									<div className='ui radio checkbox'>
-										<input type='radio' name='role' tabIndex='0' value='2' />
+										<input type='radio' name='team' value='2' tabIndex='0' />
 										<label>ปฏิคม (Reception)</label>
 									</div>
 								</div>
 								<div className='field'>
 									<div className='ui radio checkbox'>
-										<input type='radio' name='role' tabIndex='0' value='3' />
+										<input type='radio' name='team' value='3' tabIndex='0' />
 										<label>ทะเบียน (Registration)</label>
 									</div>
 								</div>
 								<div className='field'>
 									<div className='ui radio checkbox'>
-										<input type='radio' name='role' tabIndex='0' value='4' />
+										<input type='radio' name='team' value='4' tabIndex='0' />
 										<label>ทรัพยากรบุคคล (HR)</label>
 									</div>
 								</div>

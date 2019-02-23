@@ -8,7 +8,6 @@ import {
 	FETCH_STAFFS,
 	FETCH_STAFF,
 	DELETE_STAFF,
-	CREATE_STAFF,
 	EDIT_STAFF,
 	APPROVE_STAFF
 } from "./types";
@@ -174,7 +173,7 @@ export const createStaff = formData => async dispatch => {
 	try {
 		console.log("from create action");
 		console.log(formData);
-		const res = await staffs.post("/api/Users", formData);
+		await staffs.post("/api/Users", formData);
 		history.push("/");
 	} catch (err) {
 		console.log("create Staffs error");
