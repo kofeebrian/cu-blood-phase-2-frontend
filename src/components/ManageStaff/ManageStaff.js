@@ -12,7 +12,7 @@ import {
 	Modal
 } from "semantic-ui-react";
 
-import { fetchStaffs, deleteStaff } from "../../actions";
+import { fetchStaffs, deleteStaff, approveStaff } from "../../actions";
 
 class ManageStaff extends Component {
 	state = {
@@ -40,6 +40,11 @@ class ManageStaff extends Component {
 		this.setState({
 			staff_results: this.state.staff_results.filter(staff => staff.id !== id)
 		});
+	};
+
+	handleApproveClick = async id => {
+		await this.props.approveStaff(id);
+		this.resetComponent();
 	};
 
 	resetComponent = () =>
@@ -101,7 +106,12 @@ class ManageStaff extends Component {
 							]}
 						/>
 
-						<Button primary name='approve' floated='right'>
+						<Button
+							primary
+							name='approve'
+							floated='right'
+							onClick={e => this.handleApproveClick(staff.id)}
+						>
 							Approve
 						</Button>
 					</>
@@ -154,23 +164,38 @@ class ManageStaff extends Component {
 		}
 
 		if (staff_results.length > 0) {
-			return staff_results.map(staff => {
-				return (
-					<Item key={staff.id}>
-						<Item.Content>
-							<Item.Header as='a'>{staff.username}</Item.Header>
-							<Item.Meta>
-								<span className='cinema'>{staff.email}</span>
-							</Item.Meta>
-							<Item.Description>{}</Item.Description>
-							<Item.Extra>
-								{this.renderAdmin(staff)}
-								<Label>Limited</Label>
-							</Item.Extra>
-						</Item.Content>
-					</Item>
-				);
-			});
+			return staff_results
+				.sort((a, b) => {
+					if (a.isAdmin && !b.isAdmin) {
+						return 1;
+					} else if (b.isAdmin && !a.isAdmin) {
+						return -1;
+					}
+					if (a.isApproved && !b.isApproved) {
+						return 1;
+					} else if (b.isApproved && !a.isApproved) {
+						return -1;
+					}
+					return 0;
+				})
+				.reverse()
+				.map(staff => {
+					return (
+						<Item key={staff.id}>
+							<Item.Content>
+								<Item.Header as='a'>{staff.username}</Item.Header>
+								<Item.Meta>
+									<span className='cinema'>{staff.email}</span>
+								</Item.Meta>
+								<Item.Description>{}</Item.Description>
+								<Item.Extra>
+									{this.renderAdmin(staff)}
+									<Label>Limited</Label>
+								</Item.Extra>
+							</Item.Content>
+						</Item>
+					);
+				});
 		}
 
 		return (
@@ -241,5 +266,5 @@ const mapStateToProps = stateRedux => {
 
 export default connect(
 	mapStateToProps,
-	{ fetchStaffs, deleteStaff }
+	{ fetchStaffs, deleteStaff, approveStaff }
 )(ManageStaff);

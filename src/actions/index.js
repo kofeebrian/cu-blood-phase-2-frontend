@@ -9,7 +9,8 @@ import {
 	FETCH_STAFF,
 	DELETE_STAFF,
 	CREATE_STAFF,
-	EDIT_STAFF
+	EDIT_STAFF,
+	APPROVE_STAFF
 } from "./types";
 import users from "../apis/users";
 import staffs from "../apis/staffs";
@@ -138,7 +139,6 @@ export const logout = () => async (dispatch, getState) => {
 };
 
 export const fetchStaffs = () => async (dispatch, getState) => {
-	//axios.get('/api/Users?access_token=...')
 	try {
 		const res = await staffs.get(
 			"/api/Users?access_token=" + getState().auth.accessToken
@@ -175,7 +175,6 @@ export const createStaff = formData => async dispatch => {
 		console.log("from create action");
 		console.log(formData);
 		const res = await staffs.post("/api/Users", formData);
-		dispatch({ type: CREATE_STAFF, payload: res.data });
 		history.push("/");
 	} catch (err) {
 		console.log("create Staffs error");
@@ -187,6 +186,11 @@ export const createStaff = formData => async dispatch => {
 
 export const approveStaff = id => async (dispatch, getState) => {
 	try {
+		const res = await staffs.patch(
+			`/api/Users/${id}?access_token=${getState().auth.accessToken}`,
+			{ isApproved: true }
+		);
+		dispatch({ type: APPROVE_STAFF, payload: res.data });
 	} catch (err) {
 		console.log("approve Staffs error");
 		console.log(err);
@@ -195,10 +199,10 @@ export const approveStaff = id => async (dispatch, getState) => {
 	}
 };
 
-export const editStaff = id => async (dispatch, getState) => {
+export const editStaff = (id, formData) => async (dispatch, getState) => {
 	try {
 		const res = await staffs.patch(
-			`/api/Users/${id}?access_token=${getState().auth.accessToken}`
+			`/api/Users/${id}?access_token=${(getState().auth.accessToken, formData)}`
 		);
 		dispatch({ type: EDIT_STAFF, payload: res.data });
 	} catch (err) {

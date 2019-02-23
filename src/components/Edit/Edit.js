@@ -41,11 +41,12 @@ class Edit extends Component {
 							<div className='two fields'>
 								<div className='field'>
 									<label>ชื่อ</label>
-									<Input
+									<EditComponent
 										type='text'
 										name='firstName'
 										placeholder='First Name'
-										defaultValue={firstName}
+										value={firstName}
+										isediting={this.state.isediting}
 									/>
 								</div>
 								<div className='field'>
@@ -88,29 +89,13 @@ class Edit extends Component {
 								</div>
 								<div className='field'>
 									<label>คณะ</label>
-									<select className='ui fluid dropdown'>
-										<option value='Med'>อื่นๆ</option>
-										<option value='Med'>พยาบาลศาสตร์</option>
-										<option value='Eng'>วิศวกรรมศาสตร์</option>
-										<option value='Med'>วิทยาศาสตร์</option>
-										<option value='Eng'>พาณิชยศาสตร์และการบัญชี</option>
-										<option value='Med'>เศรษฐศาสตร์</option>
-										<option value='Eng'>ครุศาสตร์</option>
-										<option value='Med'>อักษรศาสตร์</option>
-										<option value='Eng'>นิติศาสตร์</option>
-										<option value='Med'>สถาปัตยกรรมศาสตร์</option>
-										<option value='Eng'>รัฐศาสตร์</option>
-										<option value='Med'>ศิลปกรรมศาสตร์</option>
-										<option value='Eng'>วิทยาศาสตร์การกีฬา</option>
-										<option value='Med'>นิเทศศาสตร์</option>
-										<option value='Eng'>แพทยศาสตร์</option>
-										<option value='Med'>ทันตแพทยศาสตร์</option>
-										<option value='Eng'>จิตวิทยา</option>
-										<option value='Med'>เภสัชศาสตร์</option>
-										<option value='Eng'>สหเวชศาสตร์</option>
-										<option value='Med'>สัตวแพทยศาสตร์</option>
-										<option value='Eng'>สำนักวิชาทรัพยากรการเกษตร</option>
-									</select>
+									<EditComponent
+										name='Faculty'
+										className='ui fluid dropdown'
+										type='select'
+										options={optionsFaculty}
+										isediting={this.state.isediting}
+									/>
 								</div>
 								<div className='field'>
 									<label>ชั้นปี</label>
@@ -167,14 +152,14 @@ class Edit extends Component {
 							style={{ padding: "30px" }}
 						>
 							<div
-								onClick={e => this.setState({ editing: true })}
+								onClick={e => this.setState({ isediting: true })}
 								className='ui button'
 								tabIndex='0'
 							>
 								Edit
 							</div>
 							<div
-								onClick={e => this.setState({ editing: false })}
+								onClick={e => this.setState({ isediting: false })}
 								className='ui button'
 								tabIndex='0'
 							>

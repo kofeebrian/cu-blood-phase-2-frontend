@@ -134,7 +134,7 @@ class Signup extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='nick-name'
+										name='nickName'
 										placeholder='Nickname'
 									/>
 								</div>
@@ -160,14 +160,14 @@ class Signup extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='student-id'
+										name='studentId'
 										placeholder='Student ID'
 									/>
 								</div>
 								<div className='field'>
 									<label>คณะ</label>
 									<select
-										name='Fac'
+										name='faculty'
 										className='ui fluid dropdown'
 										onChange={this.handleInputChange}
 									>
@@ -219,7 +219,7 @@ class Signup extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='phone-number'
+										name='phoneNumber'
 										placeholder='Phone number'
 									/>
 								</div>
@@ -242,8 +242,8 @@ class Signup extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='line-id'
-										placeholder='Line  ID'
+										name='lineId'
+										placeholder='Line ID'
 									/>
 								</div>
 								<div className='field'>
