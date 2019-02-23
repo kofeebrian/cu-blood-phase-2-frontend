@@ -51,7 +51,7 @@ class ManageStaff extends Component {
 		this.state.staff_status === "staff"
 			? this.setState({
 					isLoading: false,
-					staff_results: this.props.staffs,
+					staff_results: this.props.staffs.filter(staff => staff.isApproved),
 					value: ""
 			  })
 			: this.setState({
