@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Grid, Loader, Header, Icon } from "semantic-ui-react";
 
 import "./Login.css";
 import { createStaff } from "../../actions";
+import FormValidator from "../FormValidator";
 
 /* values ฝ่ายต่างๆ
 	0 - Event
@@ -14,40 +16,137 @@ import { createStaff } from "../../actions";
 	4 - HR
 */
 
-class Signup extends Component {
+class SignupForm extends Component {
+	submitted = false;
+
+	validator = new FormValidator([
+		{
+			field: "username",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Username is required."
+		},
+		{
+			field: "password",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Password is required"
+		},
+		{
+			field: "password",
+			method: "isLength",
+			args: [{ min: 6, max: undefined }],
+			validWhen: true,
+			message: "Password has to be more 6 characters."
+		},
+		{
+			field: "email",
+			method: "isEmpty",
+			validWhen: false,
+			message: "E-mail is required"
+		},
+		{
+			field: "email",
+			method: "isEmail",
+			validWhen: true,
+			message: "That is not a valid email."
+		},
+		{
+			field: "firstName",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Please add your firstname."
+		},
+		{
+			field: "lastName",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Please add your lastname."
+		},
+		{
+			field: "nickName",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Please add your nickname."
+		},
+		{
+			field: "gender",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Please choose your gender."
+		},
+		{
+			field: "faculty",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Please choose your faculty."
+		},
+		{
+			field: "year",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Please choose year."
+		},
+		{
+			field: "team",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Please choose your team you want to do."
+		}
+	]);
+
 	state = {
-		fields: {},
+		fields: {
+			username: "",
+			password: "",
+			firstName: "",
+			lastName: "",
+			nickName: "",
+			gender: "",
+			faculty: "",
+			lineId: "",
+			facebook: "",
+			team: "",
+			validation: this.validator.valid()
+		},
 		error: {},
 		accepted: false
 	};
 
-	handleValidation = () => {};
+	componentDidMount() {
+		console.log(this.state.fields);
+	}
 
 	handleAcceptedCheck = e => {
 		this.setState({
 			accepted: e.target.checked
 		});
-		console.log(this.state.accepted);
 	};
 
-	handleFormSubmit = e => {
+	handleFormSubmit = async e => {
 		e.preventDefault();
-		const formData = { ...this.state.fields };
-		console.log("from FormSubmit");
-		console.log(formData);
-		this.props.createStaff(formData);
+
+		const validation = await this.validator.validate(
+			_.omit(this.state.fields, "ignore_whitespace")
+		);
+		this.setState({ validation });
+		this.submitted = true;
+
+		if (validation.isValid()) {
+			const formData = { ...this.state.fields };
+			this.props.createStaff(formData);
+		}
 	};
 
 	handleInputChange = e => {
-		const target = e.target;
-		const value = target.type === "checkbox" ? target.checked : target.value;
-		const name = target.name;
+		e.preventDefault();
+		const value = e.target.value;
+		const name = e.target.name;
 
 		this.setState({
 			...this.state,
 			fields: { ...this.state.fields, [name]: value }
 		});
-
 		console.log(this.state.fields);
 	};
 
@@ -69,6 +168,10 @@ class Signup extends Component {
 			);
 		}
 
+		let validation = this.submitted
+			? this.validator.validate(_.omit(this.state.fields, "ignore_whitespace"))
+			: this.state.fields.validation;
+
 		return (
 			<div id='signup-form' className='ui container'>
 				<Header as='h1' icon textAlign='center'>
@@ -76,11 +179,15 @@ class Signup extends Component {
 					<Header.Content>Sign Up</Header.Content>
 				</Header>
 				<Grid className='ui centered grid' style={{ padding: "30px" }}>
-					<form className='ui form' onSubmit={this.handleFormSubmit}>
+					<form className='ui form error' onSubmit={this.handleFormSubmit}>
 						<h4 className='ui dividing header'>Username and Password</h4>
 						<div className='field'>
 							<div className='two fields'>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.username.isInvalid ? "error" : ""
+									}`}
+								>
 									<label htmlFor='username'>username</label>
 									<input
 										type='text'
@@ -89,6 +196,9 @@ class Signup extends Component {
 										placeholder='username'
 										onChange={this.handleInputChange}
 									/>
+									<span className='ui message negative hidden'>
+										{validation.username.message}
+									</span>
 								</div>
 								<div className='field'>
 									<label htmlFor='password'>password</label>
@@ -344,4 +454,4 @@ const mapStateToProps = stateRedux => {
 export default connect(
 	mapStateToProps,
 	{ createStaff }
-)(Signup);
+)(SignupForm);

@@ -192,10 +192,10 @@ class ManageStaff extends Component {
 					return (
 						<Item key={staff.id}>
 							<Item.Content>
-								<Item.Header as='a'>{staff.username}</Item.Header>
-								<Item.Meta>
-									<span className='cinema'>{staff.email}</span>
-								</Item.Meta>
+								<Item.Header as='a'>
+									{staff.firstName} {staff.lastName}
+								</Item.Header>
+								<Item.Meta>email: {staff.email}</Item.Meta>
 								<Item.Description>{}</Item.Description>
 								<Item.Extra>
 									{this.renderAdmin(staff)}

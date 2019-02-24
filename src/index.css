@@ -1,12 +1,12 @@
 body {
-  padding-top: 70px;
+	padding-top: 70px;
 }
 @media screen and (max-width: 768px) {
-  body {
-    padding-top: 50px;
-  }
+	body {
+		padding-top: 50px;
+	}
 }
 
 #root {
-  padding-top: 10px;
+	padding-top: 10px;
 }
