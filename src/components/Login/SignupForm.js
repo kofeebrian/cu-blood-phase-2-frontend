@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import _ from "lodash";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Grid, Loader, Header, Icon } from "semantic-ui-react";
@@ -88,6 +87,26 @@ class SignupForm extends Component {
 			message: "Please choose year."
 		},
 		{
+			field: "studentNumber",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Student number is required."
+		},
+		{
+			field: "studentNumber",
+			method: "isNumeric",
+			args: [{ no_symbols: true }],
+			validWhen: true,
+			message: "Student number must contains only 10 numbers."
+		},
+		{
+			field: "studentNumber",
+			method: "isLength",
+			args: [{ min: 10, max: 10 }],
+			validWhen: true,
+			message: "Student number must contains only 10 numbers."
+		},
+		{
 			field: "team",
 			method: "isEmpty",
 			validWhen: false,
@@ -96,25 +115,26 @@ class SignupForm extends Component {
 	]);
 
 	state = {
-		fields: {
-			username: "",
-			password: "",
-			firstName: "",
-			lastName: "",
-			nickName: "",
-			gender: "",
-			faculty: "",
-			lineId: "",
-			facebook: "",
-			team: "",
-			validation: this.validator.valid()
-		},
-		error: {},
+		username: "",
+		password: "",
+		firstName: "",
+		lastName: "",
+		nickName: "",
+		gender: "M",
+		studentNumber: "",
+		faculty: "0",
+		year: "1",
+		email: "",
+		phone: "",
+		lineId: "",
+		facebook: "",
+		team: "",
+		validation: this.validator.valid(),
 		accepted: false
 	};
 
 	componentDidMount() {
-		console.log(this.state.fields);
+		console.log(this.state);
 	}
 
 	handleAcceptedCheck = e => {
@@ -126,15 +146,47 @@ class SignupForm extends Component {
 	handleFormSubmit = async e => {
 		e.preventDefault();
 
-		const validation = await this.validator.validate(
-			_.omit(this.state.fields, "ignore_whitespace")
-		);
+		const validation = await this.validator.validate(this.state);
 		this.setState({ validation });
 		this.submitted = true;
 
-		if (validation.isValid()) {
-			const formData = { ...this.state.fields };
-			this.props.createStaff(formData);
+		if (!validation.isValid) {
+			window.scrollTo(0, 0);
+		}
+
+		if (validation.isValid) {
+			const {
+				username,
+				password,
+				firstName,
+				lastName,
+				nickName,
+				gender,
+				studentNumber,
+				faculty,
+				year,
+				email,
+				// phone,
+				lineId,
+				facebook
+				// team
+			} = this.state;
+			this.props.createStaff({
+				username,
+				password,
+				firstName,
+				lastName,
+				nickName,
+				gender,
+				studentNumber,
+				faculty,
+				year,
+				email,
+				// phone,
+				lineId,
+				facebook
+				// team
+			});
 		}
 	};
 
@@ -144,10 +196,10 @@ class SignupForm extends Component {
 		const name = e.target.name;
 
 		this.setState({
-			...this.state,
-			fields: { ...this.state.fields, [name]: value }
+			[name]: value
 		});
-		console.log(this.state.fields);
+
+		console.log(this.state);
 	};
 
 	render() {
@@ -169,8 +221,8 @@ class SignupForm extends Component {
 		}
 
 		let validation = this.submitted
-			? this.validator.validate(_.omit(this.state.fields, "ignore_whitespace"))
-			: this.state.fields.validation;
+			? this.validator.validate(this.state)
+			: this.state.validation;
 
 		return (
 			<div id='signup-form' className='ui container'>
@@ -196,11 +248,19 @@ class SignupForm extends Component {
 										placeholder='username'
 										onChange={this.handleInputChange}
 									/>
-									<span className='ui message negative hidden'>
+									<div
+										className={`ui message negative ${
+											validation.username.isInvalid ? "" : "hidden"
+										}`}
+									>
 										{validation.username.message}
-									</span>
+									</div>
 								</div>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.password.isInvalid ? "error" : ""
+									}`}
+								>
 									<label htmlFor='password'>password</label>
 									<input
 										type='password'
@@ -209,6 +269,13 @@ class SignupForm extends Component {
 										placeholder='password'
 										onChange={this.handleInputChange}
 									/>
+									<div
+										className={`ui message negative ${
+											validation.password.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.password.message}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -216,7 +283,11 @@ class SignupForm extends Component {
 						<h4 className='ui dividing header'>ข้อมูลส่วนตัว</h4>
 						<div className='field'>
 							<div className='two fields'>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.firstName.isInvalid ? "error" : ""
+									}`}
+								>
 									<label>ชื่อ</label>
 									<input
 										onChange={this.handleInputChange}
@@ -224,8 +295,19 @@ class SignupForm extends Component {
 										name='firstName'
 										placeholder='First Name'
 									/>
+									<div
+										className={`ui message negative ${
+											validation.firstName.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.firstName.message}
+									</div>
 								</div>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.lastName.isInvalid ? "error" : ""
+									}`}
+								>
 									<label>นามสกุล</label>
 									<input
 										onChange={this.handleInputChange}
@@ -233,13 +315,24 @@ class SignupForm extends Component {
 										name='lastName'
 										placeholder='Last Name'
 									/>
+									<div
+										className={`ui message negative ${
+											validation.lastName.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.lastName.message}
+									</div>
 								</div>
 							</div>
 						</div>
 
 						<div className='field'>
 							<div className='two fields'>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.nickName.isInvalid ? "error" : ""
+									}`}
+								>
 									<label>ชื่อเล่น</label>
 									<input
 										onChange={this.handleInputChange}
@@ -247,64 +340,108 @@ class SignupForm extends Component {
 										name='nickName'
 										placeholder='Nickname'
 									/>
+									<div
+										className={`ui message negative ${
+											validation.nickName.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.nickName.message}
+									</div>
 								</div>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.gender.isInvalid ? "error" : ""
+									}`}
+								>
 									<label>เพศ</label>
 									<select
 										name='gender'
 										onChange={this.handleInputChange}
 										className='ui fluid dropdown'
 									>
-										<option value=''>-</option>
 										<option value='M'>ชาย</option>
 										<option value='F'>หญิง</option>
 									</select>
+									<div
+										className={`ui message negative ${
+											validation.gender.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.gender.message}
+									</div>
 								</div>
 							</div>
 						</div>
 
 						<div className='field'>
 							<div className='three fields'>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.studentNumber.isInvalid ? "error" : ""
+									}`}
+								>
 									<label>รหัสนิสิต</label>
 									<input
 										onChange={this.handleInputChange}
 										type='text'
 										name='studentNumber'
 										placeholder='Student ID'
+										maxLength='10'
 									/>
+									<div
+										className={`ui message negative ${
+											validation.studentNumber.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.studentNumber.message}
+									</div>
 								</div>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.faculty.isInvalid ? "error" : ""
+									}`}
+								>
 									<label>คณะ</label>
 									<select
 										name='faculty'
 										className='ui fluid dropdown'
 										onChange={this.handleInputChange}
 									>
-										<option value='Med'>อื่นๆ</option>
-										<option value='Med'>พยาบาลศาสตร์</option>
-										<option value='Eng'>วิศวกรรมศาสตร์</option>
-										<option value='Med'>วิทยาศาสตร์</option>
-										<option value='Eng'>พาณิชยศาสตร์และการบัญชี</option>
-										<option value='Med'>เศรษฐศาสตร์</option>
-										<option value='Eng'>ครุศาสตร์</option>
-										<option value='Med'>อักษรศาสตร์</option>
-										<option value='Eng'>นิติศาสตร์</option>
-										<option value='Med'>สถาปัตยกรรมศาสตร์</option>
-										<option value='Eng'>รัฐศาสตร์</option>
-										<option value='Med'>ศิลปกรรมศาสตร์</option>
-										<option value='Eng'>วิทยาศาสตร์การกีฬา</option>
-										<option value='Med'>นิเทศศาสตร์</option>
-										<option value='Eng'>แพทยศาสตร์</option>
-										<option value='Med'>ทันตแพทยศาสตร์</option>
-										<option value='Eng'>จิตวิทยา</option>
-										<option value='Med'>เภสัชศาสตร์</option>
-										<option value='Eng'>สหเวชศาสตร์</option>
-										<option value='Med'>สัตวแพทยศาสตร์</option>
-										<option value='Eng'>สำนักวิชาทรัพยากรการเกษตร</option>
+										<option value='0'>อื่นๆ</option>
+										<option value='1'>พยาบาลศาสตร์</option>
+										<option value='2'>วิศวกรรมศาสตร์</option>
+										<option value='3'>วิทยาศาสตร์</option>
+										<option value='4'>พาณิชยศาสตร์และการบัญชี</option>
+										<option value='5'>เศรษฐศาสตร์</option>
+										<option value='6'>ครุศาสตร์</option>
+										<option value='7'>อักษรศาสตร์</option>
+										<option value='8'>นิติศาสตร์</option>
+										<option value='9'>สถาปัตยกรรมศาสตร์</option>
+										<option value='10'>รัฐศาสตร์</option>
+										<option value='11'>ศิลปกรรมศาสตร์</option>
+										<option value='12'>วิทยาศาสตร์การกีฬา</option>
+										<option value='13'>นิเทศศาสตร์</option>
+										<option value='14'>แพทยศาสตร์</option>
+										<option value='15'>ทันตแพทยศาสตร์</option>
+										<option value='16'>จิตวิทยา</option>
+										<option value='17'>เภสัชศาสตร์</option>
+										<option value='18'>สหเวชศาสตร์</option>
+										<option value='19'>สัตวแพทยศาสตร์</option>
+										<option value='20'>สำนักวิชาทรัพยากรการเกษตร</option>
 									</select>
+									<div
+										className={`ui message negative ${
+											validation.faculty.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.faculty.message}
+									</div>
 								</div>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.year.isInvalid ? "error" : ""
+									}`}
+								>
 									<label>ชั้นปี</label>
 									<select
 										name='year'
@@ -318,6 +455,13 @@ class SignupForm extends Component {
 										<option value='5'>5</option>
 										<option value='6'>6</option>
 									</select>
+									<div
+										className={`ui message negative ${
+											validation.year.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.year.message}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -329,11 +473,15 @@ class SignupForm extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='phoneNumber'
+										name='phone'
 										placeholder='Phone number'
 									/>
 								</div>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.email.isInvalid ? "error" : ""
+									}`}
+								>
 									<label>E-mail</label>
 									<input
 										onChange={this.handleInputChange}
@@ -341,6 +489,13 @@ class SignupForm extends Component {
 										name='email'
 										placeholder='E-mail'
 									/>
+									<div
+										className={`ui message negative ${
+											validation.email.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.email.message}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -371,43 +526,49 @@ class SignupForm extends Component {
 						<br />
 						<h4 className='ui dividing header'>ฝ่ายที่ต้องการเข้า</h4>
 						<div
-							className='field'
+							className={`field ${validation.team.isInvalid ? "error" : ""}`}
 							name='team'
 							onChange={this.handleInputChange}
 						>
-							<div className='two fields'>
-								<div className='field'>
-									<div className='ui radio checkbox'>
-										<input type='radio' name='team' value='0' tabIndex='0' />
-										<label>กิจกรรม (Event)</label>
-									</div>
-								</div>
-								<div className='field'>
-									<div className='ui radio checkbox'>
-										<input type='radio' name='team' value='1' tabIndex='0' />
-										<label>ประชาสัมพันธ์ (PR)</label>
-									</div>
-								</div>
-								<div className='field'>
-									<div className='ui radio checkbox'>
-										<input type='radio' name='team' value='2' tabIndex='0' />
-										<label>ปฏิคม (Reception)</label>
-									</div>
-								</div>
-								<div className='field'>
-									<div className='ui radio checkbox'>
-										<input type='radio' name='team' value='3' tabIndex='0' />
-										<label>ทะเบียน (Registration)</label>
-									</div>
-								</div>
-								<div className='field'>
-									<div className='ui radio checkbox'>
-										<input type='radio' name='team' value='4' tabIndex='0' />
-										<label>ทรัพยากรบุคคล (HR)</label>
-									</div>
+							<div className='field'>
+								<div className='ui radio checkbox'>
+									<input type='radio' name='team' value='0' tabIndex='0' />
+									<label>กิจกรรม (Event)</label>
 								</div>
 							</div>
+							<div className='field'>
+								<div className='ui radio checkbox'>
+									<input type='radio' name='team' value='1' tabIndex='0' />
+									<label>ประชาสัมพันธ์ (PR)</label>
+								</div>
+							</div>
+							<div className='field'>
+								<div className='ui radio checkbox'>
+									<input type='radio' name='team' value='2' tabIndex='0' />
+									<label>ปฏิคม (Reception)</label>
+								</div>
+							</div>
+							<div className='field'>
+								<div className='ui radio checkbox'>
+									<input type='radio' name='team' value='3' tabIndex='0' />
+									<label>ทะเบียน (Registration)</label>
+								</div>
+							</div>
+							<div className='field'>
+								<div className='ui radio checkbox'>
+									<input type='radio' name='team' value='4' tabIndex='0' />
+									<label>ทรัพยากรบุคคล (HR)</label>
+								</div>
+							</div>
+							<div
+								className={`ui message negative ${
+									validation.team.isInvalid ? "" : "hidden"
+								}`}
+							>
+								{validation.team.message}
+							</div>
 						</div>
+
 						<br />
 						<div className='field'>
 							<h4>

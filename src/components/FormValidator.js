@@ -9,10 +9,6 @@ class FormValidator {
 	validate(state) {
 		// start out assuming valid
 		let validation = this.valid();
-		console.log("from validation");
-		console.log(validation);
-		console.log("from state");
-		console.log(state);
 
 		// for each validation rule
 		this.validations.forEach(rule => {
@@ -20,6 +16,7 @@ class FormValidator {
 			if (!validation[rule.field].isInvalid) {
 				// determine the field value, the method to invoke and optional args from
 				// the rule definition
+
 				const field_value = state[rule.field].toString();
 				const args = rule.args || [];
 				const validation_method =
@@ -44,7 +41,7 @@ class FormValidator {
 
 	valid() {
 		const validation = {};
-		console.log(this.validations);
+
 		this.validations.map(
 			rule => (validation[rule.field] = { isInvalid: false, message: "" })
 		);
