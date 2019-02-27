@@ -9,7 +9,9 @@ import {
 	Label,
 	Button,
 	Input,
-	Modal
+	Modal,
+	Transition,
+	Segment
 } from "semantic-ui-react";
 
 import { fetchStaffs, deleteStaff, approveStaff } from "../../actions";
@@ -18,7 +20,8 @@ class ManageStaff extends Component {
 	state = {
 		staff_status: "staff",
 		staff_results: [],
-		isfetched: false
+		isfetched: false,
+		staff_view: ""
 	};
 
 	componentDidMount = async () => {
@@ -69,9 +72,12 @@ class ManageStaff extends Component {
 			if (this.state.value.length < 1) return this.resetComponent();
 
 			const re = new RegExp(_.escapeRegExp(this.state.value), "i");
-			const isMatch = result =>
-				re.test(result.username) &&
-				(this.state.staff_status !== "staff" ? !result.isApproved : true); // <-- change type of searching
+			const isMatch = result => {
+				return (
+					re.test(result.firstName + " " + result.lastName) &&
+					(this.state.staff_status !== "staff" ? !result.isApproved : true)
+				);
+			};
 
 			this.setState({
 				isLoading: false,
@@ -116,10 +122,13 @@ class ManageStaff extends Component {
 						</Button>
 
 						<Button
-							as={Link}
-							to={`/edit/${staff.id}`}
 							name='view'
 							floated='right'
+							onClick={() =>
+								this.setState({
+									staff_view: this.state.staff_view === staff.id ? "" : staff.id
+								})
+							}
 						>
 							View
 						</Button>
@@ -148,10 +157,13 @@ class ManageStaff extends Component {
 					/>
 
 					<Button
-						as={Link}
-						to={`/edit/${staff.id}`}
 						name='view'
 						floated='right'
+						onClick={() =>
+							this.setState({
+								staff_view: this.state.staff_view === staff.id ? "" : staff.id
+							})
+						}
 					>
 						View
 					</Button>
@@ -159,7 +171,19 @@ class ManageStaff extends Component {
 			);
 		}
 
-		return null;
+		return (
+			<Button
+				name='view'
+				floated='right'
+				onClick={() =>
+					this.setState({
+						staff_view: this.state.staff_view === staff.id ? "" : staff.id
+					})
+				}
+			>
+				View
+			</Button>
+		);
 	};
 
 	renderList = () => {
@@ -173,44 +197,42 @@ class ManageStaff extends Component {
 		}
 
 		if (staff_results.length > 0) {
-			return staff_results
-				.sort((a, b) => {
-					if (a.isAdmin && !b.isAdmin) {
-						return 1;
-					} else if (b.isAdmin && !a.isAdmin) {
-						return -1;
-					}
-					if (a.isApproved && !b.isApproved) {
-						return 1;
-					} else if (b.isApproved && !a.isApproved) {
-						return -1;
-					}
-					return 0;
-				})
-				.reverse()
-				.map(staff => {
-					return (
-						<Item key={staff.id}>
-							<Item.Content>
-								<Item.Header as='a'>
-									{staff.firstName} {staff.lastName}
-								</Item.Header>
-								<Item.Meta>email: {staff.email}</Item.Meta>
-								<Item.Description>{}</Item.Description>
-								<Item.Extra>
-									{this.renderAdmin(staff)}
-									<Label>
-										{staff.isApproved
-											? staff.isAdmin
-												? "Admin"
-												: "Staff"
-											: "Pending"}
-									</Label>
-								</Item.Extra>
-							</Item.Content>
-						</Item>
-					);
-				});
+			return staff_results.map(staff => {
+				return (
+					<Item key={staff.id}>
+						<Item.Content>
+							<Item.Header as='a'>
+								{staff.firstName} {staff.lastName}
+							</Item.Header>
+							<Item.Meta>email: {staff.email}</Item.Meta>
+							<Item.Description>
+								<Transition.Group animation={"fade down"} duration={300}>
+									{this.state.staff_view === staff.id && (
+										<Segment>
+											<label htmlFor='firstName'>ชื่อ</label>
+											<p>
+												{staff.firstName} {staff.lastName}
+											</p>
+											<label htmlFor='nickName'>ชื่อเล่น</label>
+											<p>{staff.nickName}</p>
+										</Segment>
+									)}
+								</Transition.Group>
+							</Item.Description>
+							<Item.Extra>
+								{this.renderAdmin(staff)}
+								<Label>
+									{staff.isApproved
+										? staff.isAdmin
+											? "Admin"
+											: "Staff"
+										: "Pending"}
+								</Label>
+							</Item.Extra>
+						</Item.Content>
+					</Item>
+				);
+			});
 		}
 
 		return (
@@ -264,7 +286,9 @@ class ManageStaff extends Component {
 					</Menu.Menu>
 				</Menu>
 				<div className='ui container' style={{ marginTop: "40px" }}>
-					<Item.Group divided>{this.renderList()}</Item.Group>
+					<Transition.Group as={Item.Group} duration={200} divided>
+						{this.renderList()}
+					</Transition.Group>
 				</div>
 			</div>
 		);

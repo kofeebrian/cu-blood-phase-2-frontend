@@ -78,7 +78,7 @@ class NavbarMobile extends React.Component {
 						Home
 					</Menu.Item>
 					<Menu.Item as={Link} to='/qr' onClick={this.handleHideClick}>
-						<Icon name='gamepad' />
+						<Icon name='qrcode' />
 						QR Reader
 					</Menu.Item>
 					<Menu.Item
@@ -86,7 +86,7 @@ class NavbarMobile extends React.Component {
 						to='/manage-staff'
 						onClick={this.handleHideClick}
 					>
-						<Icon name='camera' />
+						<Icon name='group' />
 						Manage Staff
 					</Menu.Item>
 					<Menu.Item
@@ -94,7 +94,7 @@ class NavbarMobile extends React.Component {
 							this.props.logout();
 						}}
 					>
-						<Icon name='key' />
+						<Icon name='sign-out' />
 						Logout
 					</Menu.Item>
 					<Menu.Item as={Segment} style={{ minHeight: screenHeight }} />

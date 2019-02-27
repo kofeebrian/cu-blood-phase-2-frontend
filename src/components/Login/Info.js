@@ -15,7 +15,7 @@ class Info extends React.Component {
 		}
 
 		return (
-			<div>
+			<div style={{ padding: "10px" }}>
 				<Grid className='ui centered grid'>
 					<Header as='h1' icon textAlign='center'>
 						<Icon name='signup' circular inverted color='red' size='mini' />

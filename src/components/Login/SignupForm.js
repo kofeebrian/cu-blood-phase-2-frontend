@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, Prompt } from "react-router-dom";
 import { connect } from "react-redux";
 import { Grid, Loader, Header, Icon } from "semantic-ui-react";
 
@@ -115,6 +115,7 @@ class SignupForm extends Component {
 	]);
 
 	state = {
+		isChange: false,
 		username: "",
 		password: "",
 		firstName: "",
@@ -147,7 +148,7 @@ class SignupForm extends Component {
 		e.preventDefault();
 
 		const validation = await this.validator.validate(this.state);
-		this.setState({ validation });
+		this.setState({ validation, isChange: true });
 		this.submitted = true;
 
 		if (!validation.isValid) {
@@ -155,6 +156,7 @@ class SignupForm extends Component {
 		}
 
 		if (validation.isValid) {
+			this.setState({ isChange: false });
 			const {
 				username,
 				password,
@@ -191,15 +193,15 @@ class SignupForm extends Component {
 	};
 
 	handleInputChange = e => {
-		e.preventDefault();
 		const value = e.target.value;
 		const name = e.target.name;
 
+		console.log(name + " " + value);
+
 		this.setState({
+			isChange: true,
 			[name]: value
 		});
-
-		console.log(this.state);
 	};
 
 	render() {
@@ -232,6 +234,10 @@ class SignupForm extends Component {
 				</Header>
 				<Grid className='ui centered grid' style={{ padding: "30px" }}>
 					<form className='ui form error' onSubmit={this.handleFormSubmit}>
+						<Prompt
+							when={this.state.isChange}
+							message='Are you sure tou want to dismiss this form?'
+						/>
 						<h4 className='ui dividing header'>Username and Password</h4>
 						<div className='field'>
 							<div className='two fields'>
@@ -528,35 +534,69 @@ class SignupForm extends Component {
 						<div
 							className={`field ${validation.team.isInvalid ? "error" : ""}`}
 							name='team'
-							onChange={this.handleInputChange}
 						>
 							<div className='field'>
 								<div className='ui radio checkbox'>
-									<input type='radio' name='team' value='0' tabIndex='0' />
+									<input
+										type='radio'
+										name='team'
+										value='0'
+										tabIndex='0'
+										checked={this.state.team === "0"}
+										onChange={this.handleInputChange}
+									/>
 									<label>กิจกรรม (Event)</label>
 								</div>
 							</div>
 							<div className='field'>
 								<div className='ui radio checkbox'>
-									<input type='radio' name='team' value='1' tabIndex='0' />
+									<input
+										type='radio'
+										name='team'
+										value='1'
+										tabIndex='0'
+										checked={this.state.team === "1"}
+										onChange={this.handleInputChange}
+									/>
 									<label>ประชาสัมพันธ์ (PR)</label>
 								</div>
 							</div>
 							<div className='field'>
 								<div className='ui radio checkbox'>
-									<input type='radio' name='team' value='2' tabIndex='0' />
+									<input
+										type='radio'
+										name='team'
+										value='2'
+										tabIndex='0'
+										checked={this.state.team === "2"}
+										onChange={this.handleInputChange}
+									/>
 									<label>ปฏิคม (Reception)</label>
 								</div>
 							</div>
 							<div className='field'>
 								<div className='ui radio checkbox'>
-									<input type='radio' name='team' value='3' tabIndex='0' />
+									<input
+										type='radio'
+										name='team'
+										value='3'
+										tabIndex='0'
+										checked={this.state.team === "3"}
+										onChange={this.handleInputChange}
+									/>
 									<label>ทะเบียน (Registration)</label>
 								</div>
 							</div>
 							<div className='field'>
 								<div className='ui radio checkbox'>
-									<input type='radio' name='team' value='4' tabIndex='0' />
+									<input
+										type='radio'
+										name='team'
+										value='4'
+										tabIndex='0'
+										checked={this.state.team === "4"}
+										onChange={this.handleInputChange}
+									/>
 									<label>ทรัพยากรบุคคล (HR)</label>
 								</div>
 							</div>
