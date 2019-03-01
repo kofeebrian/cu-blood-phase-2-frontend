@@ -9,16 +9,19 @@ import {
 	Label,
 	Button,
 	Input,
-	Modal
+	Modal,
+	Transition,
+	Segment
 } from "semantic-ui-react";
 
-import { fetchStaffs, deleteStaff } from "../../actions";
+import { fetchStaffs, deleteStaff, approveStaff } from "../../actions";
 
 class ManageStaff extends Component {
 	state = {
 		staff_status: "staff",
 		staff_results: [],
-		isfetched: false
+		isfetched: false,
+		staff_view: ""
 	};
 
 	componentDidMount = async () => {
@@ -42,12 +45,23 @@ class ManageStaff extends Component {
 		});
 	};
 
+	handleApproveClick = async id => {
+		await this.props.approveStaff(id);
+		this.resetComponent();
+	};
+
 	resetComponent = () =>
-		this.setState({
-			isLoading: false,
-			staff_results: this.props.staffs,
-			value: ""
-		});
+		this.state.staff_status === "staff"
+			? this.setState({
+					isLoading: false,
+					staff_results: this.props.staffs.filter(staff => staff.isApproved),
+					value: ""
+			  })
+			: this.setState({
+					isLoading: false,
+					staff_results: this.props.staffs.filter(staff => !staff.isApproved),
+					value: ""
+			  });
 
 	handleSearchChange = (e, { value }) => {
 		const { staffs } = this.props;
@@ -58,21 +72,69 @@ class ManageStaff extends Component {
 			if (this.state.value.length < 1) return this.resetComponent();
 
 			const re = new RegExp(_.escapeRegExp(this.state.value), "i");
-			const isMatch = result => re.test(result.email); // <-- change type of searching
+			const isMatch = result => {
+				return (
+					re.test(result.firstName + " " + result.lastName) &&
+					(this.state.staff_status !== "staff" ? !result.isApproved : true)
+				);
+			};
 
 			this.setState({
 				isLoading: false,
 				staff_results: _.filter(staffs, isMatch)
 			});
-
-			console.log(this.state.staff_results);
 		}, 300);
 	};
 
-	renderAdmin = id => {
+	renderAdmin = staff => {
 		const { user } = this.props;
 
-		if (user && user.isAdmin && user.id !== id) {
+		if (user && user.isAdmin && user.id !== staff.id) {
+			if (!staff.isAdmin && !staff.isApproved) {
+				return (
+					<>
+						<Modal
+							trigger={
+								<Button name='delete' negative floated='right'>
+									Decline
+								</Button>
+							}
+							header='Decline Staff'
+							content={`Are you sure to decline this staff`}
+							actions={[
+								{
+									key: "delete",
+									content: "Decline",
+									negative: true,
+									onClick: e => this.handleDeleteClick(staff.id)
+								},
+								{ key: "cancel", content: "Cancel" }
+							]}
+						/>
+
+						<Button
+							primary
+							name='approve'
+							floated='right'
+							onClick={e => this.handleApproveClick(staff.id)}
+						>
+							Approve
+						</Button>
+
+						<Button
+							name='view'
+							floated='right'
+							onClick={() =>
+								this.setState({
+									staff_view: this.state.staff_view === staff.id ? "" : staff.id
+								})
+							}
+						>
+							View
+						</Button>
+					</>
+				);
+			}
 			return (
 				<>
 					<Modal
@@ -88,20 +150,40 @@ class ManageStaff extends Component {
 								key: "delete",
 								content: "Delete",
 								negative: true,
-								onClick: e => this.handleDeleteClick(id)
+								onClick: e => this.handleDeleteClick(staff.id)
 							},
 							{ key: "cancel", content: "Cancel" }
 						]}
 					/>
 
-					<Button as={Link} to={`/edit/${id}`} name='view' floated='right'>
+					<Button
+						name='view'
+						floated='right'
+						onClick={() =>
+							this.setState({
+								staff_view: this.state.staff_view === staff.id ? "" : staff.id
+							})
+						}
+					>
 						View
 					</Button>
 				</>
 			);
 		}
 
-		return null;
+		return (
+			<Button
+				name='view'
+				floated='right'
+				onClick={() =>
+					this.setState({
+						staff_view: this.state.staff_view === staff.id ? "" : staff.id
+					})
+				}
+			>
+				View
+			</Button>
+		);
 	};
 
 	renderList = () => {
@@ -119,14 +201,33 @@ class ManageStaff extends Component {
 				return (
 					<Item key={staff.id}>
 						<Item.Content>
-							<Item.Header as='a'>{staff.username}</Item.Header>
-							<Item.Meta>
-								<span className='cinema'>{staff.email}</span>
-							</Item.Meta>
-							<Item.Description>{}</Item.Description>
+							<Item.Header as='a'>
+								{staff.firstName} {staff.lastName}
+							</Item.Header>
+							<Item.Meta>email: {staff.email}</Item.Meta>
+							<Item.Description>
+								<Transition.Group animation={"fade down"} duration={300}>
+									{this.state.staff_view === staff.id && (
+										<Segment>
+											<label htmlFor='firstName'>ชื่อ</label>
+											<p>
+												{staff.firstName} {staff.lastName}
+											</p>
+											<label htmlFor='nickName'>ชื่อเล่น</label>
+											<p>{staff.nickName}</p>
+										</Segment>
+									)}
+								</Transition.Group>
+							</Item.Description>
 							<Item.Extra>
-								{this.renderAdmin(staff.id)}
-								<Label>Limited</Label>
+								{this.renderAdmin(staff)}
+								<Label>
+									{staff.isApproved
+										? staff.isAdmin
+											? "Admin"
+											: "Staff"
+										: "Pending"}
+								</Label>
 							</Item.Extra>
 						</Item.Content>
 					</Item>
@@ -141,7 +242,10 @@ class ManageStaff extends Component {
 		);
 	};
 
-	handleItemClick = (e, { name }) => this.setState({ staff_status: name });
+	handleItemClick = async (e, { name }) => {
+		await this.setState({ staff_status: name });
+		this.resetComponent();
+	};
 
 	render() {
 		const { staff_status, isLoading, value } = this.state;
@@ -182,7 +286,9 @@ class ManageStaff extends Component {
 					</Menu.Menu>
 				</Menu>
 				<div className='ui container' style={{ marginTop: "40px" }}>
-					<Item.Group divided>{this.renderList()}</Item.Group>
+					<Transition.Group as={Item.Group} duration={200} divided>
+						{this.renderList()}
+					</Transition.Group>
 				</div>
 			</div>
 		);
@@ -199,5 +305,5 @@ const mapStateToProps = stateRedux => {
 
 export default connect(
 	mapStateToProps,
-	{ fetchStaffs, deleteStaff }
+	{ fetchStaffs, deleteStaff, approveStaff }
 )(ManageStaff);

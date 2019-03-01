@@ -1,22 +1,43 @@
 import React, { Component } from "react";
-import { Prompt } from "react-router-dom";
-import { Grid, Loader, Header, Button } from "semantic-ui-react";
+import { Link, Redirect, Prompt } from "react-router-dom";
 import { connect } from "react-redux";
+import { Grid, Loader, Header, Icon } from "semantic-ui-react";
 
-import { fetchStaff } from "../../actions";
+import "./Login.css";
+import { createStaff } from "../../actions";
 import FormValidator from "../FormValidator";
-import "../Login/Login.css";
 
-class Edit extends Component {
-	componentDidMount = async () => {
-		await this.props.fetchStaff(this.props.match.params.id);
-		this.setState({ ...this.props.editee });
-		console.log(this.state);
-	};
+/* values ฝ่ายต่างๆ
+	0 - Event
+	1 - PR
+	2 - Reception
+	3 -	Registration
+	4 - HR
+*/
 
+class SignupForm extends Component {
 	submitted = false;
 
 	validator = new FormValidator([
+		{
+			field: "username",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Username is required."
+		},
+		{
+			field: "password",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Password is required"
+		},
+		{
+			field: "password",
+			method: "isLength",
+			args: [{ min: 6, max: undefined }],
+			validWhen: true,
+			message: "Password has to be more 6 characters."
+		},
 		{
 			field: "email",
 			method: "isEmpty",
@@ -95,30 +116,87 @@ class Edit extends Component {
 
 	state = {
 		isChange: false,
-		validation: this.validator.valid()
+		username: "",
+		password: "",
+		firstName: "",
+		lastName: "",
+		nickName: "",
+		gender: "M",
+		studentNumber: "",
+		faculty: "0",
+		year: "1",
+		email: "",
+		phone: "",
+		lineId: "",
+		facebook: "",
+		team: "",
+		validation: this.validator.valid(),
+		accepted: false
+	};
+
+	componentDidMount() {
+		console.log(this.state);
+	}
+
+	handleAcceptedCheck = e => {
+		this.setState({
+			accepted: e.target.checked
+		});
 	};
 
 	handleFormSubmit = async e => {
 		e.preventDefault();
 
-		if (!this.state.isChange) {
-			return null;
-		}
-
 		const validation = await this.validator.validate(this.state);
-		this.setState({ validation });
+		this.setState({ validation, isChange: true });
 		this.submitted = true;
 
 		if (!validation.isValid) {
 			window.scrollTo(0, 0);
 		}
 
-		// form is valid do...
+		if (validation.isValid) {
+			this.setState({ isChange: false });
+			const {
+				username,
+				password,
+				firstName,
+				lastName,
+				nickName,
+				gender,
+				studentNumber,
+				faculty,
+				year,
+				email,
+				// phone,
+				lineId,
+				facebook
+				// team
+			} = this.state;
+			this.props.createStaff({
+				username,
+				password,
+				firstName,
+				lastName,
+				nickName,
+				gender,
+				studentNumber,
+				faculty,
+				year,
+				email,
+				// phone,
+				lineId,
+				facebook
+				// team
+			});
+		}
 	};
 
 	handleInputChange = e => {
 		const value = e.target.value;
 		const name = e.target.name;
+
+		console.log(name + " " + value);
 
 		this.setState({
 			isChange: true,
@@ -127,7 +205,14 @@ class Edit extends Component {
 	};
 
 	render() {
-		if (!this.props.editee) {
+		const { isAuthenticated, user } = this.props;
+		const { from } = this.props.location.state || { from: { pathname: "/" } };
+
+		if (user) {
+			return <Redirect to={from} />;
+		}
+
+		if (isAuthenticated && !user) {
 			return (
 				<div className='ui container'>
 					<Loader active size='massive'>
@@ -141,31 +226,66 @@ class Edit extends Component {
 			? this.validator.validate(this.state)
 			: this.state.validation;
 
-		const {
-			firstName,
-			lastName,
-			nickName,
-			gender,
-			studentNumber,
-			faculty,
-			year,
-			email,
-			// phone,
-			lineId,
-			facebook
-			// team
-		} = this.state;
 		return (
-			<div id='edit-form' className='ui container'>
+			<div id='signup-form' className='ui container'>
 				<Header as='h1' icon textAlign='center'>
-					<Header.Content>Edit</Header.Content>
+					<Icon name='signup' circular inverted color='red' size='mini' />
+					<Header.Content>Sign Up</Header.Content>
 				</Header>
 				<Grid className='ui centered grid' style={{ padding: "30px" }}>
 					<form className='ui form error' onSubmit={this.handleFormSubmit}>
 						<Prompt
 							when={this.state.isChange}
-							message='Are you sure you want to dismiss this change?'
+							message='Are you sure tou want to dismiss this form?'
 						/>
+						<h4 className='ui dividing header'>Username and Password</h4>
+						<div className='field'>
+							<div className='two fields'>
+								<div
+									className={`field ${
+										validation.username.isInvalid ? "error" : ""
+									}`}
+								>
+									<label htmlFor='username'>username</label>
+									<input
+										type='text'
+										name='username'
+										id='username'
+										placeholder='username'
+										onChange={this.handleInputChange}
+									/>
+									<div
+										className={`ui message negative ${
+											validation.username.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.username.message}
+									</div>
+								</div>
+								<div
+									className={`field ${
+										validation.password.isInvalid ? "error" : ""
+									}`}
+								>
+									<label htmlFor='password'>password</label>
+									<input
+										type='password'
+										name='password'
+										id='password'
+										placeholder='password'
+										onChange={this.handleInputChange}
+									/>
+									<div
+										className={`ui message negative ${
+											validation.password.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.password.message}
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<h4 className='ui dividing header'>ข้อมูลส่วนตัว</h4>
 						<div className='field'>
 							<div className='two fields'>
@@ -179,7 +299,6 @@ class Edit extends Component {
 										onChange={this.handleInputChange}
 										type='text'
 										name='firstName'
-										defaultValue={firstName}
 										placeholder='First Name'
 									/>
 									<div
@@ -200,7 +319,6 @@ class Edit extends Component {
 										onChange={this.handleInputChange}
 										type='text'
 										name='lastName'
-										defaultValue={lastName}
 										placeholder='Last Name'
 									/>
 									<div
@@ -226,7 +344,6 @@ class Edit extends Component {
 										onChange={this.handleInputChange}
 										type='text'
 										name='nickName'
-										defaultValue={nickName}
 										placeholder='Nickname'
 									/>
 									<div
@@ -246,7 +363,6 @@ class Edit extends Component {
 									<select
 										name='gender'
 										onChange={this.handleInputChange}
-										defaultValue={gender}
 										className='ui fluid dropdown'
 									>
 										<option value='M'>ชาย</option>
@@ -275,8 +391,7 @@ class Edit extends Component {
 										onChange={this.handleInputChange}
 										type='text'
 										name='studentNumber'
-										defaultValue={studentNumber}
-										placeholder='Student Number'
+										placeholder='Student ID'
 										maxLength='10'
 									/>
 									<div
@@ -296,7 +411,6 @@ class Edit extends Component {
 									<select
 										name='faculty'
 										className='ui fluid dropdown'
-										defaultValue={faculty}
 										onChange={this.handleInputChange}
 									>
 										<option value='0'>อื่นๆ</option>
@@ -338,7 +452,6 @@ class Edit extends Component {
 									<select
 										name='year'
 										className='ui fluid dropdown'
-										defaultValue={year}
 										onChange={this.handleInputChange}
 									>
 										<option value='1'>1</option>
@@ -380,7 +493,6 @@ class Edit extends Component {
 										onChange={this.handleInputChange}
 										type='email'
 										name='email'
-										defaultValue={email}
 										placeholder='E-mail'
 									/>
 									<div
@@ -402,7 +514,6 @@ class Edit extends Component {
 										onChange={this.handleInputChange}
 										type='text'
 										name='lineId'
-										defaultValue={lineId}
 										placeholder='Line ID'
 									/>
 								</div>
@@ -412,7 +523,6 @@ class Edit extends Component {
 										onChange={this.handleInputChange}
 										type='text'
 										name='facebook'
-										defaultValue={facebook}
 										placeholder='Facebook'
 									/>
 								</div>
@@ -499,16 +609,33 @@ class Edit extends Component {
 							</div>
 						</div>
 
-						<Button floated='right'>Submit</Button>
-						<Button
-							className='ui button primary right floated'
-							onClick={() => {
-								this.setState({ isChange: false });
-								this.props.history.goBack();
-							}}
+						<br />
+						<div className='field'>
+							<h4>
+								กรุณาตรวจสอบรายละเอียดให้ครบถ้วน
+								และการคัดเลือกสตาฟเข้าฝ่ายใดนั้น
+								ขึ้นอยู่กับการพิจารณาของแต่ละฝ่าย*
+							</h4>
+							<div className='ui checkbox'>
+								<input
+									onChange={this.handleAcceptedCheck}
+									type='checkbox'
+									name='accepted'
+								/>
+								<label>รับทราบ</label>
+							</div>
+						</div>
+						<br />
+						<button
+							className='ui button left floated'
+							tabIndex='0'
+							disabled={!this.state.accepted}
 						>
+							Submit
+						</button>
+						<Link className='ui button primary right floated' to='/signup'>
 							Back
-						</Button>
+						</Link>
 					</form>
 				</Grid>
 			</div>
@@ -516,14 +643,16 @@ class Edit extends Component {
 	}
 }
 
-const mapStateToProps = (stateRedux, ownProps) => {
+const mapStateToProps = stateRedux => {
 	return {
-		editor: stateRedux.auth.user,
-		editee: stateRedux.staffs[ownProps.match.params.id]
+		isAuthenticated: stateRedux.auth.isAuthenticated,
+		user: stateRedux.auth.user,
+		userId: stateRedux.auth.userId,
+		accessToken: stateRedux.auth.accessToken
 	};
 };
 
 export default connect(
 	mapStateToProps,
-	{ fetchStaff }
-)(Edit);
+	{ createStaff }
+)(SignupForm);

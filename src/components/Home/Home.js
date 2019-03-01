@@ -6,6 +6,21 @@ import { Segment, Grid, Icon, Header, Loader } from "semantic-ui-react";
 import "./Home.css";
 
 class Home extends React.Component {
+	renderAdminComponent = () => {
+		if (this.props.user.isAdmin) {
+			return (
+				<Grid.Column textAlign='center'>
+					<Segment basic as={Link} to='/manage-staff'>
+						<Icon size='massive' name='group' color='black' />
+						<br />
+						<Header as='h1'>Manage Staff</Header>
+					</Segment>
+				</Grid.Column>
+			);
+		}
+		return null;
+	};
+
 	render() {
 		if (!this.props.user) {
 			return (
@@ -32,13 +47,7 @@ class Home extends React.Component {
 						<Header as='h1'>QR Reader</Header>
 					</Segment>
 				</Grid.Column>
-				<Grid.Column textAlign='center'>
-					<Segment basic as={Link} to='/manage-staff'>
-						<Icon size='massive' name='group' color='black' />
-						<br />
-						<Header as='h1'>Manage Staff</Header>
-					</Segment>
-				</Grid.Column>
+				{this.renderAdminComponent()}
 			</Grid>
 		);
 	}

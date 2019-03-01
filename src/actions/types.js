@@ -12,3 +12,4 @@ export const VIEW_STAFF = "VIEW_STAFF";
 export const REQUEST_SIGN_UP = "REQUEST_SIGN_UP";
 export const CREATE_STAFF = "CREATE_STAFF";
 export const EDIT_STAFF = "EDIT_STAFF";
+export const APPROVE_STAFF = "APPROVE_STAFF";
