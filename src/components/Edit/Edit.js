@@ -2,10 +2,26 @@ import React, { Component } from "react";
 import { Prompt } from "react-router-dom";
 import { Grid, Loader, Header, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
+import _ from "lodash";
 
-import { fetchStaff } from "../../actions";
+import { fetchStaff, editStaff } from "../../actions";
 import FormValidator from "../FormValidator";
 import "../Login/Login.css";
+
+const formdata = [
+	"firstName",
+	"lastName",
+	"nickName",
+	"gender",
+	"studentNumber",
+	"faculty",
+	"year",
+	"email",
+	"phone",
+	"lineId",
+	"facebook",
+	"team"
+];
 
 class Edit extends Component {
 	componentDidMount = async () => {
@@ -95,6 +111,18 @@ class Edit extends Component {
 
 	state = {
 		isChange: false,
+		firstName: "",
+		lastName: "",
+		nickName: "",
+		gender: "M",
+		studentNumber: "",
+		faculty: "0",
+		year: "1",
+		email: "",
+		phone: "",
+		lineId: "",
+		facebook: "",
+		team: "",
 		validation: this.validator.valid()
 	};
 
@@ -102,6 +130,7 @@ class Edit extends Component {
 		e.preventDefault();
 
 		if (!this.state.isChange) {
+			console.log("Doesn't change anything");
 			return null;
 		}
 
@@ -109,21 +138,50 @@ class Edit extends Component {
 		this.setState({ validation });
 		this.submitted = true;
 
+		console.log("form");
+		console.log(this.state);
+
 		if (!validation.isValid) {
 			window.scrollTo(0, 0);
+		} else if (validation.isValid) {
+			const formData = formdata
+				.map(data => ({ [data]: this.state[data] }))
+				.reduce((result, item) => {
+					var key = Object.keys(item)[0];
+					result[key] = item[key];
+					return result;
+				}, {});
+			this.props.editStaff(this.props.match.params.id, formData);
 		}
-
-		// form is valid do...
 	};
 
 	handleInputChange = e => {
 		const value = e.target.value;
 		const name = e.target.name;
 
+		this.isChange = true;
+
 		this.setState({
-			isChange: true,
 			[name]: value
 		});
+
+		this.setState({
+			isChange: true
+		});
+
+		console.log(this.state);
+	};
+
+	renderYear = () => {
+		let count = 6;
+		if (this.state.faculty === "2") {
+			count = 4;
+		}
+		return _.times(count, i => (
+			<option key={i} value={i + 1}>
+				{i + 1}
+			</option>
+		));
 	};
 
 	render() {
@@ -150,10 +208,10 @@ class Edit extends Component {
 			faculty,
 			year,
 			email,
-			// phone,
+			phone,
 			lineId,
-			facebook
-			// team
+			facebook,
+			team
 		} = this.state;
 		return (
 			<div id='edit-form' className='ui container'>
@@ -245,8 +303,8 @@ class Edit extends Component {
 									<label>เพศ</label>
 									<select
 										name='gender'
-										onChange={this.handleInputChange}
 										defaultValue={gender}
+										onChange={this.handleInputChange}
 										className='ui fluid dropdown'
 									>
 										<option value='M'>ชาย</option>
@@ -272,12 +330,12 @@ class Edit extends Component {
 								>
 									<label>รหัสนิสิต</label>
 									<input
-										onChange={this.handleInputChange}
 										type='text'
 										name='studentNumber'
 										defaultValue={studentNumber}
 										placeholder='Student Number'
 										maxLength='10'
+										onChange={this.handleInputChange}
 									/>
 									<div
 										className={`ui message negative ${
@@ -341,12 +399,7 @@ class Edit extends Component {
 										defaultValue={year}
 										onChange={this.handleInputChange}
 									>
-										<option value='1'>1</option>
-										<option value='2'>2</option>
-										<option value='3'>3</option>
-										<option value='4'>4</option>
-										<option value='5'>5</option>
-										<option value='6'>6</option>
+										{this.renderYear()}
 									</select>
 									<div
 										className={`ui message negative ${
@@ -525,5 +578,5 @@ const mapStateToProps = (stateRedux, ownProps) => {
 
 export default connect(
 	mapStateToProps,
-	{ fetchStaff }
+	{ fetchStaff, editStaff }
 )(Edit);

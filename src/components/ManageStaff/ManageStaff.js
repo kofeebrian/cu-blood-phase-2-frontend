@@ -14,7 +14,12 @@ import {
 	Segment
 } from "semantic-ui-react";
 
-import { fetchStaffs, deleteStaff, approveStaff } from "../../actions";
+import {
+	fetchStaffs,
+	deleteStaff,
+	approveStaff,
+	promoteStaff
+} from "../../actions";
 
 class ManageStaff extends Component {
 	state = {
@@ -50,6 +55,11 @@ class ManageStaff extends Component {
 		this.resetComponent();
 	};
 
+	handlePromoteClick = async id => {
+		await this.props.promoteStaff(id);
+		this.resetComponent();
+	};
+
 	resetComponent = () =>
 		this.state.staff_status === "staff"
 			? this.setState({
@@ -66,7 +76,7 @@ class ManageStaff extends Component {
 	handleSearchChange = (e, { value }) => {
 		const { staffs } = this.props;
 
-		this.setState({ isLoading: true, value });
+		this.setState({ isLoading: true, value, staff_view: "" });
 
 		setTimeout(() => {
 			if (this.state.value.length < 1) return this.resetComponent();
@@ -75,7 +85,9 @@ class ManageStaff extends Component {
 			const isMatch = result => {
 				return (
 					re.test(result.firstName + " " + result.lastName) &&
-					(this.state.staff_status !== "staff" ? !result.isApproved : true)
+					(this.state.staff_status !== "staff"
+						? !result.isApproved
+						: result.isApproved)
 				);
 			};
 
@@ -201,7 +213,7 @@ class ManageStaff extends Component {
 				return (
 					<Item key={staff.id}>
 						<Item.Content>
-							<Item.Header as='a'>
+							<Item.Header>
 								{staff.firstName} {staff.lastName}
 							</Item.Header>
 							<Item.Meta>email: {staff.email}</Item.Meta>
@@ -209,18 +221,24 @@ class ManageStaff extends Component {
 								<Transition.Group animation={"fade down"} duration={300}>
 									{this.state.staff_view === staff.id && (
 										<Segment>
-											<label htmlFor='firstName'>ชื่อ</label>
+											<label htmlFor='firstName'>
+												<strong>Name</strong>
+											</label>
 											<p>
 												{staff.firstName} {staff.lastName}
 											</p>
-											<label htmlFor='nickName'>ชื่อเล่น</label>
+											<label htmlFor='nickName'>
+												<strong>Nickname</strong>
+											</label>
 											<p>{staff.nickName}</p>
+											<Button primary inverted onClick>
+												Promote
+											</Button>
 										</Segment>
 									)}
 								</Transition.Group>
 							</Item.Description>
 							<Item.Extra>
-								{this.renderAdmin(staff)}
 								<Label>
 									{staff.isApproved
 										? staff.isAdmin
@@ -228,6 +246,8 @@ class ManageStaff extends Component {
 											: "Staff"
 										: "Pending"}
 								</Label>
+								<br />
+								{this.renderAdmin(staff)}
 							</Item.Extra>
 						</Item.Content>
 					</Item>
@@ -305,5 +325,5 @@ const mapStateToProps = stateRedux => {
 
 export default connect(
 	mapStateToProps,
-	{ fetchStaffs, deleteStaff, approveStaff }
+	{ fetchStaffs, deleteStaff, approveStaff, promoteStaff }
 )(ManageStaff);

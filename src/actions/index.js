@@ -138,6 +138,7 @@ export const logout = () => async (dispatch, getState) => {
 };
 
 export const fetchStaffs = () => async (dispatch, getState) => {
+	// All staffs
 	try {
 		const res = await staffs.get(
 			"/api/Users?access_token=" + getState().auth.accessToken
@@ -154,6 +155,7 @@ export const fetchStaffs = () => async (dispatch, getState) => {
 };
 
 export const fetchStaff = id => async (dispatch, getState) => {
+	// Only one staff
 	try {
 		const res = await staffs.get(
 			`/api/Users/${id}?access_token=${getState().auth.accessToken}`
@@ -170,6 +172,7 @@ export const fetchStaff = id => async (dispatch, getState) => {
 };
 
 export const createStaff = formData => async dispatch => {
+	// Register
 	try {
 		console.log("from create action");
 		console.log(formData);
@@ -194,6 +197,21 @@ export const approveStaff = id => async (dispatch, getState) => {
 		console.log("approve Staffs error");
 		console.log(err);
 		alert("approve Staffs error");
+		alert(JSON.stringify(err.response));
+	}
+};
+
+export const promoteStaff = id => async (dispatch, getState) => {
+	try {
+		const res = await staffs.patch(
+			`/api/Users/${id}?access_token=${getState().auth.accessToken}`,
+			{ isAdmin: true }
+		);
+		dispatch({ type: APPROVE_STAFF, payload: res.data });
+	} catch (err) {
+		console.log("promote Staffs error");
+		console.log(err);
+		alert("promote Staffs error");
 		alert(JSON.stringify(err.response));
 	}
 };
