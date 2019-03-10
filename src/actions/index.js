@@ -219,7 +219,8 @@ export const promoteStaff = id => async (dispatch, getState) => {
 export const editStaff = (id, formData) => async (dispatch, getState) => {
 	try {
 		const res = await staffs.patch(
-			`/api/Users/${id}?access_token=${(getState().auth.accessToken, formData)}`
+			`/api/Users/${id}?access_token=${getState().auth.accessToken}`,
+			formData
 		);
 		dispatch({ type: EDIT_STAFF, payload: res.data });
 	} catch (err) {
