@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Prompt } from "react-router-dom";
 import { Grid, Loader, Header, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import _ from "lodash";
 
 import { fetchStaff, editStaff } from "../../actions";
@@ -175,6 +174,7 @@ class Edit extends Component {
             <Button disabled={!this.state.isChange} floated="right">
               Submit
             </Button>
+
             <Button
               className="ui button primary right floated"
               onClick={() => {
