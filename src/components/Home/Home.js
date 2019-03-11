@@ -26,7 +26,7 @@ class Home extends React.Component {
 			return (
 				<div className='ui container'>
 					<Loader active size='massive' />
-					Loading
+					Loading...
 				</div>
 			);
 		}

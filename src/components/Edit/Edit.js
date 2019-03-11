@@ -17,7 +17,7 @@ const formdata = [
 	"faculty",
 	"year",
 	"email",
-	"phone",
+	// "phone",
 	"lineId",
 	"facebook",
 	"team"
@@ -151,6 +151,7 @@ class Edit extends Component {
 					result[key] = item[key];
 					return result;
 				}, {});
+			console.log(formData);
 			this.props.editStaff(this.props.match.params.id, formData);
 		}
 	};

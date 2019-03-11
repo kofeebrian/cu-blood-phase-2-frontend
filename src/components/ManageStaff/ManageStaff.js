@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
 	Menu,
@@ -65,11 +64,13 @@ class ManageStaff extends Component {
 			? this.setState({
 					isLoading: false,
 					staff_results: this.props.staffs.filter(staff => staff.isApproved),
+					staff_view: "",
 					value: ""
 			  })
 			: this.setState({
 					isLoading: false,
 					staff_results: this.props.staffs.filter(staff => !staff.isApproved),
+					staff_view: "",
 					value: ""
 			  });
 
@@ -231,9 +232,33 @@ class ManageStaff extends Component {
 												<strong>Nickname</strong>
 											</label>
 											<p>{staff.nickName}</p>
-											<Button primary inverted onClick>
-												Promote
-											</Button>
+											<Modal
+												trigger={
+													<Button
+														disabled={staff.isAdmin ? true : false}
+														primary
+														inverted
+													>
+														Promote
+													</Button>
+												}
+												header='Promotion Confirm'
+												content={`Warning! Are you sure to promote ${
+													staff
+														? `${staff.firstName} ${staff.lastName}`
+														: "this staff"
+												} ?`}
+												actions={[
+													{ key: "cancel", content: "Cancel", secondary: true },
+													{
+														key: "confirm",
+														content: "Confirm",
+														negative: true,
+														inverted: true,
+														onClick: () => this.handlePromoteClick(staff.id)
+													}
+												]}
+											/>
 										</Segment>
 									)}
 								</Transition.Group>

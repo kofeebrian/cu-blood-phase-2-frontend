@@ -1,9 +1,22 @@
 import React, { Component } from "react";
 import QrReader from "react-qr-reader";
-import { Segment, Modal, Button, Header, Dropdown } from "semantic-ui-react";
+import {
+	Segment,
+	Modal,
+	Button,
+	Header,
+	Dropdown,
+	Icon,
+	List
+} from "semantic-ui-react";
 import { connect } from "react-redux";
+import { CHECK_OUT } from "../../actions/types";
 
 import { verifyCode, checkIn, checkOut } from "../../actions";
+
+const resetUser = () => async dispatch => {
+	await dispatch({ type: CHECK_OUT });
+};
 
 class QRReader extends Component {
 	state = {
@@ -11,10 +24,14 @@ class QRReader extends Component {
 		// result: { checkIn: true, checkOut: false },
 		result: null,
 		loading: true,
-		open: false
+		open: false,
+		status: null
 	};
 
-	close = () => this.setState({ open: false, delay: 300 });
+	close = () => {
+		this.setState({ open: false, delay: 300 });
+		resetUser();
+	};
 
 	handleCheckIn = async code => {
 		await this.props.checkIn(code);
@@ -29,16 +46,46 @@ class QRReader extends Component {
 	renderModal() {
 		if (this.state.result) {
 			const { dimmer, open, result } = this.state; // result in state component
+			console.log(result);
 			if (!this.state.result.checkIn) {
 				return (
 					<Modal dimmer={dimmer} open={open} onClose={this.close}>
 						<Modal.Header>CHECK IN</Modal.Header>
 						<Modal.Content>
 							<Modal.Description>
-								<Header>Profile</Header>
-								<p>First name: {result.user.firstName}</p>
-								<p>Last name: {result.user.lastName}</p>
-								<p>Gender: {result.user.gender === 0 ? "Male" : "Female"}</p>
+								<Header as='h3'>
+									<Header.Content>Profile</Header.Content>
+								</Header>
+								<Segment>
+									<List>
+										<List.Item
+											icon='user'
+											content={
+												"Name: " +
+												result.user.firstName +
+												" " +
+												result.user.lastName
+											}
+										/>
+										<List.Item
+											icon={`${result.user.gender === 0 ? "man" : "woman"}`}
+											content={`Gender: ${
+												result.user.gender === 0 ? "Male" : "Female"
+											}`}
+										/>
+										<List.Item icon='marker' content={result.location.name} />
+										<List.Item
+											icon='time'
+											content={
+												"Time: " +
+												result.time.startTime +
+												" - " +
+												result.time.endTime
+											}
+										/>
+										<List.Item icon='mail' content={result.user.username} />
+									</List>
+								</Segment>
 							</Modal.Description>
 						</Modal.Content>
 						<Modal.Actions>
@@ -65,15 +112,43 @@ class QRReader extends Component {
 						<Modal.Content>
 							<Modal.Description>
 								<Header>Profile</Header>
-								<p>First name: {result.user.firstName}</p>
-								<p>Last name: {result.user.lastName}</p>
-								<p>Gender: {result.user.gender === 0 ? "Male" : "Female"}</p>
+								<Segment>
+									<List>
+										<List.Item
+											icon='user'
+											content={
+												"Name: " +
+												result.user.firstName +
+												" " +
+												result.user.lastName
+											}
+										/>
+										<List.Item
+											icon={`${result.user.gender === 0 ? "man" : "woman"}`}
+											content={`Gender: ${
+												result.user.gender === 0 ? "Male" : "Female"
+											}`}
+										/>
+										<List.Item icon='marker' content={result.location.name} />
+										<List.Item
+											icon='time'
+											content={
+												"Time: " +
+												result.time.startTime +
+												" - " +
+												result.time.endTime
+											}
+										/>
+										<List.Item icon='mail' content={result.user.username} />
+									</List>
+								</Segment>
 							</Modal.Description>
 							<div>
 								<span>Status: </span>
 								<Dropdown
 									placeholder='Select Status'
 									selection
+									onChange={value => this.setState({ status: value })}
 									options={[
 										{ key: 0, text: 0, value: 0 },
 										{ key: 1, text: 1, value: 1 },
@@ -93,7 +168,11 @@ class QRReader extends Component {
 								color='black'
 								icon='sign-out'
 								content='Check out'
-								onClick={() => this.handleCheckOut(result.id, 0)}
+								onClick={() => {
+									if (this.state.status)
+										this.handleCheckOut(result.id, this.state.status);
+									else alert("please choose status");
+								}}
 							/>
 						</Modal.Actions>
 					</Modal>
@@ -105,9 +184,36 @@ class QRReader extends Component {
 					<Modal.Content>
 						<Modal.Description>
 							<Header>Profile</Header>
-							<p>First name: {result.user.firstName}</p>
-							<p>Last name: {result.user.lastName}</p>
-							<p>Gender: {result.user.gender === 0 ? "Male" : "Female"}</p>
+							<Segment>
+								<List>
+									<List.Item
+										icon='user'
+										content={
+											"Name: " +
+											result.user.firstName +
+											" " +
+											result.user.lastName
+										}
+									/>
+									<List.Item
+										icon={`${result.user.gender === 0 ? "man" : "woman"}`}
+										content={`Gender: ${
+											result.user.gender === 0 ? "Male" : "Female"
+										}`}
+									/>
+									<List.Item icon='marker' content={result.location.name} />
+									<List.Item
+										icon='time'
+										content={
+											"Time: " +
+											result.time.startTime +
+											" - " +
+											result.time.endTime
+										}
+									/>
+									<List.Item icon='mail' content={result.user.username} />
+								</List>
+							</Segment>
 						</Modal.Description>
 					</Modal.Content>
 					<Modal.Actions>
