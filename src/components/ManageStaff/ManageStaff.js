@@ -10,7 +10,8 @@ import {
 	Input,
 	Modal,
 	Transition,
-	Segment
+	Segment,
+	List
 } from "semantic-ui-react";
 
 import {
@@ -222,16 +223,50 @@ class ManageStaff extends Component {
 								<Transition.Group animation={"fade down"} duration={300}>
 									{this.state.staff_view === staff.id && (
 										<Segment>
-											<label htmlFor='firstName'>
-												<strong>Name</strong>
-											</label>
-											<p>
-												{staff.firstName} {staff.lastName}
-											</p>
-											<label htmlFor='nickName'>
-												<strong>Nickname</strong>
-											</label>
-											<p>{staff.nickName}</p>
+											<List>
+												<List.Item
+													icon='user'
+													header='Name'
+													content={`${staff.firstName} ${staff.lastName}`}
+												/>
+												<List.Item
+													icon={`${staff.gender === "M" ? "man" : "woman"}`}
+													header='Gender'
+													content={`${
+														staff.gender === "M" ? "Male" : "Female"
+													}`}
+												/>
+												<List.Item
+													icon='mail'
+													header='Email'
+													content={`${staff.email}`}
+												/>
+												<List.Item
+													icon='id card'
+													header='Student ID'
+													content={`${staff.studentNumber}`}
+												/>
+												<List.Item
+													icon='student'
+													header='Faculty'
+													content={`${staff.faculty}`}
+												/>
+												<List.Item
+													icon='linechat'
+													header='LINE'
+													content={`${staff.lineId}`}
+												/>
+												<List.Item
+													icon='facebook'
+													header='Facebook'
+													content={`${staff.facebook}`}
+												/>
+												<List.Item
+													icon='phone'
+													header='Phone'
+													content={`${staff.phoneNumber}`}
+												/>
+											</List>
 											<Modal
 												trigger={
 													<Button

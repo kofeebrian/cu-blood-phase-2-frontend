@@ -242,3 +242,18 @@ export const deleteStaff = id => async (dispatch, getState) => {
 		alert(JSON.stringify(err.response));
 	}
 };
+
+export const changePassword = (oldpassword, newpassword) => async dispatch => {
+	try {
+		const res = await staffs.post(`/api/Users/change-password`, {
+			oldpassword,
+			newpassword
+		});
+		dispatch({ type: EDIT_STAFF, payload: res.data });
+	} catch (err) {
+		console.log("change password error");
+		console.log(err);
+		alert("change password error");
+		alert(JSON.stringify(err.response));
+	}
+};
