@@ -3,7 +3,8 @@ import {
 	DELETE_STAFF,
 	EDIT_STAFF,
 	FETCH_STAFF,
-	APPROVE_STAFF
+	APPROVE_STAFF,
+	PROMOTE_STAFF
 } from "../actions/types";
 import _ from "lodash";
 
@@ -16,6 +17,8 @@ export default (state = {}, action) => {
 		case EDIT_STAFF:
 			return { ...state, [action.payload.userId]: action.payload };
 		case APPROVE_STAFF:
+			return { ...state, [action.payload.id]: action.payload };
+		case PROMOTE_STAFF:
 			return { ...state, [action.payload.id]: action.payload };
 		case DELETE_STAFF:
 			return _.omit(state, action.payload);

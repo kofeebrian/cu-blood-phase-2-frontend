@@ -9,7 +9,8 @@ import {
 	FETCH_STAFF,
 	DELETE_STAFF,
 	EDIT_STAFF,
-	APPROVE_STAFF
+	APPROVE_STAFF,
+	PROMOTE_STAFF
 } from "./types";
 import users from "../apis/users";
 import staffs from "../apis/staffs";
@@ -204,7 +205,22 @@ export const promoteStaff = id => async (dispatch, getState) => {
 			`/api/Users/${id}?access_token=${getState().auth.accessToken}`,
 			{ isAdmin: true }
 		);
-		dispatch({ type: APPROVE_STAFF, payload: res.data });
+		dispatch({ type: PROMOTE_STAFF, payload: res.data });
+	} catch (err) {
+		console.log("promote Staffs error");
+		console.log(err);
+		alert("promote Staffs error");
+		alert(JSON.stringify(err.response));
+	}
+};
+
+export const demoteStaff = id => async (dispatch, getState) => {
+	try {
+		const res = await staffs.patch(
+			`/api/Users/${id}?access_token=${getState().auth.accessToken}`,
+			{ isAdmin: false }
+		);
+		dispatch({ type: PROMOTE_STAFF, payload: res.data });
 	} catch (err) {
 		console.log("promote Staffs error");
 		console.log(err);
