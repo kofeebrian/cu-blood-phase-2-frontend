@@ -491,7 +491,7 @@ class SignupForm extends Component {
 										onChange={this.handleInputChange}
 										type='text'
 										name='phoneNumber'
-										placeholder='PhoneNumber number'
+										placeholder='Phone Number'
 									/>
 									<div
 										className={`ui message negative ${
