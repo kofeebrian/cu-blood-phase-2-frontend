@@ -18,6 +18,24 @@ class NavbarMobile extends React.Component {
 	handleShowClick = () => this.setState({ visible: true });
 	handleSidebarHide = () => this.setState({ visible: false });
 
+	renderAdminComponent = () => {
+		const { user } = this.props;
+		if (user && user.isAdmin) {
+			return (
+				<>
+					<Menu.Item
+						as={Link}
+						to='/manage-staff'
+						onClick={this.handleHideClick}
+					>
+						<Icon name='group' />
+						Manage Staff
+					</Menu.Item>
+				</>
+			);
+		}
+	};
+
 	render() {
 		const { visible } = this.state;
 		const screenHeight = window.screen.height;
@@ -81,14 +99,7 @@ class NavbarMobile extends React.Component {
 						<Icon name='qrcode' />
 						QR Reader
 					</Menu.Item>
-					<Menu.Item
-						as={Link}
-						to='/manage-staff'
-						onClick={this.handleHideClick}
-					>
-						<Icon name='group' />
-						Manage Staff
-					</Menu.Item>
+					{this.renderAdminComponent()}
 					<Menu.Item
 						onClick={() => {
 							this.props.logout();

@@ -10,7 +10,7 @@ import "./index.css";
 import reducers from "./reducers";
 import App from "./components/App";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = process.env.NODE_ENV !== 'production' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : compose;
 const store = createStore(
 	reducers,
 	composeEnhancers(applyMiddleware(reduxThunk))

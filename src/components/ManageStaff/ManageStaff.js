@@ -19,6 +19,7 @@ import {
 	approveStaff,
 	promoteStaff
 } from "../../actions";
+import "./ManageStaff.css";
 
 class ManageStaff extends Component {
 	state = {
@@ -105,7 +106,26 @@ class ManageStaff extends Component {
 		if (user && user.isAdmin && user.id !== staff.id) {
 			if (!staff.isAdmin && !staff.isApproved) {
 				return (
-					<>
+					<div className='buttonRow'>
+						<Button
+							name='view'
+							floated='right'
+							onClick={() =>
+								this.setState({
+									staff_view: this.state.staff_view === staff.id ? "" : staff.id
+								})
+							}
+						>
+							View
+						</Button>
+						<Button
+							primary
+							name='approve'
+							floated='right'
+							onClick={e => this.handleApproveClick(staff.id)}
+						>
+							Approve
+						</Button>
 						<Modal
 							trigger={
 								<Button name='delete' negative floated='right'>
@@ -124,32 +144,22 @@ class ManageStaff extends Component {
 								{ key: "cancel", content: "Cancel" }
 							]}
 						/>
-
-						<Button
-							primary
-							name='approve'
-							floated='right'
-							onClick={e => this.handleApproveClick(staff.id)}
-						>
-							Approve
-						</Button>
-
-						<Button
-							name='view'
-							floated='right'
-							onClick={() =>
-								this.setState({
-									staff_view: this.state.staff_view === staff.id ? "" : staff.id
-								})
-							}
-						>
-							View
-						</Button>
-					</>
+					</div>
 				);
 			}
 			return (
-				<>
+				<div className='buttonRow'>
+					<Button
+						name='view'
+						floated='right'
+						onClick={() =>
+							this.setState({
+								staff_view: this.state.staff_view === staff.id ? "" : staff.id
+							})
+						}
+					>
+						View
+					</Button>
 					<Modal
 						trigger={
 							<Button name='delete' negative floated='right'>
@@ -168,34 +178,24 @@ class ManageStaff extends Component {
 							{ key: "cancel", content: "Cancel" }
 						]}
 					/>
-
-					<Button
-						name='view'
-						floated='right'
-						onClick={() =>
-							this.setState({
-								staff_view: this.state.staff_view === staff.id ? "" : staff.id
-							})
-						}
-					>
-						View
-					</Button>
-				</>
+				</div>
 			);
 		}
 
 		return (
-			<Button
-				name='view'
-				floated='right'
-				onClick={() =>
-					this.setState({
-						staff_view: this.state.staff_view === staff.id ? "" : staff.id
-					})
-				}
-			>
-				View
-			</Button>
+			<div className='buttonRow'>
+				<Button
+					name='view'
+					floated='right'
+					onClick={() =>
+						this.setState({
+							staff_view: this.state.staff_view === staff.id ? "" : staff.id
+						})
+					}
+				>
+					View
+				</Button>
+			</div>
 		);
 	};
 
@@ -254,7 +254,6 @@ class ManageStaff extends Component {
 														key: "confirm",
 														content: "Confirm",
 														negative: true,
-														inverted: true,
 														onClick: () => this.handlePromoteClick(staff.id)
 													}
 												]}
@@ -264,7 +263,11 @@ class ManageStaff extends Component {
 								</Transition.Group>
 							</Item.Description>
 							<Item.Extra>
-								<Label>
+								<Label
+									color={
+										staff.isAdmin ? "red" : staff.isApproved ? null : "blue"
+									}
+								>
 									{staff.isApproved
 										? staff.isAdmin
 											? "Admin"

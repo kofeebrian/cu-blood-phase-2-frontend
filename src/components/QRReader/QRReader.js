@@ -125,6 +125,7 @@ class QRReader extends Component {
 						<Modal.Content>
 							<Modal.Description>
 								<Header>Profile</Header>
+								<div>Time: {this.state.currtime.toLocaleTimeString()}</div>
 								<Segment>
 									<List>
 										<List.Item
@@ -197,6 +198,7 @@ class QRReader extends Component {
 					<Modal.Content>
 						<Modal.Description>
 							<Header>Profile</Header>
+							<div>Time: {this.state.currtime.toLocaleTimeString()}</div>
 							<Segment>
 								<List>
 									<List.Item

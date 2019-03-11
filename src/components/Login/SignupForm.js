@@ -486,7 +486,7 @@ class SignupForm extends Component {
 										validation.phoneNumber.isInvalid ? "error" : ""
 										}`}
 								>
-									<label>เบอร์โทรศัพท์</label>
+									<label>เบอร์โทรศัพท์ <span >08XXXXXXXX</span></label>
 									<input
 										onChange={this.handleInputChange}
 										type='text'

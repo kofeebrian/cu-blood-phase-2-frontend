@@ -27,7 +27,6 @@ class Edit extends Component {
 	componentDidMount = async () => {
 		await this.props.fetchStaff(this.props.match.params.id);
 		this.setState({ ...this.props.editee });
-		console.log(this.state);
 	};
 
 	submitted = false;
@@ -116,8 +115,40 @@ class Edit extends Component {
 		}
 	]);
 
+	changePassValidator = new FormValidator([
+		{
+			field: "oldpassword",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Old password is required."
+		},
+		{
+			field: "oldpassword",
+			method: "isLength",
+			args: [{ min: 6 }],
+			validWhen: false,
+			message: "Old password have to be more 6 characters."
+		},
+		{
+			field: "newpassword",
+			method: "isEmpty",
+			validWhen: false,
+			message: "New password is required."
+		},
+		{
+			field: "newpassword",
+			method: "isLength",
+			args: [{ min: 6 }],
+			validWhen: false,
+			message: "New password is have to be more 6 characters."
+		}
+	]);
+
 	state = {
 		isChange: false,
+		isChangePassword: false,
+		oldpassword: "",
+		newpassword: "",
 		firstName: "",
 		lastName: "",
 		nickName: "",
@@ -133,6 +164,8 @@ class Edit extends Component {
 		validation: this.validator.valid()
 	};
 
+	changePasswordCheck = () => {};
+
 	handleFormSubmit = async e => {
 		e.preventDefault();
 
@@ -144,9 +177,6 @@ class Edit extends Component {
 		const validation = await this.validator.validate(this.state);
 		this.setState({ validation });
 		this.submitted = true;
-
-		console.log("form");
-		console.log(this.state);
 
 		if (!validation.isValid) {
 			window.scrollTo(0, 0);
@@ -175,10 +205,10 @@ class Edit extends Component {
 		});
 
 		this.setState({
-			isChange: true
+			isChange: true,
+			isChangePassword:
+				this.state.oldpassword.length + this.state.newpassword.length
 		});
-
-		console.log(this.state);
 	};
 
 	renderYear = () => {
@@ -219,8 +249,7 @@ class Edit extends Component {
 			email,
 			phoneNumber,
 			lineId,
-			facebook,
-			team
+			facebook
 		} = this.state;
 		return (
 			<div id='edit-form' className='ui container'>
@@ -423,9 +452,11 @@ class Edit extends Component {
 
 						<div className='field'>
 							<div className='two fields'>
-								<div className={`field ${
+								<div
+									className={`field ${
 										validation.phoneNumber.isInvalid ? "error" : ""
-									}`}>
+									}`}
+								>
 									<label>เบอร์โทรศัพท์</label>
 									<input
 										onChange={this.handleInputChange}
@@ -480,6 +511,21 @@ class Edit extends Component {
 										defaultValue={facebook}
 										placeholder='Facebook'
 									/>
+								</div>
+							</div>
+						</div>
+
+						<br />
+						<h4 className='ui dividing header'>Change Password</h4>
+						<div className='field'>
+							<div className='two fields'>
+								<div className='field'>
+									<label>Old password</label>
+									<input type='text' placeholder='old password' />
+								</div>
+								<div className='field'>
+									<label>New password</label>
+									<input type='text' placeholder='new password' />
 								</div>
 							</div>
 						</div>
@@ -564,7 +610,9 @@ class Edit extends Component {
 							</div>
 						</div>
 
-						<Button floated='right'>Submit</Button>
+						<Button disabled={!this.state.isChange} floated='right'>
+							Submit
+						</Button>
 						<Button
 							className='ui button primary right floated'
 							onClick={() => {

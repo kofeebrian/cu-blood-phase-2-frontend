@@ -1,0 +1,13 @@
+.buttonRow {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media screen and (max-width: 419px){
+    .buttonRow {
+        justify-content: stretch;
+    }
+    .buttonRow button {
+        flex-basis: 100%;
+    }
+}
