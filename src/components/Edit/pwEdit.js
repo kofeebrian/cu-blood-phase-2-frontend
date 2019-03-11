@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Prompt } from "react-router-dom";
 import { Grid, Loader, Header, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import _ from "lodash";
 
 import { fetchStaff, editStaff } from "../../actions";
@@ -10,195 +11,201 @@ import "../Login/Login.css";
 
 const formdata = ["oldpassword", "newpassword"];
 
-class Edit extends Component {
-  componentDidMount = async () => {
-    await this.props.fetchStaff(this.props.match.params.id);
-    this.setState({ ...this.props.editee });
-  };
+class pwEdit extends Component {
+	componentDidMount = async () => {
+		await this.props.fetchStaff(this.props.match.params.id);
+		this.setState({ ...this.props.editee });
+	};
 
-  submitted = false;
+	submitted = false;
 
-  validator = new FormValidator([
-    {
-      field: "oldpassword",
-      method: "isEmpty",
-      validWhen: false,
-      message: "Old password is required."
-    },
-    {
-      field: "oldpassword",
-      method: "isLength",
-      args: [{ min: 6 }],
-      validWhen: false,
-      message: "Old password have to be more 6 characters."
-    },
-    {
-      field: "newpassword",
-      method: "isEmpty",
-      validWhen: false,
-      message: "New password is required."
-    },
-    {
-      field: "newpassword",
-      method: "isLength",
-      args: [{ min: 6 }],
-      validWhen: false,
-      message: "New password is have to be more 6 characters."
-    }
-  ]);
+	validator = new FormValidator([
+		{
+			field: "oldpassword",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Old password is required."
+		},
+		{
+			field: "oldpassword",
+			method: "isLength",
+			args: [{ min: 6 }],
+			validWhen: true,
+			message: "Old password have to be more 6 characters."
+		},
+		{
+			field: "newpassword",
+			method: "isEmpty",
+			validWhen: false,
+			message: "New password is required."
+		},
+		{
+			field: "newpassword",
+			method: "isLength",
+			args: [{ min: 6 }],
+			validWhen: true,
+			message: "New password is have to be more 6 characters."
+		}
+	]);
 
-  state = {
-    isChange: false,
-    oldpassword: "",
-    newpassword: "",
-    validation: this.validator.valid()
-  };
+	state = {
+		isChange: false,
+		isChangePassword: false,
+		oldpassword: "",
+		newpassword: "",
+		validation: this.validator.valid()
+	};
 
-  handleFormSubmit = async e => {
-    e.preventDefault();
+	changePasswordCheck = () => {};
 
-    if (!this.state.isChange) {
-      console.log("Doesn't change anything");
-      return null;
-    }
+	handleFormSubmit = async e => {
+		e.preventDefault();
 
-    const validation = await this.validator.validate(this.state);
-    this.setState({ validation });
-    this.submitted = true;
+		if (!this.state.isChange) {
+			console.log("Doesn't change anything");
+			return null;
+		}
 
-    if (!validation.isValid) {
-      window.scrollTo(0, 0);
-    } else if (validation.isValid) {
-      const formData = formdata
-        .map(data => ({ [data]: this.state[data] }))
-        .reduce((result, item) => {
-          var key = Object.keys(item)[0];
-          result[key] = item[key];
-          return result;
-        }, {});
-      console.log(formData);
-      this.props.editStaff(this.props.match.params.id, formData);
-      this.setState({ isChange: false });
-    }
-  };
+		const validation = await this.validator.validate(this.state);
+		this.setState({ validation });
+		this.submitted = true;
 
-  handleInputChange = e => {
-    const value = e.target.value;
-    const name = e.target.name;
+		if (!validation.isValid) {
+			window.scrollTo(0, 0);
+		} else if (validation.isValid) {
+			const formData = formdata
+				.map(data => ({ [data]: this.state[data] }))
+				.reduce((result, item) => {
+					var key = Object.keys(item)[0];
+					result[key] = item[key];
+					return result;
+				}, {});
+			console.log(formData);
+			this.props.editStaff(this.props.match.params.id, formData); // change this to changePassword Method
+			this.setState({ isChange: false });
+		}
+	};
 
-    this.isChange = true;
+	handleInputChange = e => {
+		const value = e.target.value;
+		const name = e.target.name;
 
-    this.setState({
-      [name]: value
-    });
+		this.isChange = true;
 
-    this.setState({
-      isChange: true,
-      isChangePassword:
-        this.state.oldpassword.length + this.state.newpassword.length
-    });
-  };
+		this.setState({
+			[name]: value
+		});
 
-  render() {
-    if (!this.props.editee) {
-      return (
-        <div className="ui container">
-          <Loader active size="massive">
-            Loading
-          </Loader>
-        </div>
-      );
-    }
+		this.setState({
+			isChange: true,
+			isChangePassword:
+				this.state.oldpassword.length + this.state.newpassword.length
+		});
+	};
 
-    let validation = this.submitted
-      ? this.validator.validate(this.state)
-      : this.state.validation;
+	render() {
+		if (!this.props.editee) {
+			return (
+				<div className='ui container'>
+					<Loader active size='massive'>
+						Loading
+					</Loader>
+				</div>
+			);
+		}
 
-    return (
-      <div id="edit-form" className="ui container">
-        <Header as="h1" icon textAlign="center">
-          <Header.Content>Account Setting</Header.Content>
-        </Header>
-        <Grid className="ui centered grid" style={{ padding: "30px" }}>
-          <form className="ui form error" onSubmit={this.handleFormSubmit}>
-            <Prompt
-              when={this.state.isChange}
-              message="Are you sure you want to dismiss this change?"
-            />
-            <h4 className="ui dividing header">Edit Password</h4>
-            <div className="field">
-              <div className="two fields">
-                <div
-                  className={`field ${
-                    validation.oldpassword.isInvalid ? "error" : ""
-                  }`}
-                >
-                  <label>Old Password</label>
-                  <input
-                    onChange={this.handleInputChange}
-                    type="text"
-                    name="oldpassword"
-                    placeholder="Old Password"
-                  />
-                  <div
-                    className={`ui message negative ${
-                      validation.oldpassword.isInvalid ? "" : "hidden"
-                    }`}
-                  >
-                    {validation.oldpassworde.message}
-                  </div>
-                </div>
-                <div
-                  className={`field ${
-                    validation.newpassword.isInvalid ? "error" : ""
-                  }`}
-                >
-                  <label>New Password</label>
-                  <input
-                    onChange={this.handleInputChange}
-                    type="text"
-                    name="newpassword"
-                    placeholder="New Password"
-                  />
-                  <div
-                    className={`ui message negative ${
-                      validation.newpassword.isInvalid ? "" : "hidden"
-                    }`}
-                  >
-                    {validation.newpassword.message}
-                  </div>
-                </div>
-              </div>
-            </div>
+		let validation = this.submitted
+			? this.validator.validate(this.state)
+			: this.state.validation;
 
-            <Button disabled={!this.state.isChange} floated="right">
-              Submit
-            </Button>
+		return (
+			<div id='edit-form' className='ui container'>
+				<Header as='h1' icon textAlign='center'>
+					<Header.Content>Edit</Header.Content>
+				</Header>
+				<Grid className='ui centered grid' style={{ padding: "30px" }}>
+					<form className='ui form error' onSubmit={this.handleFormSubmit}>
+						<Prompt
+							when={this.state.isChange}
+							message='Are you sure you want to dismiss this change?'
+						/>
 
-            <Button
-              className="ui button primary right floated"
-              onClick={() => {
-                this.setState({ isChange: false });
-                this.props.history.goBack();
-              }}
-            >
-              Back
-            </Button>
-          </form>
-        </Grid>
-      </div>
-    );
-  }
+						<br />
+						<h4 className='ui dividing header'>Change Password</h4>
+						<div className='field'>
+							<div className='two fields'>
+								<div
+									className={`field ${
+										validation.oldpassword.isInvalid ? "error" : ""
+									}`}
+								>
+									<label>Old password</label>
+									<input
+										type='text'
+										name='oldpassword'
+										value={this.state.oldpassword}
+										onChange={this.handleInputChange}
+										placeholder='old password'
+									/>
+									<div
+										className={`ui message negative ${
+											validation.oldpassword.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.oldpassword.message}
+									</div>
+								</div>
+								<div
+									className={`field ${
+										validation.newpassword.isInvalid ? "error" : ""
+									}`}
+								>
+									<label>New password</label>
+									<input
+										type='text'
+										name='newpassword'
+										value={this.state.newpassword}
+										onChange={this.handleInputChange}
+										placeholder='new password'
+									/>
+									<div
+										className={`ui message negative ${
+											validation.newpassword.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.newpassword.message}
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<Button disabled={!this.state.isChange} floated='right'>
+							Submit
+						</Button>
+						<Button
+							className='ui button primary right floated'
+							onClick={() => {
+								this.setState({ isChange: false });
+								this.props.history.goBack();
+							}}
+						>
+							Back
+						</Button>
+					</form>
+				</Grid>
+			</div>
+		);
+	}
 }
 
 const mapStateToProps = (stateRedux, ownProps) => {
-  return {
-    editor: stateRedux.auth.user,
-    editee: stateRedux.staffs[ownProps.match.params.id]
-  };
+	return {
+		editor: stateRedux.auth.user,
+		editee: stateRedux.staffs[ownProps.match.params.id]
+	};
 };
 
 export default connect(
-  mapStateToProps,
-  { fetchStaff, editStaff }
-)(Edit);
+	mapStateToProps,
+	{ fetchStaff, editStaff }
+)(pwEdit);
