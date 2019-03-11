@@ -109,7 +109,7 @@ class SignupForm extends Component {
 		{
 			field: "phoneNumber",
 			method: "matches",
-			args: ['/^(?([0-9]{3}))*-([0-9]{3})*-([0-9]{4})$/'],
+			args: [/^([0-9]{10}|[0-9]{3}\-[0-9]{7}|[0-9]{3}\-[0-9]{3}\-[0-9]{4})$/],
 			validWhen: true,
 			message: "Phone number is incorrect."
 		},
