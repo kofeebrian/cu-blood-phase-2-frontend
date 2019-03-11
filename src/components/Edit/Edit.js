@@ -17,7 +17,7 @@ const formdata = [
 	"faculty",
 	"year",
 	"email",
-	// "phoneNumber",
+	"phoneNumber",
 	"lineId",
 	"facebook",
 	"team"
@@ -100,6 +100,13 @@ class Edit extends Component {
 			args: [{ min: 10, max: 10 }],
 			validWhen: true,
 			message: "Student number must contains only 10 numbers."
+		},
+		{
+			field: "phoneNumber",
+			method: "matches",
+			args: [/^([0-9]{10}|[0-9]{3}\-[0-9]{7}|[0-9]{3}\-[0-9]{3}\-[0-9]{4})$/],
+			validWhen: true,
+			message: "Phone number is incorrect."
 		},
 		{
 			field: "team",
@@ -416,13 +423,16 @@ class Edit extends Component {
 
 						<div className='field'>
 							<div className='two fields'>
-								<div className='field'>
+								<div className={`field ${
+										validation.phoneNumber.isInvalid ? "error" : ""
+									}`}>
 									<label>เบอร์โทรศัพท์</label>
 									<input
 										onChange={this.handleInputChange}
 										type='text'
 										name='phoneNumber'
 										placeholder='phone number'
+										defaultValue={phoneNumber}
 									/>
 								</div>
 								<div
