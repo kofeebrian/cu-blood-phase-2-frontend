@@ -18,7 +18,8 @@ import {
 	fetchStaffs,
 	deleteStaff,
 	approveStaff,
-	promoteStaff
+	promoteStaff,
+	demoteStaff
 } from "../../actions";
 import "./ManageStaff.css";
 
@@ -58,6 +59,11 @@ class ManageStaff extends Component {
 
 	handlePromoteClick = async id => {
 		await this.props.promoteStaff(id);
+		this.resetComponent();
+	};
+
+	handleDemoteClick = async id => {
+		await this.props.demoteStaff(id);
 		this.resetComponent();
 	};
 
@@ -200,6 +206,72 @@ class ManageStaff extends Component {
 		);
 	};
 
+	renderPromoteButton = staff => {
+		if (staff.id != this.props.user.id) {
+			if (staff.isApproved && !staff.isAdmin) {
+				return (
+					<Modal
+						trigger={
+							<Button primary inverted>
+								Promote
+							</Button>
+						}
+						header='Promotion Confirm'
+						content={`Warning! Are you sure to promote ${
+							staff ? `${staff.firstName} ${staff.lastName}` : "this staff"
+						} ?`}
+						actions={[
+							{
+								key: "cancel",
+								content: "Cancel",
+								secondary: true,
+								inverted: true
+							},
+							{
+								key: "confirm",
+								content: "Confirm",
+								primary: true,
+								inverted: true,
+								onClick: () => this.handlePromoteClick(staff.id)
+							}
+						]}
+					/>
+				);
+			} else if (staff.isApproved && staff.isAdmin) {
+				return (
+					<Modal
+						trigger={
+							<Button color='red' inverted>
+								Demote
+							</Button>
+						}
+						header='Demotion Confirm'
+						content={`Warning! Are you sure to demote ${
+							staff ? `${staff.firstName} ${staff.lastName}` : "this staff"
+						} ?`}
+						actions={[
+							{
+								key: "cancel",
+								content: "Cancel",
+								secondary: true,
+								inverted: true
+							},
+							{
+								key: "confirm",
+								content: "Demote",
+								color: "red",
+								inverted: true,
+								onClick: () => this.handleDemoteClick(staff.id)
+							}
+						]}
+					/>
+				);
+			}
+		}
+
+		return null;
+	};
+
 	renderList = () => {
 		const { staff_results, isfetched } = this.state;
 		if (!isfetched) {
@@ -267,32 +339,7 @@ class ManageStaff extends Component {
 													content={`${staff.phoneNumber}`}
 												/>
 											</List>
-											<Modal
-												trigger={
-													<Button
-														disabled={staff.isAdmin ? true : false}
-														primary
-														inverted
-													>
-														Promote
-													</Button>
-												}
-												header='Promotion Confirm'
-												content={`Warning! Are you sure to promote ${
-													staff
-														? `${staff.firstName} ${staff.lastName}`
-														: "this staff"
-												} ?`}
-												actions={[
-													{ key: "cancel", content: "Cancel", secondary: true },
-													{
-														key: "confirm",
-														content: "Confirm",
-														negative: true,
-														onClick: () => this.handlePromoteClick(staff.id)
-													}
-												]}
-											/>
+											{this.renderPromoteButton(staff)}
 										</Segment>
 									)}
 								</Transition.Group>
@@ -388,5 +435,5 @@ const mapStateToProps = stateRedux => {
 
 export default connect(
 	mapStateToProps,
-	{ fetchStaffs, deleteStaff, approveStaff, promoteStaff }
+	{ fetchStaffs, deleteStaff, approveStaff, promoteStaff, demoteStaff }
 )(ManageStaff);

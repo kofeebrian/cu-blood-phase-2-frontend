@@ -36,7 +36,7 @@ class QRReader extends Component {
 	}
 
 	componentWillUnmount() {
-		clearInterval(this.interval)
+		clearInterval(this.interval);
 	}
 
 	close = () => {
@@ -84,7 +84,7 @@ class QRReader extends Component {
 											icon={`${result.user.gender === 0 ? "man" : "woman"}`}
 											content={`Gender: ${
 												result.user.gender === 0 ? "Male" : "Female"
-												}`}
+											}`}
 										/>
 										<List.Item icon='marker' content={result.location.name} />
 										<List.Item
@@ -141,7 +141,7 @@ class QRReader extends Component {
 											icon={`${result.user.gender === 0 ? "man" : "woman"}`}
 											content={`Gender: ${
 												result.user.gender === 0 ? "Male" : "Female"
-												}`}
+											}`}
 										/>
 										<List.Item icon='marker' content={result.location.name} />
 										<List.Item
@@ -157,6 +157,7 @@ class QRReader extends Component {
 									</List>
 								</Segment>
 							</Modal.Description>
+							<br />
 							<div>
 								<span>Status: </span>
 								<Dropdown
@@ -214,7 +215,7 @@ class QRReader extends Component {
 										icon={`${result.user.gender === 0 ? "man" : "woman"}`}
 										content={`Gender: ${
 											result.user.gender === 0 ? "Male" : "Female"
-											}`}
+										}`}
 									/>
 									<List.Item icon='marker' content={result.location.name} />
 									<List.Item

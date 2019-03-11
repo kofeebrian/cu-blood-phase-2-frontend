@@ -222,9 +222,9 @@ export const demoteStaff = id => async (dispatch, getState) => {
 		);
 		dispatch({ type: PROMOTE_STAFF, payload: res.data });
 	} catch (err) {
-		console.log("promote Staffs error");
+		console.log("demote Staffs error");
 		console.log(err);
-		alert("promote Staffs error");
+		alert("demote Staffs error");
 		alert(JSON.stringify(err.response));
 	}
 };
@@ -236,6 +236,7 @@ export const editStaff = (id, formData) => async (dispatch, getState) => {
 			formData
 		);
 		dispatch({ type: EDIT_STAFF, payload: res.data });
+		dispatch(getUserData(id));
 		history.push("/");
 	} catch (err) {
 		console.log("edit Staffs error");
