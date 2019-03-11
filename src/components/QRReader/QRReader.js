@@ -25,8 +25,19 @@ class QRReader extends Component {
 		result: null,
 		loading: true,
 		open: false,
-		status: null
+		status: null,
+		currtime: new Date()
 	};
+
+	componentDidMount() {
+		this.interval = setInterval(() => {
+			this.setState({ currtime: new Date() });
+		}, 1000);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.interval)
+	}
 
 	close = () => {
 		this.setState({ open: false, delay: 300 });
@@ -46,7 +57,6 @@ class QRReader extends Component {
 	renderModal() {
 		if (this.state.result) {
 			const { dimmer, open, result } = this.state; // result in state component
-			console.log(result);
 			if (!this.state.result.checkIn) {
 				return (
 					<Modal dimmer={dimmer} open={open} onClose={this.close}>
@@ -54,7 +64,10 @@ class QRReader extends Component {
 						<Modal.Content>
 							<Modal.Description>
 								<Header as='h3'>
-									<Header.Content>Profile</Header.Content>
+									<Header.Content>
+										Profile
+										<div>Time: {this.state.currtime.toLocaleTimeString()}</div>
+									</Header.Content>
 								</Header>
 								<Segment>
 									<List>
@@ -71,7 +84,7 @@ class QRReader extends Component {
 											icon={`${result.user.gender === 0 ? "man" : "woman"}`}
 											content={`Gender: ${
 												result.user.gender === 0 ? "Male" : "Female"
-											}`}
+												}`}
 										/>
 										<List.Item icon='marker' content={result.location.name} />
 										<List.Item
@@ -127,7 +140,7 @@ class QRReader extends Component {
 											icon={`${result.user.gender === 0 ? "man" : "woman"}`}
 											content={`Gender: ${
 												result.user.gender === 0 ? "Male" : "Female"
-											}`}
+												}`}
 										/>
 										<List.Item icon='marker' content={result.location.name} />
 										<List.Item
@@ -199,7 +212,7 @@ class QRReader extends Component {
 										icon={`${result.user.gender === 0 ? "man" : "woman"}`}
 										content={`Gender: ${
 											result.user.gender === 0 ? "Male" : "Female"
-										}`}
+											}`}
 									/>
 									<List.Item icon='marker' content={result.location.name} />
 									<List.Item

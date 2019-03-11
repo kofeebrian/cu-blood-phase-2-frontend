@@ -17,7 +17,7 @@ const formdata = [
 	"faculty",
 	"year",
 	"email",
-	// "phone",
+	// "phoneNumber",
 	"lineId",
 	"facebook",
 	"team"
@@ -119,7 +119,7 @@ class Edit extends Component {
 		faculty: "0",
 		year: "1",
 		email: "",
-		phone: "",
+		phoneNumber: "",
 		lineId: "",
 		facebook: "",
 		team: "",
@@ -153,6 +153,7 @@ class Edit extends Component {
 				}, {});
 			console.log(formData);
 			this.props.editStaff(this.props.match.params.id, formData);
+			this.setState({ isChange: false });
 		}
 	};
 
@@ -209,7 +210,7 @@ class Edit extends Component {
 			faculty,
 			year,
 			email,
-			phone,
+			phoneNumber,
 			lineId,
 			facebook,
 			team
@@ -420,8 +421,8 @@ class Edit extends Component {
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='phone'
-										placeholder='Phone number'
+										name='phoneNumber'
+										placeholder='phone number'
 									/>
 								</div>
 								<div

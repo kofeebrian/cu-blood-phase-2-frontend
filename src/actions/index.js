@@ -90,7 +90,7 @@ export const getRememberUserData = (userId, id) => async dispatch => {
 	}
 };
 
-export const login = formData => async (dispatch, getState) => {
+export const login = (formData, cbError) => async (dispatch, getState) => {
 	try {
 		const res = await staffs.post("/api/Users/login", formData);
 		console.log("login");
@@ -108,10 +108,7 @@ export const login = formData => async (dispatch, getState) => {
 		dispatch(getUserData(userId));
 		history.push("/");
 	} catch (err) {
-		console.log("login error");
-		console.log(err);
-		alert("login error");
-		alert(JSON.stringify(err.response));
+		cbError();
 	}
 };
 
@@ -223,6 +220,7 @@ export const editStaff = (id, formData) => async (dispatch, getState) => {
 			formData
 		);
 		dispatch({ type: EDIT_STAFF, payload: res.data });
+		history.push("/");
 	} catch (err) {
 		console.log("edit Staffs error");
 		console.log(err);

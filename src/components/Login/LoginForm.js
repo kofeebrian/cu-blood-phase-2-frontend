@@ -21,7 +21,15 @@ class LoginForm extends React.Component {
 			username: "",
 			password: "",
 			remember_me: false
-		}
+		},
+		err: false
+	};
+
+	cb = () => {
+		this.setState({
+			err: true
+		});
+		console.log(this.state);
 	};
 
 	handleInputChange = e => {
@@ -49,7 +57,7 @@ class LoginForm extends React.Component {
 			this.state.formData.username !== "" &&
 			this.state.formData.password !== ""
 		) {
-			this.props.login(this.state.formData);
+			this.props.login(this.state.formData, this.cb);
 			this.setState({
 				formData: {
 					...this.state.formData,
@@ -147,6 +155,9 @@ class LoginForm extends React.Component {
 									value={this.state.formData.password}
 									onChange={this.handleInputChange}
 								/>
+								<Message hidden={!this.state.err} negative>
+									Username or Password incorrect.
+								</Message>
 								<Form.Checkbox
 									id='remember_me'
 									label={<label>Remember Me</label>}

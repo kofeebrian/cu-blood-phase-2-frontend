@@ -107,6 +107,13 @@ class SignupForm extends Component {
 			message: "Student number must contains only 10 numbers."
 		},
 		{
+			field: "phoneNumber",
+			method: "matches",
+			args: ['/^(?([0-9]{3}))*-([0-9]{3})*-([0-9]{4})$/'],
+			validWhen: true,
+			message: "Phone number is incorrect."
+		},
+		{
 			field: "team",
 			method: "isEmpty",
 			validWhen: false,
@@ -126,7 +133,7 @@ class SignupForm extends Component {
 		faculty: "0",
 		year: "1",
 		email: "",
-		phone: "",
+		phoneNumber: "",
 		lineId: "",
 		facebook: "",
 		team: "",
@@ -168,10 +175,10 @@ class SignupForm extends Component {
 				faculty,
 				year,
 				email,
-				// phone,
+				phoneNumber,
 				lineId,
-				facebook
-				// team
+				facebook,
+				team
 			} = this.state;
 			this.props.createStaff({
 				username,
@@ -184,10 +191,10 @@ class SignupForm extends Component {
 				faculty,
 				year,
 				email,
-				// phone,
+				phoneNumber,
 				lineId,
-				facebook
-				// team
+				facebook,
+				team
 			});
 		}
 	};
@@ -244,7 +251,7 @@ class SignupForm extends Component {
 								<div
 									className={`field ${
 										validation.username.isInvalid ? "error" : ""
-									}`}
+										}`}
 								>
 									<label htmlFor='username'>username</label>
 									<input
@@ -257,7 +264,7 @@ class SignupForm extends Component {
 									<div
 										className={`ui message negative ${
 											validation.username.isInvalid ? "" : "hidden"
-										}`}
+											}`}
 									>
 										{validation.username.message}
 									</div>
@@ -265,7 +272,7 @@ class SignupForm extends Component {
 								<div
 									className={`field ${
 										validation.password.isInvalid ? "error" : ""
-									}`}
+										}`}
 								>
 									<label htmlFor='password'>password</label>
 									<input
@@ -278,7 +285,7 @@ class SignupForm extends Component {
 									<div
 										className={`ui message negative ${
 											validation.password.isInvalid ? "" : "hidden"
-										}`}
+											}`}
 									>
 										{validation.password.message}
 									</div>
@@ -292,7 +299,7 @@ class SignupForm extends Component {
 								<div
 									className={`field ${
 										validation.firstName.isInvalid ? "error" : ""
-									}`}
+										}`}
 								>
 									<label>ชื่อ</label>
 									<input
@@ -304,7 +311,7 @@ class SignupForm extends Component {
 									<div
 										className={`ui message negative ${
 											validation.firstName.isInvalid ? "" : "hidden"
-										}`}
+											}`}
 									>
 										{validation.firstName.message}
 									</div>
@@ -312,7 +319,7 @@ class SignupForm extends Component {
 								<div
 									className={`field ${
 										validation.lastName.isInvalid ? "error" : ""
-									}`}
+										}`}
 								>
 									<label>นามสกุล</label>
 									<input
@@ -324,7 +331,7 @@ class SignupForm extends Component {
 									<div
 										className={`ui message negative ${
 											validation.lastName.isInvalid ? "" : "hidden"
-										}`}
+											}`}
 									>
 										{validation.lastName.message}
 									</div>
@@ -337,7 +344,7 @@ class SignupForm extends Component {
 								<div
 									className={`field ${
 										validation.nickName.isInvalid ? "error" : ""
-									}`}
+										}`}
 								>
 									<label>ชื่อเล่น</label>
 									<input
@@ -349,7 +356,7 @@ class SignupForm extends Component {
 									<div
 										className={`ui message negative ${
 											validation.nickName.isInvalid ? "" : "hidden"
-										}`}
+											}`}
 									>
 										{validation.nickName.message}
 									</div>
@@ -357,7 +364,7 @@ class SignupForm extends Component {
 								<div
 									className={`field ${
 										validation.gender.isInvalid ? "error" : ""
-									}`}
+										}`}
 								>
 									<label>เพศ</label>
 									<select
@@ -371,7 +378,7 @@ class SignupForm extends Component {
 									<div
 										className={`ui message negative ${
 											validation.gender.isInvalid ? "" : "hidden"
-										}`}
+											}`}
 									>
 										{validation.gender.message}
 									</div>
@@ -384,7 +391,7 @@ class SignupForm extends Component {
 								<div
 									className={`field ${
 										validation.studentNumber.isInvalid ? "error" : ""
-									}`}
+										}`}
 								>
 									<label>รหัสนิสิต</label>
 									<input
@@ -397,7 +404,7 @@ class SignupForm extends Component {
 									<div
 										className={`ui message negative ${
 											validation.studentNumber.isInvalid ? "" : "hidden"
-										}`}
+											}`}
 									>
 										{validation.studentNumber.message}
 									</div>
@@ -405,7 +412,7 @@ class SignupForm extends Component {
 								<div
 									className={`field ${
 										validation.faculty.isInvalid ? "error" : ""
-									}`}
+										}`}
 								>
 									<label>คณะ</label>
 									<select
@@ -438,7 +445,7 @@ class SignupForm extends Component {
 									<div
 										className={`ui message negative ${
 											validation.faculty.isInvalid ? "" : "hidden"
-										}`}
+											}`}
 									>
 										{validation.faculty.message}
 									</div>
@@ -446,7 +453,7 @@ class SignupForm extends Component {
 								<div
 									className={`field ${
 										validation.year.isInvalid ? "error" : ""
-									}`}
+										}`}
 								>
 									<label>ชั้นปี</label>
 									<select
@@ -464,7 +471,7 @@ class SignupForm extends Component {
 									<div
 										className={`ui message negative ${
 											validation.year.isInvalid ? "" : "hidden"
-										}`}
+											}`}
 									>
 										{validation.year.message}
 									</div>
@@ -474,19 +481,30 @@ class SignupForm extends Component {
 
 						<div className='field'>
 							<div className='two fields'>
-								<div className='field'>
+								<div
+									className={`field ${
+										validation.phoneNumber.isInvalid ? "error" : ""
+										}`}
+								>
 									<label>เบอร์โทรศัพท์</label>
 									<input
 										onChange={this.handleInputChange}
 										type='text'
-										name='phone'
-										placeholder='Phone number'
+										name='phoneNumber'
+										placeholder='PhoneNumber number'
 									/>
+									<div
+										className={`ui message negative ${
+											validation.phoneNumber.isInvalid ? "" : "hidden"
+											}`}
+									>
+										{validation.phoneNumber.message}
+									</div>
 								</div>
 								<div
 									className={`field ${
 										validation.email.isInvalid ? "error" : ""
-									}`}
+										}`}
 								>
 									<label>E-mail</label>
 									<input
@@ -498,7 +516,7 @@ class SignupForm extends Component {
 									<div
 										className={`ui message negative ${
 											validation.email.isInvalid ? "" : "hidden"
-										}`}
+											}`}
 									>
 										{validation.email.message}
 									</div>
@@ -603,7 +621,7 @@ class SignupForm extends Component {
 							<div
 								className={`ui message negative ${
 									validation.team.isInvalid ? "" : "hidden"
-								}`}
+									}`}
 							>
 								{validation.team.message}
 							</div>
