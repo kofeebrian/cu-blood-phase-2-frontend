@@ -11,7 +11,7 @@
 		"react-dom": "^16.7.0",
 		"react-qr-reader": "^2.1.2",
 		"react-redux": "^6.0.0",
-		"react-scripts": "^2.1.5",
+		"react-scripts": "^2.1.8",
 		"redux": "^4.0.1",
 		"redux-thunk": "^2.3.0",
 		"semantic-ui-css": "^2.4.1",
