@@ -8,7 +8,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 			{...rest}
 			render={props => {
 				const { user } = rest;
-				console.log(user);
 				return rest.isAuthenticated && user ? (
 					user.isAdmin === true ? (
 						<Component {...props} />

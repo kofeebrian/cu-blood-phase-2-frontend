@@ -157,7 +157,7 @@ class Edit extends Component {
 					result[key] = item[key];
 					return result;
 				}, {});
-			console.log(formData);
+			// console.log(formData);
 			this.props.editStaff(this.props.match.params.id, formData);
 			this.setState({ isChange: false });
 		}

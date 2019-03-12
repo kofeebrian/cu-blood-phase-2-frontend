@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { Prompt } from "react-router-dom";
 import { Grid, Loader, Header, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import _ from "lodash";
 
-import { fetchStaff, editStaff } from "../../actions";
+import { fetchStaff, editStaff, changePassword } from "../../actions";
 import FormValidator from "../FormValidator";
 import "../Login/Login.css";
 
@@ -80,9 +78,10 @@ class pwEdit extends Component {
 					result[key] = item[key];
 					return result;
 				}, {});
-			console.log(formData);
-			this.props.editStaff(this.props.match.params.id, formData); // change this to changePassword Method
-			this.setState({ isChange: false });
+			const { newpassword, oldpassword } = formData;
+			this.props.changePassword(oldpassword, newpassword, err =>
+				this.setState({ isChange: err })
+			);
 		}
 	};
 
@@ -141,7 +140,7 @@ class pwEdit extends Component {
 								>
 									<label>Old password</label>
 									<input
-										type='text'
+										type='password'
 										name='oldpassword'
 										value={this.state.oldpassword}
 										onChange={this.handleInputChange}
@@ -162,7 +161,7 @@ class pwEdit extends Component {
 								>
 									<label>New password</label>
 									<input
-										type='text'
+										type='password'
 										name='newpassword'
 										value={this.state.newpassword}
 										onChange={this.handleInputChange}
@@ -207,5 +206,5 @@ const mapStateToProps = (stateRedux, ownProps) => {
 
 export default connect(
 	mapStateToProps,
-	{ fetchStaff, editStaff }
+	{ fetchStaff, editStaff, changePassword }
 )(pwEdit);

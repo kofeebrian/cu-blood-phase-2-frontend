@@ -6,7 +6,6 @@ import {
 	Button,
 	Header,
 	Dropdown,
-	Icon,
 	List
 } from "semantic-ui-react";
 import { connect } from "react-redux";
@@ -45,12 +44,12 @@ class QRReader extends Component {
 	};
 
 	handleCheckIn = async code => {
-		await this.props.checkIn(code);
+		await this.props.checkIn(code, this.props.resultPortal);
 		this.close();
 	};
 
 	handleCheckOut = async (code, status) => {
-		await this.props.checkOut(code, status);
+		await this.props.checkOut(code, status, this.props.resultPortal);
 		this.close();
 	};
 
@@ -244,7 +243,7 @@ class QRReader extends Component {
 
 	handleScan = async code => {
 		if (code) {
-			console.log(code);
+			// console.log(code);
 			if (this.state.open === false) {
 				try {
 					await this.props.verifyCode(code);
@@ -299,7 +298,6 @@ class QRReader extends Component {
 }
 
 const mapStateToProps = stateRedux => {
-	console.log(stateRedux);
 	return { result: stateRedux.client.result };
 };
 

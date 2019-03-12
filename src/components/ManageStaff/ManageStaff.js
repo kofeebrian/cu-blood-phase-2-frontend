@@ -207,7 +207,7 @@ class ManageStaff extends Component {
 	};
 
 	renderPromoteButton = staff => {
-		if (staff.id != this.props.user.id) {
+		if (staff.id !== this.props.user.id) {
 			if (staff.isApproved && !staff.isAdmin) {
 				return (
 					<Modal
@@ -426,7 +426,6 @@ class ManageStaff extends Component {
 }
 
 const mapStateToProps = stateRedux => {
-	console.log(stateRedux);
 	return {
 		user: stateRedux.auth.user,
 		staffs: Object.values(stateRedux.staffs)

@@ -26,11 +26,11 @@ export const verifyCode = code => async dispatch => {
 		}
 	});
 	console.log("Request Done!");
-	console.log(res);
+	// console.log(res);
 	dispatch({ type: VERIFY_CODE, payload: res.data });
 };
 
-export const checkIn = code => async dispatch => {
+export const checkIn = (code, cb) => async dispatch => {
 	try {
 		await users.request({
 			method: "PUT",
@@ -41,12 +41,14 @@ export const checkIn = code => async dispatch => {
 		});
 		console.log("REQUEST CHECKIN Done!");
 		dispatch({ type: CHECK_IN });
+		cb("CHECKIN SUCCESS");
 	} catch (err) {
 		console.log(err);
+		cb("CHECKIN FAIL");
 	}
 };
 
-export const checkOut = (code, status) => async dispatch => {
+export const checkOut = (code, status, cb) => async dispatch => {
 	try {
 		await users.request({
 			method: "PUT",
@@ -56,9 +58,12 @@ export const checkOut = (code, status) => async dispatch => {
 				status
 			}
 		});
+		console.log("REQUEST CHECKOUT Done!");
 		dispatch({ type: CHECK_OUT });
+		cb("CHECKOUT SUCCESS");
 	} catch (err) {
 		console.log(err);
+		cb("CHECKOUT FAIL");
 	}
 };
 
@@ -69,7 +74,7 @@ export const getUserData = userId => async (dispatch, getState) => {
 			"/api/Users/" + userId + "?access_token=" + getState().auth.accessToken
 		);
 		console.log("getUserData");
-		console.log(res);
+		// console.log(res);
 		dispatch({ type: ADD_AUTH, payload: res.data });
 	} catch (err) {
 		console.log("Get user data error");
@@ -95,7 +100,7 @@ export const login = (formData, cbError) => async (dispatch, getState) => {
 	try {
 		const res = await staffs.post("/api/Users/login", formData);
 		console.log("login");
-		console.log(res);
+		// console.log(res);
 		dispatch({ type: REQUEST_SIGN_IN, payload: res.data });
 		const accessToken = res.data.id;
 		const userId = res.data.userId;
@@ -119,7 +124,7 @@ export const logout = () => async (dispatch, getState) => {
 			"/api/Users/logout?access_token=" + getState().auth.accessToken
 		);
 		console.log("logout");
-		console.log(res);
+		// console.log(res);
 		dispatch({ type: REQUEST_SIGN_OUT });
 
 		sessionStorage.removeItem("accessToken");
@@ -142,7 +147,7 @@ export const fetchStaffs = () => async (dispatch, getState) => {
 			"/api/Users?access_token=" + getState().auth.accessToken
 		);
 		console.log("fetchStaffs");
-		console.log(res);
+		// console.log(res);
 		dispatch({ type: FETCH_STAFFS, payload: res.data });
 	} catch (err) {
 		console.log("fetch Staffs error");
@@ -159,7 +164,7 @@ export const fetchStaff = id => async (dispatch, getState) => {
 			`/api/Users/${id}?access_token=${getState().auth.accessToken}`
 		);
 		console.log("fetchStaff");
-		console.log(res);
+		// console.log(res);
 		dispatch({ type: FETCH_STAFF, payload: res.data });
 	} catch (err) {
 		console.log("fetch Staff error");
@@ -260,17 +265,23 @@ export const deleteStaff = id => async (dispatch, getState) => {
 	}
 };
 
-export const changePassword = (oldpassword, newpassword) => async dispatch => {
+export const changePassword = (oldPassword, newPassword, cb) => async (
+	dispatch,
+	getState
+) => {
 	try {
-		const res = await staffs.post(`/api/Users/change-password`, {
-			oldpassword,
-			newpassword
-		});
+		const res = await staffs.post(
+			`/api/Users/change-password?access_token=${getState().auth.accessToken}`,
+			{ oldPassword, newPassword }
+		);
 		dispatch({ type: EDIT_STAFF, payload: res.data });
+		cb(false);
+		history.push("/");
 	} catch (err) {
 		console.log("change password error");
 		console.log(err);
 		alert("change password error");
 		alert(JSON.stringify(err.response));
+		cb(true);
 	}
 };
