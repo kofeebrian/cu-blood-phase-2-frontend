@@ -9,8 +9,9 @@ import {
 	List
 } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { CHECK_OUT } from "../../actions/types";
+import moment from "moment";
 
+import { CHECK_OUT } from "../../actions/types";
 import { verifyCode, checkIn, checkOut } from "../../actions";
 
 const resetUser = () => async dispatch => {
@@ -56,7 +57,7 @@ class QRReader extends Component {
 	renderModal() {
 		if (this.state.result) {
 			const { dimmer, open, result } = this.state; // result in state component
-			if (!this.state.result.checkIn) {
+			if (!result.checkIn) {
 				return (
 					<Modal dimmer={dimmer} open={open} onClose={this.close}>
 						<Modal.Header>CHECK IN</Modal.Header>
@@ -65,7 +66,9 @@ class QRReader extends Component {
 								<Header as='h3'>
 									<Header.Content>
 										Profile
-										<div>Time: {this.state.currtime.toLocaleTimeString()}</div>
+										<div>
+											Current Time: {this.state.currtime.toLocaleTimeString()}
+										</div>
 									</Header.Content>
 								</Header>
 								<Segment>
@@ -89,7 +92,7 @@ class QRReader extends Component {
 										<List.Item
 											icon='time'
 											content={
-												"Time: " +
+												"Event Time: " +
 												result.time.startTime +
 												" - " +
 												result.time.endTime
@@ -117,14 +120,21 @@ class QRReader extends Component {
 					</Modal>
 				);
 			}
-			if (!this.state.result.checkOut) {
+			if (!result.checkOut) {
+				const reg = moment(result.createdAt);
+				const est = moment(result.project.startDate);
+
+				let isWalkin = reg >= est ? true : false;
+
 				return (
 					<Modal dimmer={dimmer} open={open} onClose={this.close}>
 						<Modal.Header>CHECK OUT</Modal.Header>
 						<Modal.Content>
 							<Modal.Description>
 								<Header>Profile</Header>
-								<div>Time: {this.state.currtime.toLocaleTimeString()}</div>
+								<div>
+									Current Time: {this.state.currtime.toLocaleTimeString()}
+								</div>
 								<Segment>
 									<List>
 										<List.Item
@@ -146,7 +156,7 @@ class QRReader extends Component {
 										<List.Item
 											icon='time'
 											content={
-												"Time: " +
+												"Event Time: " +
 												result.time.startTime +
 												" - " +
 												result.time.endTime
@@ -157,19 +167,35 @@ class QRReader extends Component {
 								</Segment>
 							</Modal.Description>
 							<br />
-							<div>
-								<span>Status: </span>
-								<Dropdown
-									placeholder='Select Status'
-									selection
-									onChange={value => this.setState({ status: value })}
-									options={[
-										{ key: 0, text: 0, value: 0 },
-										{ key: 1, text: 1, value: 1 },
-										{ key: 2, text: 2, value: 2 },
-										{ key: 3, text: 3, value: 3 }
-									]}
-								/>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "space-between"
+								}}
+							>
+								<div>
+									<span>Status: </span>
+									<Dropdown
+										placeholder='Select Status'
+										selection
+										onChange={value => this.setState({ status: value })}
+										options={[
+											{ key: 0, text: "ไม่สามารถบริจาคเลือดได้", value: 0 },
+											{ key: 1, text: "ได้บริจาคเลือดแล้ว", value: 1 }
+										]}
+									/>
+								</div>
+								<div
+									style={{
+										display: "flex",
+										flexWrap: "wrap",
+										alignContent: "center"
+									}}
+								>
+									<div>
+										Registration: <h4>{isWalkin ? "Walk in" : "Advanced"}</h4>
+									</div>
+								</div>
 							</div>
 						</Modal.Content>
 						<Modal.Actions>
@@ -198,7 +224,9 @@ class QRReader extends Component {
 					<Modal.Content>
 						<Modal.Description>
 							<Header>Profile</Header>
-							<div>Time: {this.state.currtime.toLocaleTimeString()}</div>
+							<div>
+								Current Time: {this.state.currtime.toLocaleTimeString()}
+							</div>
 							<Segment>
 								<List>
 									<List.Item
@@ -220,7 +248,7 @@ class QRReader extends Component {
 									<List.Item
 										icon='time'
 										content={
-											"Time: " +
+											"Event Time: " +
 											result.time.startTime +
 											" - " +
 											result.time.endTime

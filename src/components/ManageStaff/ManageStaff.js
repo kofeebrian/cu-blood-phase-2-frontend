@@ -23,6 +23,30 @@ import {
 } from "../../actions";
 import "./ManageStaff.css";
 
+const Faculties = {
+	0: "อื่นๆ",
+	1: "พยาบาลศาสตร์",
+	2: "วิศวกรรมศาสตร์",
+	3: "วิทยาศาสตร์",
+	4: "พาณิชยศาสตร์และการบัญชี",
+	5: "เศรษฐศาสตร์",
+	6: "ครุศาสตร์",
+	7: "อักษรศาสตร์",
+	8: "นิติศาสตร์",
+	9: "สถาปัตยกรรมศาสตร์",
+	10: "รัฐศาสตร์",
+	11: "ศิลปกรรมศาสตร์",
+	12: "วิทยาศาสตร์การกีฬา",
+	13: "นิเทศศาสตร์",
+	14: "แพทยศาสตร์",
+	15: "ทันตแพทยศาสตร์",
+	16: "จิตวิทยา",
+	17: "เภสัชศาสตร์",
+	18: "สหเวชศาสตร์",
+	19: "สัตวแพทยศาสตร์",
+	20: "สำนักวิชาทรัพยากรการเกษตร"
+};
+
 class ManageStaff extends Component {
 	state = {
 		staff_status: "staff",
@@ -283,86 +307,96 @@ class ManageStaff extends Component {
 		}
 
 		if (staff_results.length > 0) {
-			return staff_results.map(staff => {
-				return (
-					<Item key={staff.id}>
-						<Item.Content>
-							<Item.Header>
-								{staff.firstName} {staff.lastName}
-							</Item.Header>
-							<Item.Meta>email: {staff.email}</Item.Meta>
-							<Item.Description>
-								<Transition.Group animation={"fade down"} duration={300}>
-									{this.state.staff_view === staff.id && (
-										<Segment>
-											<List>
-												<List.Item
-													icon='user'
-													header='Name'
-													content={`${staff.firstName} ${staff.lastName}`}
-												/>
-												<List.Item
-													icon={`${staff.gender === "M" ? "man" : "woman"}`}
-													header='Gender'
-													content={`${
-														staff.gender === "M" ? "Male" : "Female"
-													}`}
-												/>
-												<List.Item
-													icon='mail'
-													header='Email'
-													content={`${staff.email}`}
-												/>
-												<List.Item
-													icon='id card'
-													header='Student ID'
-													content={`${staff.studentNumber}`}
-												/>
-												<List.Item
-													icon='student'
-													header='Faculty'
-													content={`${staff.faculty}`}
-												/>
-												<List.Item
-													icon='linechat'
-													header='LINE'
-													content={`${staff.lineId}`}
-												/>
-												<List.Item
-													icon='facebook'
-													header='Facebook'
-													content={`${staff.facebook}`}
-												/>
-												<List.Item
-													icon='phone'
-													header='Phone'
-													content={`${staff.phoneNumber}`}
-												/>
-											</List>
-											{this.renderPromoteButton(staff)}
-										</Segment>
-									)}
-								</Transition.Group>
-							</Item.Description>
-							<Item.Extra>
-								<Label
-									color={
-										staff.isAdmin ? "red" : staff.isApproved ? null : "blue"
-									}
-								>
-									{staff.isApproved
-										? staff.isAdmin
-											? "Admin"
-											: "Staff"
-										: "Pending"}
-								</Label>
-								<br />
-								{this.renderAdmin(staff)}
-							</Item.Extra>
-						</Item.Content>
-					</Item>
-				);
-			});
+			return staff_results
+				.sort((a, b) => {
+					if (a.isAdmin && !b.isAdmin) {
+						return -1;
+					} else if (a.isApproved && !b.isApproved) {
+						return -1;
+					} else return 1;
+				})
+				.map(staff => {
+					return (
+						<Item key={staff.id}>
+							<Item.Content>
+								<Item.Header>
+									{staff.firstName} {staff.lastName}
+								</Item.Header>
+								<Item.Meta>email: {staff.email}</Item.Meta>
+								<Item.Description>
+									<Transition.Group animation={"fade down"} duration={300}>
+										{this.state.staff_view === staff.id && (
+											<Segment>
+												<List>
+													<List.Item
+														icon='user'
+														header='Name'
+														content={`${staff.firstName} ${staff.lastName}`}
+													/>
+													<List.Item
+														icon={`${staff.gender === "M" ? "man" : "woman"}`}
+														header='Gender'
+														content={`${
+															staff.gender === "M" ? "Male" : "Female"
+														}`}
+													/>
+													<List.Item
+														icon='mail'
+														header='Email'
+														content={`${staff.email}`}
+													/>
+													<List.Item
+														icon='id card'
+														header='Student ID'
+														content={`${staff.studentNumber}`}
+													/>
+													<List.Item
+														icon='student'
+														header='Faculty'
+														content={`${Faculties[staff.faculty]} ชั้นปีที่ ${
+															staff.year
+														}`}
+													/>
+													<List.Item
+														icon='linechat'
+														header='LINE'
+														content={`${staff.lineId}`}
+													/>
+													<List.Item
+														icon='facebook'
+														header='Facebook'
+														content={`${staff.facebook}`}
+													/>
+													<List.Item
+														icon='phone'
+														header='Phone'
+														content={`${staff.phoneNumber}`}
+													/>
+												</List>
+												{this.renderPromoteButton(staff)}
+											</Segment>
+										)}
+									</Transition.Group>
+								</Item.Description>
+								<Item.Extra>
+									<Label
+										color={
+											staff.isAdmin ? "red" : staff.isApproved ? null : "blue"
+										}
+									>
+										{staff.isApproved
+											? staff.isAdmin
+												? "Admin"
+												: "Staff"
+											: "Pending"}
+									</Label>
+									<br />
+									{this.renderAdmin(staff)}
+								</Item.Extra>
+							</Item.Content>
+						</Item>
+					);
+				});
 		}
 
 		return (

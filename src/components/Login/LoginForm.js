@@ -136,6 +136,7 @@ class LoginForm extends React.Component {
 						<Form size='large' onSubmit={this.handleFormSubmit}>
 							<Segment>
 								<Form.Input
+									error={this.state.err}
 									id='username'
 									fluid
 									icon='user'
@@ -146,6 +147,7 @@ class LoginForm extends React.Component {
 									onChange={this.handleInputChange}
 								/>
 								<Form.Input
+									error={this.state.err}
 									id='password'
 									fluid
 									icon='lock'

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, Redirect, Prompt } from "react-router-dom";
 import { connect } from "react-redux";
 import { Grid, Loader, Header, Icon } from "semantic-ui-react";
+import _ from "lodash";
 
 import "./Login.css";
 import { createStaff } from "../../actions";
@@ -209,6 +210,18 @@ class SignupForm extends Component {
 			isChange: true,
 			[name]: value
 		});
+	};
+
+	renderYear = () => {
+		let count = 6;
+		if (this.state.faculty === "2") {
+			count = 4;
+		}
+		return _.times(count, i => (
+			<option key={i} value={i + 1}>
+				{i + 1}
+			</option>
+		));
 	};
 
 	render() {
@@ -461,12 +474,7 @@ class SignupForm extends Component {
 										className='ui fluid dropdown'
 										onChange={this.handleInputChange}
 									>
-										<option value='1'>1</option>
-										<option value='2'>2</option>
-										<option value='3'>3</option>
-										<option value='4'>4</option>
-										<option value='5'>5</option>
-										<option value='6'>6</option>
+										{this.renderYear()}
 									</select>
 									<div
 										className={`ui message negative ${
