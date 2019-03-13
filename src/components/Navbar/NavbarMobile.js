@@ -10,6 +10,7 @@ import {
 	Divider,
 	Header
 } from "semantic-ui-react";
+import logo from "../../cubloodlogo.svg";
 
 class NavbarMobile extends React.Component {
 	state = { visible: false };
@@ -44,10 +45,7 @@ class NavbarMobile extends React.Component {
 			<div>
 				<Menu fixed='top'>
 					<Menu.Item as={Link} to='/' header className='ui borderless'>
-						<Image
-							src='https://cu-blood.herokuapp.com/static/logo/logo1.svg'
-							size='mini'
-						/>
+						<Image src={logo} size='mini' />
 						CU Blood
 					</Menu.Item>
 					<Menu.Item

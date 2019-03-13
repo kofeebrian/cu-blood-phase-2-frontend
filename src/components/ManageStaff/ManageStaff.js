@@ -51,6 +51,7 @@ class ManageStaff extends Component {
 	state = {
 		staff_status: "staff",
 		staff_results: [],
+		pending: 0,
 		isfetched: false,
 		staff_view: ""
 	};
@@ -96,12 +97,14 @@ class ManageStaff extends Component {
 			? this.setState({
 					isLoading: false,
 					staff_results: this.props.staffs.filter(staff => staff.isApproved),
+					pending: this.props.staffs.filter(staff => !staff.isApproved).length,
 					staff_view: "",
 					value: ""
 			  })
 			: this.setState({
 					isLoading: false,
 					staff_results: this.props.staffs.filter(staff => !staff.isApproved),
+					pending: this.props.staffs.filter(staff => !staff.isApproved).length,
 					staff_view: "",
 					value: ""
 			  });
@@ -430,10 +433,18 @@ class ManageStaff extends Component {
 						onClick={this.handleItemClick}
 					/>
 					<Menu.Item
-						name='pending'
 						active={staff_status === "pending"}
 						onClick={this.handleItemClick}
-					/>
+					>
+						pending
+						<Label
+							className={`ui ${!this.state.pending ? "hidden" : ""}`}
+							circular
+							color='grey'
+						>
+							{this.state.pending}
+						</Label>
+					</Menu.Item>
 
 					<Menu.Menu position='right'>
 						<Menu.Item>

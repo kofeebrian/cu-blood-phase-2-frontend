@@ -14,7 +14,7 @@ export default class QRReaderpage extends Component {
 		const { open, status } = this.state;
 		return (
 			<div>
-				<TransitionablePortal open={open} onClos={this.handleClose}>
+				<TransitionablePortal open={open} onClose={this.handleClose}>
 					<Segment
 						color={`${
 							status === "CHECKIN SUCCESS" || status === "CHECKOUT SUCCESS"

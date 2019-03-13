@@ -19,6 +19,8 @@ import FormValidator from "../FormValidator";
 class SignupForm extends Component {
 	submitted = false;
 
+	ispasswordMatch = (confirmation, state) => state.password === confirmation;
+
 	validator = new FormValidator([
 		{
 			field: "username",
@@ -38,6 +40,18 @@ class SignupForm extends Component {
 			args: [{ min: 6, max: undefined }],
 			validWhen: true,
 			message: "Password has to be more 6 characters."
+		},
+		{
+			field: "confirmpassword",
+			method: "isEmpty",
+			validWhen: false,
+			message: "Confirm password is required"
+		},
+		{
+			field: "confirmpassword",
+			method: this.ispasswordMatch,
+			validWhen: true,
+			message: "Password and Confirm password do not match."
 		},
 		{
 			field: "email",
@@ -110,7 +124,7 @@ class SignupForm extends Component {
 		{
 			field: "phoneNumber",
 			method: "matches",
-			args: [/^([0-9]{10}|[0-9]{3}\-[0-9]{7}|[0-9]{3}\-[0-9]{3}\-[0-9]{4})$/],
+			args: [/^([0]{10}|[0-9]{3}[0-9]{7}|[0-9]{3}[0-9]{3}[0-9]{4})$/],
 			validWhen: true,
 			message: "Phone number is incorrect."
 		},
@@ -126,6 +140,7 @@ class SignupForm extends Component {
 		isChange: false,
 		username: "",
 		password: "",
+		confirmpassword: "",
 		firstName: "",
 		lastName: "",
 		nickName: "",
@@ -141,10 +156,6 @@ class SignupForm extends Component {
 		validation: this.validator.valid(),
 		accepted: false
 	};
-
-	// componentDidMount() {
-	// 	console.log(this.state);
-	// }
 
 	handleAcceptedCheck = e => {
 		this.setState({
@@ -301,6 +312,27 @@ class SignupForm extends Component {
 										}`}
 									>
 										{validation.password.message}
+									</div>
+								</div>
+								<div
+									className={`field ${
+										validation.confirmpassword.isInvalid ? "error" : ""
+									}`}
+								>
+									<label htmlFor='confirmpassword'>confirm password</label>
+									<input
+										type='password'
+										name='confirmpassword'
+										id='confirmpassword'
+										placeholder='confirm password'
+										onChange={this.handleInputChange}
+									/>
+									<div
+										className={`ui message negative ${
+											validation.confirmpassword.isInvalid ? "" : "hidden"
+										}`}
+									>
+										{validation.confirmpassword.message}
 									</div>
 								</div>
 							</div>

@@ -12,6 +12,7 @@ import {
 } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import logo from "../../cubloodlogo.svg";
 
 import { login } from "../../actions";
 
@@ -98,7 +99,7 @@ class LoginForm extends React.Component {
 					<Grid.Column>
 						<Responsive minWidth={Responsive.onlyTablet.minWidth}>
 							<Image
-								src='https://cu-blood.herokuapp.com/static/logo/logo1.svg'
+								src={logo}
 								size='tiny'
 								style={{
 									display: "block",

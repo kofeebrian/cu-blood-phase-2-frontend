@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, Dropdown, Image, Header } from "semantic-ui-react";
+import logo from "../../cubloodlogo.svg";
 
 class NavbarDesktop extends React.Component {
 	renderAdminMenuItem = () => {
@@ -21,10 +22,7 @@ class NavbarDesktop extends React.Component {
 		return (
 			<Menu stackable fixed='top'>
 				<Menu.Item header className='ui text centered width 10px'>
-					<Image
-						src='https://cu-blood.herokuapp.com/static/logo/logo1.svg'
-						size='tiny'
-					/>
+					<Image src={logo} size='tiny' />
 					CU Blood
 				</Menu.Item>
 				<Menu.Item className='ui borderless' as={Link} to='/'>

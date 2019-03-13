@@ -21,7 +21,6 @@ const resetUser = () => async dispatch => {
 class QRReader extends Component {
 	state = {
 		delay: 300,
-		// result: { checkIn: true, checkOut: false },
 		result: null,
 		loading: true,
 		open: false,
@@ -40,7 +39,7 @@ class QRReader extends Component {
 	}
 
 	close = () => {
-		this.setState({ open: false, delay: 300 });
+		this.setState({ open: false, delay: 300, status: null });
 		resetUser();
 	};
 
