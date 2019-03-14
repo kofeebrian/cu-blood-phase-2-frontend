@@ -56,6 +56,12 @@ class QRReader extends Component {
 	renderModal() {
 		if (this.state.result) {
 			const { dimmer, open, result } = this.state; // result in state component
+
+			const reg = moment(result.createdAt);
+			const est = moment(result.project.startDate);
+
+			let isWalkin = reg >= est ? true : false;
+
 			if (!result.checkIn) {
 				return (
 					<Modal dimmer={dimmer} open={open} onClose={this.close}>
@@ -101,6 +107,19 @@ class QRReader extends Component {
 									</List>
 								</Segment>
 							</Modal.Description>
+							<br />
+							<div
+								style={{
+									display: "flex",
+									flexWrap: "wrap",
+									justifyContent: "flex-end",
+									alignContent: "center"
+								}}
+							>
+								<div>
+									Registration: <h4>{isWalkin ? "Walk in" : "Advanced"}</h4>
+								</div>
+							</div>
 						</Modal.Content>
 						<Modal.Actions>
 							<Button
@@ -120,11 +139,6 @@ class QRReader extends Component {
 				);
 			}
 			if (!result.checkOut) {
-				const reg = moment(result.createdAt);
-				const est = moment(result.project.startDate);
-
-				let isWalkin = reg >= est ? true : false;
-
 				return (
 					<Modal dimmer={dimmer} open={open} onClose={this.close}>
 						<Modal.Header>CHECK OUT</Modal.Header>
@@ -175,9 +189,13 @@ class QRReader extends Component {
 								<div>
 									<span>Status: </span>
 									<Dropdown
+										name='status'
 										placeholder='Select Status'
 										selection
-										onChange={value => this.setState({ status: value })}
+										onChange={(event, data) => {
+											this.setState({ status: data.value });
+											console.log(this.state.status);
+										}}
 										options={[
 											{ key: 0, text: "ไม่สามารถบริจาคเลือดได้", value: 0 },
 											{ key: 1, text: "ได้บริจาคเลือดแล้ว", value: 1 }
@@ -257,6 +275,19 @@ class QRReader extends Component {
 								</List>
 							</Segment>
 						</Modal.Description>
+						<br />
+						<div
+							style={{
+								display: "flex",
+								flexWrap: "wrap",
+								justifyContent: "flex-end",
+								alignContent: "center"
+							}}
+						>
+							<div>
+								Registration: <h4>{isWalkin ? "Walk in" : "Advanced"}</h4>
+							</div>
+						</div>
 					</Modal.Content>
 					<Modal.Actions>
 						<Button labelPosition='right' content='OK' onClick={this.close} />
@@ -270,7 +301,6 @@ class QRReader extends Component {
 
 	handleScan = async code => {
 		if (code) {
-			// console.log(code);
 			if (this.state.open === false) {
 				try {
 					await this.props.verifyCode(code);
@@ -305,11 +335,13 @@ class QRReader extends Component {
 	};
 
 	render() {
+		const { camera } = this.props;
 		return (
 			<div>
 				<Segment loading={this.state.loading}>
 					<QrReader
 						ref='qrreader'
+						facingMode={camera}
 						delay={this.state.delay}
 						onError={this.handleError}
 						onScan={this.handleScan}
