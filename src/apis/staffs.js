@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-	baseURL: "https://api.cubloodp2.tk/"
+	baseURL: "https://cublood.clubs.chula.ac.th/phase2api"
 });
